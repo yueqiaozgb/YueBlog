@@ -27,6 +27,7 @@
         <fastjson.version>2.0.36</fastjson.version>
         <hutool.version>5.8.20</hutool.version>
         <lombok.version>1.18.28</lombok.version>
+        <sa-token.version>1.35.0.RC</sa-token.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
@@ -100,6 +101,14 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.dev33/sa-token-spring-boot-starter -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+            <version>${sa-token.version}</version>
+        </dependency>
+
 
 
     </dependencies>
