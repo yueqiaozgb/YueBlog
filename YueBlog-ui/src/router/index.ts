@@ -1,16 +1,45 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const routers = [
+const routes = [
     {
         path:'/',
-        component:()=>import('../views/index.vue'),
+        component:()=>import('../layout/Index.vue'),
         redirect: '/home',
         children:[
             {
                 path:'/home',
-                component:()=>import('../views/home/index.vue'),
+                name: 'home',
+                component:()=>import('../views/home/Index.vue'),
                 meta:{
                     title:'首页'
+                }
+            },
+            {
+                path:'/category',
+                component:()=>import('@/views/category/Index.vue'),
+                meta:{
+                    title:'分类'
+                }
+            },
+            {
+                path:'/tag',
+                component:()=>import('@/views/tag/Index.vue'),
+                meta:{
+                    title:'标签'
+                }
+            },
+            {
+                path:'/archive',
+                component:()=>import('@/views/archive/Index.vue'),
+                meta:{
+                    title:'归档'
+                }
+            },
+            {
+                path: '/about',
+                component: () => import('../views/about/Index.vue'),
+                meta:{
+                    title:'关于'
                 }
             }
         ]
@@ -18,16 +47,8 @@ const routers = [
 ]
 
 const router = createRouter({
-    // hash模式
-    // history: createWebHashHistory(),
     history: createWebHistory(),
-    base: process.env.BASE_URL,
     routes: routes,
-})
-
-router.beforeEach((to, from, next) => {
-    document.title = getPageTitle(to.meta.title)
-    next()
 })
 
 export default router

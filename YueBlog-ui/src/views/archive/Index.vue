@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+  defineOptions({
+    name: 'BlogArchive'
+  })
 </script>
 
 <template>
-  <router-view></router-view>
+  BlogArchive
 </template>
 
 <style scoped>

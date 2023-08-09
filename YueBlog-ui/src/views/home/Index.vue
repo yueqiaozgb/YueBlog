@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+  defineOptions({
+    name: 'Home',
+  });
 </script>
 
 <template>
-  111
+  Home
 </template>
 
 <style scoped>
