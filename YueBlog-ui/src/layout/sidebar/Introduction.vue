@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, onMounted, ref, watch, watchEffect} from "vue";
+import {nextTick, onMounted} from "vue";
 import {useStore} from "@/store";
 import {storeToRefs} from "pinia";
 
@@ -9,24 +9,20 @@ defineOptions({
 
 const useStores = useStore();
 
-const {introduction} = storeToRefs(store)
-
-console.log(introduction)
-console.log(2)
+const {introduction} = storeToRefs(useStores)
 
 useStores.$subscribe((mutation, state) => {
-  console.log(mutation)
-  console.log(state.baseUrl)
+  if (state.introduction.rollText.length != 0) {
+    nextTick(() => {
+      rollText()
+    })
+  }
 }, {detached: false})
-
-onMounted(() => {
-
-})
 
 const rollText = () => {
   let r = document.getElementById('rollText')
   let l = ""
-  let o = introduction.rollText.map(function (r) {
+  let o = introduction.value.rollText.map(function (r) {
     return r + ""
   })
   let a = 2

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
+import {useStore} from "@/store";
+import {storeToRefs} from "pinia";
 
 defineOptions({
   name: 'BlogHeader',
@@ -7,7 +9,13 @@ defineOptions({
 
 const loaded = ref(false);
 
-const clientSize = ref({clientWidth: 1000, clientHeight: 1000});
+const useStores = useStore();
+
+const {clientSize} = storeToRefs(useStores)
+
+useStores.$subscribe((mutation) => {
+  setHeaderHeight()
+}, {detached: false})
 
 const scrollToMain = () => {
   window.scrollTo({top: clientSize.value.clientHeight, behavior: 'smooth'})
@@ -49,7 +57,7 @@ onMounted(() => {
       <img ref="imgbg1" src="https://fastly.jsdelivr.net/gh/Naccl/blog-resource/img/bg1.jpg" style="display: none;" alt="">
       <div class="bg1" style="background-image: url('https://fastly.jsdelivr.net/gh/Naccl/blog-resource/img/bg1.jpg')"></div>
       <div class="bg2" style="background-image: url('https://fastly.jsdelivr.net/gh/Naccl/blog-resource/img/bg2.jpg')"></div>
-      <div class="bg3" style="background-image: url('https://fastly.jsdelivr.net/gh/Naccl/blog-resource/img/bg3.jpg')"></div>
+      <div class="bg3" style="background-image: url('https://fastly.jsdelivr.net/gh/Naccl/blog-resource/img/bg3.jpg')" v-show="loaded"></div>
     </div>
     <div class="text-malfunction" data-word="Yue's Blog">
       <div class="line"></div>

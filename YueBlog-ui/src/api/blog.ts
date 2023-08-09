@@ -8,7 +8,7 @@ export function getBlogById(token: string, id: number) {
             Authorization: token,
         },
         params: {
-            id
+            id: id
         }
     })
 }

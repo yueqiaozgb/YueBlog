@@ -6,6 +6,9 @@ import {useRoute} from "vue-router";
 import Introduction from "@/layout/sidebar/Introduction.vue";
 import {getHitokoto, getSite} from "@/api";
 import {useStore} from "@/store";
+import RandomBlog from "@/layout/sidebar/RandomBlog.vue";
+import Tags from "@/layout/sidebar/Tags.vue";
+import BlogTocbot from "@/layout/sidebar/BlogTocbot.vue";
 
 defineOptions({
   name: 'Layout',
@@ -60,11 +63,11 @@ const getSites = () => {
 getSites()
 
 onMounted(() => {
-  useStores.clientHeight = document.body.clientHeight
-  useStores.clientWidth = document.body.clientWidth
+  useStores.clientSize.clientHeight = document.body.clientHeight
+  useStores.clientSize.clientWidth = document.body.clientWidth
   window.onresize = () => {
-    useStores.clientHeight = document.body.clientHeight
-    useStores.clientWidth = document.body.clientWidth
+    useStores.clientSize.clientHeight = document.body.clientHeight
+    useStores.clientSize.clientWidth = document.body.clientWidth
   }
 })
 </script>
@@ -78,7 +81,7 @@ onMounted(() => {
       <BlogHeader v-if="route.name==='home'"/>
     </div>
     <!--内容区域-->
-    <div class="m-display-none">
+    <div class="main">
       <div class="m-padded-tb-big">
         <div class="ui container">
           <div class="ui stackable grid">
@@ -93,6 +96,13 @@ onMounted(() => {
                   <component :is="Component"/>
                 </keep-alive>
               </router-view>
+            </div>
+            <!--右侧-->
+            <div class="three wide column m-mobile-hide">
+              <RandomBlog :randomBlogList="randomBlogList" :class="{'m-display-none':useStores.focusMode}"/>
+              <Tags :tagList="tagList" :class="{'m-display-none':useStores.focusMode}"/>
+              <!--只在文章页面显示目录-->
+              <BlogTocbot v-if="route.name==='blog'"/>
             </div>
           </div>
         </div>
