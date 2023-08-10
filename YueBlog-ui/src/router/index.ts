@@ -26,11 +26,19 @@ const routes = [
                 meta: {title: '博客'}
             },
             {
-                path:'/category:name',
+                path:'/category/:name',
                 name: 'category',
                 component:()=>import('@/views/category/Index.vue'),
                 meta:{
                     title:'分类'
+                }
+            },
+            {
+                path:'/tag/:name',
+                name: 'tag',
+                component:()=>import('@/views/tag/Index.vue'),
+                meta:{
+                    title:'标签'
                 }
             },
             {

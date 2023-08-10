@@ -12,7 +12,8 @@ const useStores = useStore();
 const {introduction} = storeToRefs(useStores)
 
 useStores.$subscribe((mutation, state) => {
-  if (state.introduction.rollText.length != 0) {
+  if (state.introduction.rollText.length != 0 && !state.introduction.isChange) {
+    introduction.value.isChange = true
     nextTick(() => {
       rollText()
     })

@@ -4,6 +4,11 @@ import {nextTick, onMounted, ref} from "vue";
 import {dateFormat} from "@/util/dateTimeFormatUtils.ts";
 import {useStore} from "@/store";
 import {useRoute} from "vue-router";
+import tocbot from "tocbot";
+
+import Prism from "prismjs"//导入代码高亮插件的core（里面提供了其他官方插件及代码高亮样式主题，你只需要引入即可）
+import "prismjs/themes/prism-tomorrow.min.css"//引入代码高亮主题（这个去node_modules的安装prismjs中找到想使用的主题即可）
+
 export default {
   name: 'Blog',
   methods: {dateFormat},
@@ -19,7 +24,11 @@ export default {
       useStores.focusMode = !useStores.focusMode
     }
     onMounted(() => {
-      console.log(blog.value)
+      nextTick(() => {
+        setTimeout(() => {
+          Prism.highlightAll()// 全局代码高亮
+        }, 100)
+      })
     })
     const getBlog = (id = blogId()) => {
       //密码保护的文章，需要发送密码验证通过后保存在localStorage的Token
@@ -37,6 +46,7 @@ export default {
             //将文章渲染完成状态置为 true
             const useStores = useStore()
             useStores.isBlogRenderComplete = true
+            Prism.highlightAll()
           })
         } else {
           console.log(res.msg)
@@ -63,7 +73,7 @@ export default {
     useStores.focusMode = false
     // 从文章页面路由到其它页面时，销毁当前组件的同时，要销毁tocbot实例
     // 否则tocbot一直在监听页面滚动事件，而文章页面的锚点已经不存在了，会报"Uncaught TypeError: Cannot read property 'className' of null"
-    // tocbot.destroy()
+    tocbot.destroy()
     next()
   },
   beforeRouteUpdate(to, from, next) {

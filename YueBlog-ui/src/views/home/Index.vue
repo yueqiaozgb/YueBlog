@@ -3,6 +3,7 @@ import {useStore} from "@/store";
 import {getBlogList} from "@/api/home.ts";
 import {nextTick, ref} from "vue";
 import BlogList from "@/components/blog/BlogList.vue";
+import Prism from "prismjs";
 
 export default {
   name: 'BlogHome',
@@ -38,7 +39,7 @@ export default {
           totalPage.value = res.data.totalPage
           nextTick(() => {
             // eslint-disable-next-line no-undef
-            // Prism.highlightAll()
+            Prism.highlightAll()
           })
           getBlogListFinish.value = true
         } else {
