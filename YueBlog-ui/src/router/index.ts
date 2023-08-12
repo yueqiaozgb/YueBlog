@@ -2,11 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
-        path: '/login',
-        component: () => import('@/views/Login'),
-        meta: {title: '登录'}
-    },
-    {
         path:'/',
         component:()=>import('../layout/Index.vue'),
         redirect: '/home',

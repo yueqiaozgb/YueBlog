@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import {Ref, ref} from "vue";
-import {useRouter} from "vue-router";
+import {onMounted, Ref, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import {getSearchBlogList} from "@/api/blog.ts";
+import {useStore} from "@/store";
+import {storeToRefs} from "pinia";
+import { Edit } from '@element-plus/icons-vue'
 
 defineOptions({
   name: 'BlogNav',
@@ -9,11 +12,15 @@ defineOptions({
 
 const props = defineProps(['blogName', 'categoryList']);
 
-const clientSize = ref({clientWidth: 1000, clientHeight: 0});
+const useStores = useStore();
+
+const {clientSize} = storeToRefs(useStores);
 
 const mobileHide = ref(true);
 
 const router = useRouter();
+
+const route = useRoute();
 
 const categoryRoute = (name: string) => {
   router.push(`/category/${name}`)
@@ -47,7 +54,7 @@ const querySearchAsync = (queryString: string, callback: any) => {
     if (res.code === 200) {
       queryResult.value = res.data
       if (queryResult.value.length === 0) {
-        console.log('111')
+        queryResult.value.push({title: '无相关搜索结果'})
       } else {
         console.log('222')
       }
@@ -68,19 +75,46 @@ const handleSelect = (item: any) => {
   }
 }
 
+const nav = ref();
+
+onMounted(() => {
+  //监听页面滚动位置，改变导航栏的显示
+  window.addEventListener('scroll', () => {
+    //首页且不是移动端
+    if (route.name === 'home' && clientSize.value.clientWidth > 768) {
+      if (window.scrollY > clientSize.value.clientHeight / 2) {
+        nav.value.classList.remove('transparent')
+      } else {
+        nav.value.classList.add('transparent')
+      }
+    }
+  })
+})
+
+const dropdownPopperOptions = ref({
+  modifiers: [
+    {
+      name: 'computeStyles',
+      options: {
+        adaptive: false
+      }
+    }
+  ]
+})
+
 </script>
 
 <template>
-  <div ref="nav" class="ui fixed inverted stackable pointing menu" :class="{'transparent':$route.name==='home' && clientSize.clientWidth>768}">
+  <div ref="nav" class="ui fixed inverted stackable pointing menu" :class="{'transparent':route.name==='home' && clientSize.clientWidth>768}">
     <div class="ui container">
       <router-link to="/">
         <h3 class="ui header item m-blue">{{ props.blogName }}</h3>
       </router-link>
-      <router-link to="/home" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='home'}">
+      <router-link to="/home" class="item" :class="{'m-mobile-hide': mobileHide,'active':route.name==='home'}">
         <i class="home icon"></i>首页
       </router-link>
-      <el-dropdown trigger="click" @command="categoryRoute">
-				<span class="el-dropdown-link item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='category'}">
+      <el-dropdown trigger="click" @command="categoryRoute" :popper-options="dropdownPopperOptions">
+				<span class="el-dropdown-link item" :class="{'m-mobile-hide': mobileHide,'active':route.name==='category'}">
 					<i class="idea icon"></i>分类<i class="caret down icon"></i>
 				</span>
         <template v-slot:dropdown>
@@ -89,17 +123,26 @@ const handleSelect = (item: any) => {
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <router-link to="/archive" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='archives'}">
+      <router-link to="/archive" class="item" :class="{'m-mobile-hide': mobileHide,'active':route.name==='archives'}">
         <i class="clone icon"></i>归档
       </router-link>
-      <router-link to="/about" class="item" :class="{'m-mobile-hide': mobileHide,'active':$route.name==='about'}">
+      <router-link to="/about" class="item" :class="{'m-mobile-hide': mobileHide,'active':route.name==='about'}">
         <i class="info icon"></i>关于我
       </router-link>
-      <el-autocomplete v-model="queryString" :fetch-suggestions="debounceQuery" placeholder="Search..." class="right item m-search" :class="{'m-mobile-hide': mobileHide}" popper-class="m-search-item" @select="handleSelect">
-        <template v-slot:suffix>
-          <i class="search icon el-input__icon"></i>
+      <el-autocomplete
+          v-model="queryString"
+          :fetch-suggestions="debounceQuery"
+          placeholder="Search..."
+          class="right item m-search"
+          :class="{'m-mobile-hide': mobileHide}"
+          popper-class="m-search-item"
+          @select="handleSelect">
+        <template #suffix>
+          <el-icon class="el-input__icon">
+            <edit class="text" />
+          </el-icon>
         </template>
-        <template v-slot:item>
+        <template #default="{ item }">
           <div class="title">{{ item.title }}</div>
           <span class="content">{{ item.content }}</span>
         </template>
@@ -196,5 +239,24 @@ const handleSelect = (item: any) => {
   text-overflow: ellipsis;
   font-size: 12px;
   color: rgba(0, 0, 0, .70);
+}
+
+.my-autocomplete li {
+  line-height: normal;
+  padding: 7px;
+}
+.my-autocomplete li .name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.my-autocomplete li .addr {
+  font-size: 12px;
+  color: #b4b4b4;
+}
+.my-autocomplete li .highlighted .addr {
+  color: #ddd;
+}
+.text{
+  background: #00a7e0;
 }
 </style>

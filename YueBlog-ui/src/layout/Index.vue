@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BlogNav from "./nav/BlogNav.vue";
 import BlogHeader from "./header/BlogHeader.vue";
+import Footer from "@/layout/footer/Footer.vue";
 import {getCurrentInstance, onMounted, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import Introduction from "@/layout/sidebar/Introduction.vue";
@@ -9,6 +10,7 @@ import {useStore} from "@/store";
 import RandomBlog from "@/layout/sidebar/RandomBlog.vue";
 import Tags from "@/layout/sidebar/Tags.vue";
 import BlogTocbot from "@/layout/sidebar/BlogTocbot.vue";
+import MyAPlayer from "@/layout/footer/MyAPlayer.vue";
 
 defineOptions({
   name: 'Layout',
@@ -108,6 +110,19 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
+    <!--APlayer-->
+    <div class="m-mobile-hide">
+      <MyAPlayer/>
+    </div>
+
+    <!--回到顶部-->
+    <el-backtop style="box-shadow: none;background: none;z-index: 9999;">
+      <img src="/img/paper-plane.png" style="width: 40px;height: 40px;">
+    </el-backtop>
+
+    <!--底部footer-->
+    <Footer :siteInfo="siteInfo" :badges="badges" :newBlogList="newBlogList" :hitokoto="hitokoto"/>
   </div>
 </template>
 

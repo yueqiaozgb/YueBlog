@@ -13,7 +13,7 @@ const useStores = useStore();
 
 const {clientSize} = storeToRefs(useStores)
 
-useStores.$subscribe((mutation) => {
+useStores.$subscribe(() => {
   setHeaderHeight()
 }, {detached: false})
 

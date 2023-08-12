@@ -26,7 +26,7 @@ const route = useRoute()
 
 const app = getCurrentInstance();
 
-const handleCurrentChange = (newPage) => {
+const handleCurrentChange = (newPage: number) => {
   //如果是首页，则滚动至Header下方
   if (route.name === 'home') {
     window.scrollTo({top: useStores.clientSize.clientHeight, behavior: 'smooth'})

@@ -62,10 +62,11 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     //路由到博客文章页面之前，应将文章的渲染完成状态置为 false
-    next(vm => {
+    next(() => {
       // 当 beforeRouteEnter 钩子执行前，组件实例尚未创建
       // vm 就是当前组件的实例，可以在 next 方法中把 vm 当做 this用
-      vm.useStores.isBlogRenderComplete = false
+      const useStores = useStore()
+      useStores.isBlogRenderComplete = false
     })
   },
   beforeRouteLeave(to, from, next) {
@@ -84,13 +85,14 @@ export default {
     // 如果跳转到其它页面，to.path!==from.path 就放行 next()
     // 如果是跳转锚点，path不会改变，hash会改变，to.path===from.path, to.hash!==from.path 不放行路由跳转，就能让锚点正常跳转
     if (to.path !== from.path) {
-      const useStores = useStore()
-      useStores.focusMode = false
-      //在当前组件内路由到其它博客文章时，要重新获取文章
-      getBlog(to.params.id)
-      //只要路由路径有改变，且停留在当前Blog组件内，就把文章的渲染完成状态置为 false
-      useStores.isBlogRenderComplete = false
-      next()
+      next(e => {
+        const useStores = useStore()
+        useStores.focusMode = false
+        //在当前组件内路由到其它博客文章时，要重新获取文章
+        e.getBlog(to.params.id)
+        //只要路由路径有改变，且停留在当前Blog组件内，就把文章的渲染完成状态置为 false
+        useStores.isBlogRenderComplete = false
+      })
     }
   },
 }

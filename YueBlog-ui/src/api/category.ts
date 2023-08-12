@@ -1,6 +1,6 @@
 import request from '@/axios/index.ts'
 
-export function getBlogListByCategoryName(categoryName, pageNum) {
+export function getBlogListByCategoryName(categoryName: string, pageNum: number) {
     return request({
         url: 'category',
         method: 'GET',

@@ -7,9 +7,17 @@ import { prismjsPlugin } from 'vite-plugin-prismjs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), DefineOptions(),
+  plugins: [
+      vue({
+        template:{
+          // 添加以下内容
+          compilerOptions:{
+            isCustomElement: tag => tag.startsWith('meting-js' || 'v-')
+          }
+        }
+      }),
+    DefineOptions(),
     prismjsPlugin({
-      // languages: ["json", "js"],
       languages: 'all',
       plugins: ["line-numbers"], //配置显示行号插件
       theme: "solarizedlight", //主题名称
