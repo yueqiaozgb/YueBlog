@@ -207,17 +207,18 @@ const dropdownPopperOptions = ref({
 .m-search {
   min-width: 220px;
   padding: 0 !important;
+  color: rgba(255, 255, 255, .9);
 }
 
 .m-search input {
-  color: rgba(255, 255, 255, .9);;
+  color: rgba(16, 11, 11, 0.9);
   border: 0px !important;
   background-color: inherit;
   padding: .67857143em 2.1em .67857143em 1em;
 }
 
 .m-search i {
-  color: rgba(255, 255, 255, .9) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .m-search-item {

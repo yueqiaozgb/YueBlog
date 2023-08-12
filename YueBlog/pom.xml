@@ -118,6 +118,14 @@
             <version>${sa-token.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/cn.dev33/sa-token-jwt -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-jwt</artifactId>
+            <version>${sa-token.version}</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
         <dependency>
             <groupId>org.apache.commons</groupId>

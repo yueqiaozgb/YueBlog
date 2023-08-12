@@ -12,7 +12,7 @@ public class HelloWorldController {
 
     @SaCheckLogin
     @GetMapping
-    public String helloWorld(){
+    public String helloWorld() {
         return "hello world";
     }
 
