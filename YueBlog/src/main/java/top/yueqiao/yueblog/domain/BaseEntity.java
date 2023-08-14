@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 基础实体类
+ *
  * @author yueqiao
  */
 @Data

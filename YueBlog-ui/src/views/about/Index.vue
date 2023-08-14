@@ -15,7 +15,6 @@ import {ref} from "vue";
 
   const getData = () => {
     getAbout().then(res => {
-      console.log(res)
       if (res.code === 200) {
         about.value = res.data
       } else {

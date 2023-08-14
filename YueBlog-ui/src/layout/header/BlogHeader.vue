@@ -54,10 +54,10 @@ onMounted(() => {
 <template>
   <header ref="header">
     <div class="view">
-      <img ref="imgbg1" src="/public/img/picture/lp2.jpg" style="display: none;" alt="">
-      <div class="bg1" style="background-image: url('/public/img/picture/lp2.jpg')"></div>
-      <div class="bg2" style="background-image: url('/public/img/picture/lp1.jpg')"></div>
-      <div class="bg3" style="background-image: url('/public/img/picture/lp3.jpg')" v-show="loaded"></div>
+      <img ref="imgbg1" src="/img/picture/lp2.jpg" style="display: none;" alt="">
+      <div class="bg1" style="background-image: url('/img/picture/lp2.jpg')"></div>
+      <div class="bg2" style="background-image: url('/img/picture/lp1.jpg')"></div>
+      <div class="bg3" style="background-image: url('/img/picture/lp3.jpg')" v-show="loaded"></div>
     </div>
     <div class="text-malfunction" data-word="Yue's Blog">
       <div class="line"></div>
@@ -65,8 +65,8 @@ onMounted(() => {
     <div class="wrapper">
       <i class="ali-iconfont icon-down" @click="scrollToMain"></i>
     </div>
-    <div class="wave1" style="background: url('/public/img/wave/wave1.png') repeat-x;"></div>
-    <div class="wave2" style="background: url('/public/img/wave/wave2.png') repeat-x;"></div>
+    <div class="wave1" style="background: url('/img/wave/wave1.png') repeat-x;"></div>
+    <div class="wave2" style="background: url('/img/wave/wave2.png') repeat-x;"></div>
   </header>
 </template>
 

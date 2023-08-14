@@ -13,16 +13,6 @@ export function getBlogById(token: string, id: number) {
     })
 }
 
-export function checkBlogPassword(blogPasswordForm: any) {
-    return request({
-        url: 'checkBlogPassword',
-        method: 'POST',
-        data: {
-            ...blogPasswordForm
-        }
-    })
-}
-
 export function getSearchBlogList(query: string) {
     return request({
         url: 'searchBlog',

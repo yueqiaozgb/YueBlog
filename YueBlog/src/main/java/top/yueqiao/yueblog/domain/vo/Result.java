@@ -5,11 +5,11 @@ package top.yueqiao.yueblog.domain.vo;
  */
 public class Result {
 
-    private Integer code;
+    private final Integer code;
 
-    private String msg;
+    private final String msg;
 
-    private Object data;
+    private final Object data;
 
     public Result(Integer code, String msg, Object data) {
         this.code = code;

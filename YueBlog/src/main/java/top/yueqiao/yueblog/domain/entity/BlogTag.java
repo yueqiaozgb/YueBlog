@@ -5,41 +5,37 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import top.yueqiao.yueblog.domain.BaseEntity;
 
+import java.io.Serializable;
+
 /**
- * 系统角色用户表
+ * 博客标签表
  *
  * @author yueqiao
+ * @TableName blog_tag
  */
-@EqualsAndHashCode(callSuper = true)
-@TableName(value ="sys_user_role")
 @Data
-public class SysUserRole extends BaseEntity {
+@Accessors(chain = true)
+@TableName(value ="blog_tag")
+@EqualsAndHashCode(callSuper = true)
+public class BlogTag extends BaseEntity implements Serializable {
+
     /**
      * 主键id
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Long blogTagId;
 
     /**
-     * 用户id
+     * 博客id
      */
-    private Long userId;
+    private Long blogId;
 
     /**
-     * 角色id
+     * 标签id
      */
-    private Long roleId;
-
-    /**
-     * 状态
-     */
-    private String status;
-
-    /**
-     * 备注
-     */
-    private String remark;
+    private Long tagId;
 
 }

@@ -3,13 +3,14 @@ package top.yueqiao.yueblog;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import top.yueqiao.yueblog.mapper.SysUserMapper;
+import top.yueqiao.yueblog.domain.entity.Blog;
+import top.yueqiao.yueblog.mapper.BlogMapper;
 
 @SpringBootTest
 class YueBlogApplicationTests {
 
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private BlogMapper blogMapper;
 
     @Test
     void contextLoads() {
@@ -17,8 +18,10 @@ class YueBlogApplicationTests {
     }
 
     @Test
-    void testMapper(){
-        System.out.println(sysUserMapper.selectById(1));
+    void testBlogMapper() {
+        Blog blog = blogMapper.selectById(1L);
+        System.out.println(blog);
     }
+
 
 }

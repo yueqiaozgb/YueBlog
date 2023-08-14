@@ -5,41 +5,36 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import top.yueqiao.yueblog.domain.BaseEntity;
 
 /**
- * 系统角色菜单表
+ * 博客合集表
  *
  * @author yueqiao
+ * @TableName blog_collection
  */
-@EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_role_menu")
+
 @Data
-public class SysRoleMenu extends BaseEntity {
+@Accessors(chain = true)
+@TableName(value ="blog_collection")
+@EqualsAndHashCode(callSuper = true)
+public class BlogCollection extends BaseEntity {
+
     /**
      * 主键id
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Long blogCollectionId;
 
     /**
-     * 角色id
+     * 博客id
      */
-    private Long roleId;
+    private Long blogId;
 
     /**
-     * 菜单id
+     * 合集id
      */
-    private Long menuId;
-
-    /**
-     * 状态
-     */
-    private String status;
-
-    /**
-     * 备注
-     */
-    private String remark;
+    private Long collectionId;
 
 }
