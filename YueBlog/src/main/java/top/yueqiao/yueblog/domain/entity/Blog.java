@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import top.yueqiao.yueblog.domain.BaseEntity;
 
@@ -17,6 +18,7 @@ import top.yueqiao.yueblog.domain.BaseEntity;
 @Data
 @Accessors(chain = true)
 @TableName(value ="blog")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Blog extends BaseEntity {
 

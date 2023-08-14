@@ -1,5 +1,6 @@
 package top.yueqiao.yueblog;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +20,22 @@ class YueBlogApplicationTests {
 
     @Test
     void testBlogMapper() {
-        Blog blog = blogMapper.selectById(1L);
+//        Blog blog1 = new Blog();
+//        blog1
+//                .setBlogTitle("测试")
+//                .setBlogContent("测试")
+//                .setBlogWords(100L)
+//                .setReadTime(100L);
+//        blogMapper.insert(blog1);
+        Blog blog = blogMapper.selectById(2L);
         System.out.println(blog);
+    }
+
+    @Test
+    void testFastJson(){
+        Blog blog = blogMapper.selectById(2L);
+        String json = JSON.toJSONString(blog);
+        System.out.println(json);
     }
 
 
