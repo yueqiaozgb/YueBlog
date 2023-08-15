@@ -40,13 +40,13 @@ public class BaseEntity implements Serializable {
      */
     @Size(max= 64,message="编码长度不能超过64")
     @Length(max= 64,message="编码长度不能超过64")
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
 }

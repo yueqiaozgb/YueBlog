@@ -1,12 +1,9 @@
 import request from '@/axios/index.ts'
 
-export function getBlogById(token: string, id: number) {
+export function getBlogById(id: number) {
     return request({
         url: 'blog',
         method: 'GET',
-        headers: {
-            Authorization: token,
-        },
         params: {
             id: id
         }

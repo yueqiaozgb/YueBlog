@@ -2,6 +2,8 @@ package top.yueqiao.yueblog.service;
 
 import top.yueqiao.yueblog.domain.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
+import top.yueqiao.yueblog.domain.PageInfo;
 
 /**
 * @author yueqiao
@@ -9,5 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-08-15 00:20:24
 */
 public interface TagService extends IService<Tag> {
+
+    PageInfo<BlogInfoVo> selectBlogInfoVoPageByTagName(String tagName, Integer pageNum);
 
 }

@@ -27,6 +27,7 @@
   const getArchive = () => {
     getArchives().then(res => {
       if (res.code === 200) {
+        console.log(res.data)
         blogMap.value = res.data.blogMap
         count.value = res.data.count
       } else {

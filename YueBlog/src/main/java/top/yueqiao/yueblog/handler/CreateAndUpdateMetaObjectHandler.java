@@ -28,10 +28,18 @@ public class CreateAndUpdateMetaObjectHandler implements MetaObjectHandler {
                 if (ObjectUtil.isNull(baseEntity.getCreateTime())) {
                     baseEntity.setCreateTime(current);
                 }
+                // 更新时间填充
+                if (ObjectUtil.isNull(baseEntity.getUpdateTime())) {
+                    baseEntity.setUpdateTime(current);
+                }
                 String username = getLoginUsername();
                 // 创建人填充
                 if (StrUtil.isNotBlank(username) && StrUtil.isBlank(baseEntity.getCreateBy())) {
                     baseEntity.setCreateBy(username);
+                }
+                // 更新人填充
+                if (StrUtil.isNotBlank(username) && StrUtil.isBlank(baseEntity.getUpdateBy())) {
+                    baseEntity.setUpdateBy(username);
                 }
             }
         } catch (Exception e) {
@@ -45,12 +53,12 @@ public class CreateAndUpdateMetaObjectHandler implements MetaObjectHandler {
             if (ObjectUtil.isNotNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity baseEntity) {
                 Date current = new Date();
                 // 更新时间填充
-                if (ObjectUtil.isNull(baseEntity.getCreateTime())) {
+                if (ObjectUtil.isNull(baseEntity.getUpdateTime())) {
                     baseEntity.setUpdateTime(current);
                 }
                 String username = getLoginUsername();
                 // 更新人填充
-                if (StrUtil.isNotBlank(username) && StrUtil.isBlank(baseEntity.getCreateBy())) {
+                if (StrUtil.isNotBlank(username) && StrUtil.isBlank(baseEntity.getUpdateBy())) {
                     baseEntity.setUpdateBy(username);
                 }
             }

@@ -9,8 +9,7 @@ import {ref} from "vue";
   const about = ref({
     title: '',
     musicId: '',
-    content: '',
-    commentEnabled: 'false'
+    content: ''
   })
 
   const getData = () => {

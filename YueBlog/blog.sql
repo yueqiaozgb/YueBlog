@@ -91,5 +91,18 @@ CREATE TABLE `sys_role_menu` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统角色菜单表';
 
+DROP TABLE IF EXISTS `about`;
+CREATE TABLE `about` (
+    `about_id` int NOT NULL COMMENT '关于主键id',
+    `about_title` varchar(64) NOT NULL COMMENT '关于标题',
+    `music_id` varchar(255) NOT NULL COMMENT '音乐id',
+    `about_content` varchar(255) NOT NULL COMMENT '关于正文',
+    `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`about_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='关于表';
+
 -- 开启外键约束
 SET FOREIGN_KEY_CHECKS = 1;

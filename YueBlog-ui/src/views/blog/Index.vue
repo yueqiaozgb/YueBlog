@@ -31,11 +31,7 @@ export default {
       })
     })
     const getBlog = (id = blogId()) => {
-      //密码保护的文章，需要发送密码验证通过后保存在localStorage的Token
-      const blogToken = window.localStorage.getItem(`blog${id}`)
-      const adminToken = window.localStorage.getItem('adminToken')
-      const token = adminToken ? adminToken : (blogToken ? blogToken : '')
-      getBlogById(token, id).then(res => {
+      getBlogById(id).then(res => {
         if (res.code === 200) {
           blog.value = res.data
           document.title = blog.value.title + useStores.siteInfo.webTitleSuffix
@@ -117,9 +113,6 @@ export default {
               <div class="item m-datetime">
                 <i class="small calendar icon"></i><span>{{ dateFormat(blog.createTime,'YYYY-MM-DD') }}</span>
               </div>
-              <div class="item m-views">
-                <i class="small eye icon"></i><span>{{ blog.views }}</span>
-              </div>
               <div class="item m-common-black">
                 <i class="small pencil alternate icon"></i><span>字数≈{{ blog.words }}字</span>
               </div>
@@ -144,21 +137,6 @@ export default {
           </router-link>
           <!--文章Markdown正文-->
           <div class="typo js-toc-content m-padded-tb-small match-braces rainbow-braces" v-viewer :class="{'m-big-fontsize':bigFontSize}" v-html="blog.content"></div>
-          <!--赞赏-->
-          <div style="margin: 2em auto">
-            <el-popover placement="top" width="220" trigger="click" v-if="blog.appreciation">
-              <div class="ui orange basic label" style="width: 100%">
-                <div class="image">
-                  <div style="font-size: 12px;text-align: center;margin-bottom: 5px;">一毛是鼓励</div>
-                  <img :src="useStores.siteInfo.reward" alt="" class="ui rounded bordered image" style="width: 100%">
-                  <div style="font-size: 12px;text-align: center;margin-top: 5px;">一块是真爱</div>
-                </div>
-              </div>
-              <template v-slot:reference>
-                <el-button  class="ui orange inverted circular button m-text-500">赞赏</el-button>
-              </template>
-            </el-popover>
-          </div>
           <!--横线-->
           <el-divider></el-divider>
           <!--标签-->
@@ -180,11 +158,6 @@ export default {
         <li>最后修改：{{ dateFormat(blog.updateTime,'YYYY-MM-DD HH:mm') }}</li>
         <li>本站点采用<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"> 署名 4.0 国际 (CC BY 4.0) </a>创作共享协议。可自由转载、引用，并且允许商业性使用。但需署名作者且注明文章出处。</li>
       </ul>
-    </div>
-    <!--评论-->
-    <div class="ui bottom teal attached segment threaded comments">
-<!--      <CommentList :page="0" :blogId="blogId" v-if="blog.commentEnabled"/>-->
-<!--      <h3 class="ui header" v-else>评论已关闭</h3>-->
     </div>
   </div>
 </template>
