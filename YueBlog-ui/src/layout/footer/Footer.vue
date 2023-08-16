@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {useStore} from "@/store";
+import {useRouter} from "vue-router";
 
-defineProps(['siteInfo', 'badges', 'newBlogList', 'hitokoto'])
-const useStores = useStore();
+defineProps(['siteInfo', 'badges', 'newBlogList', 'hitokoto']);
+
+const router = useRouter();
+
 const toBlog = (blog: any) => {
-  useStores.goBlogPage(blog)
+  router.push(`/blog/${blog.blogId}`)
 }
 </script>
 
@@ -25,7 +27,7 @@ const toBlog = (blog: any) => {
         <div class="six wide column">
           <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
           <div class="ui inverted link list">
-            <a href="javascript:;" @click.prevent="toBlog(item)" v-for="item in newBlogList" :key="item.id" class="item m-text-thin m-padded-tb-small">{{ item.title }}</a>
+            <a href="javascript:;" @click.prevent="toBlog(item)" v-for="item in newBlogList" :key="item.id" class="item m-text-thin m-padded-tb-small">{{ item.blogTitle }}</a>
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import {getSearchBlogList} from "@/api/blog.ts";
 import {useStore} from "@/store";
 import {storeToRefs} from "pinia";
 import { Edit } from '@element-plus/icons-vue'
+import {ElNotification} from "element-plus";
 
 defineOptions({
   name: 'BlogNav',
@@ -55,13 +56,21 @@ const querySearchAsync = (queryString: string, callback: any) => {
       queryResult.value = res.data
       if (queryResult.value.length === 0) {
         queryResult.value.push({title: '无相关搜索结果'})
-      } else {
-        console.log('222')
       }
       callback(queryResult.value)
+    } else {
+      ElNotification({
+        title: '获取失败',
+        message: res.msg,
+        type: 'warning',
+      })
     }
-  }).catch(() => {
-    console.log("请求失败")
+  }).catch((e) => {
+    ElNotification({
+      title: '请求失败',
+      message: e,
+      type: 'error',
+    })
   })
 }
 
@@ -70,8 +79,8 @@ const toggle = () => {
 }
 
 const handleSelect = (item: any) => {
-  if (item.id) {
-    router.push(`/blog/${item.id}`)
+  if (item.blogId) {
+    router.push(`/blog/${item.blogId}`)
   }
 }
 
@@ -119,7 +128,7 @@ const dropdownPopperOptions = ref({
 				</span>
         <template v-slot:dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item :command="category.name" v-for="(category,index) in categoryList" :key="index">{{ category.name }}</el-dropdown-item>
+            <el-dropdown-item :command="category.categoryName" v-for="(category,index) in props.categoryList" :key="index">{{ category.categoryName }}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -143,8 +152,8 @@ const dropdownPopperOptions = ref({
           </el-icon>
         </template>
         <template #default="{ item }">
-          <div class="title">{{ item.title }}</div>
-          <span class="content">{{ item.content }}</span>
+          <div class="title">{{ item.blogTitle }}</div>
+          <span class="content">{{ item.blogIntroduction }}</span>
         </template>
       </el-autocomplete>
       <button class="ui menu black icon button m-right-top m-mobile-show" @click="toggle">

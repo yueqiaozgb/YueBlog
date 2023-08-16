@@ -2,7 +2,7 @@ import request from '@/axios/index.ts'
 
 export function getAbout() {
     return request({
-        url: 'about',
+        url: '/about',
         method: 'GET'
     })
 }

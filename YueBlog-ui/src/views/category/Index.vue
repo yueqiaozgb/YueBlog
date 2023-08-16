@@ -5,7 +5,9 @@
   import {getBlogListByCategoryName} from "@/api/category.ts";
 
   import Prism from "prismjs"//导入代码高亮插件的core（里面提供了其他官方插件及代码高亮样式主题，你只需要引入即可）
-  import "prismjs/themes/prism-tomorrow.min.css"//引入代码高亮主题（这个去node_modules的安装prismjs中找到想使用的主题即可）
+  import "prismjs/themes/prism-tomorrow.min.css"
+  import {ElNotification} from "element-plus";
+  //引入代码高亮主题（这个去node_modules的安装prismjs中找到想使用的主题即可）
 
 
   defineOptions({
@@ -27,27 +29,35 @@
   //观测路由变化，当当前组件被重用时，要重新获取博客列表
   watch(() => route.fullPath, () => {
     if (route.name === 'category') {
-      getBlogLists()
+      getBlogLists(1)
     }
   })
 
-  const getBlogLists = (pageNum) => {
+  const getBlogLists = (pageNum: number) => {
     getBlogListByCategoryName(categoryName.value, pageNum).then(res => {
       if (res.code === 200) {
-        blogLists.value = res.data.list
-        totalPage.value = res.data.totalPage
+        blogLists.value = res.rows
+        totalPage.value = res.total
         nextTick(() => {
           // eslint-disable-next-line no-undef
           Prism.highlightAll()
         })
       } else {
-        console.log("error")
+        ElNotification({
+          title: '获取失败',
+          message: res.msg,
+          type: 'warning',
+        })
       }
-    }).catch(() => {
-      console.log('失败')
+    }).catch((e) => {
+      ElNotification({
+        title: '请求失败',
+        message: e,
+        type: 'error',
+      })
     })
   }
-  getBlogLists()
+  getBlogLists(1)
 </script>
 
 <template>

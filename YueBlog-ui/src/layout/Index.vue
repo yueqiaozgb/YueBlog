@@ -2,8 +2,8 @@
 import BlogNav from "./nav/BlogNav.vue";
 import BlogHeader from "./header/BlogHeader.vue";
 import Footer from "@/layout/footer/Footer.vue";
-import {getCurrentInstance, onMounted, ref, watch} from "vue";
-import {useRoute} from "vue-router";
+import {onMounted, ref} from "vue";
+import {onBeforeRouteUpdate, useRoute} from "vue-router";
 import Introduction from "@/layout/sidebar/Introduction.vue";
 import {getHitokoto, getSite} from "@/api";
 import {useStore} from "@/store";
@@ -31,12 +31,6 @@ const newBlogList = ref([]);
 const hitokoto = ref({});
 
 const route = useRoute();
-
-const app = getCurrentInstance();
-
-watch(() => route.name, () => {
-  app.appContext.config.globalProperties.scrollToTop()
-})
 
 const getHitokotos = () => {
   getHitokoto().then(res => {
@@ -72,6 +66,33 @@ onMounted(() => {
     useStores.clientSize.clientWidth = document.body.clientWidth
   }
 })
+
+onBeforeRouteUpdate((to, from, next) => {
+  if (to.path !== from.path) {
+    scrollToTop();
+  }
+  next();
+});
+
+const scrollToTop = () => {
+  const duration = 300; // 动画持续时间（毫秒）
+  const start = window.scrollY;
+  const startTime = performance.now();
+
+  const animateScroll = (timestamp) => {
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeInOutQuad = (t) => t<.5 ? 2*t*t : -1+(4-2*t)*t;
+
+    window.scrollTo(0, start - (start * easeInOutQuad(progress)));
+
+    if (elapsed < duration) {
+      requestAnimationFrame(animateScroll);
+    }
+  };
+
+  requestAnimationFrame(animateScroll);
+};
 </script>
 
 <template>
@@ -117,7 +138,7 @@ onMounted(() => {
     </div>
 
     <!--回到顶部-->
-    <el-backtop style="box-shadow: none;background: none;z-index: 9999;">
+    <el-backtop ref="backtop" style="box-shadow: none;background: none;z-index: 9999;">
       <img src="/img/paper-plane.png" style="width: 40px;height: 40px;">
     </el-backtop>
 

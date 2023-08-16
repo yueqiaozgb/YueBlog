@@ -5,6 +5,7 @@ import top.yueqiao.yueblog.domain.entity.About;
 import top.yueqiao.yueblog.service.AboutService;
 import top.yueqiao.yueblog.mapper.AboutMapper;
 import org.springframework.stereotype.Service;
+import top.yueqiao.yueblog.util.MarkdownUtils;
 
 /**
 * @author yueqiao
@@ -18,7 +19,9 @@ public class AboutServiceImpl extends ServiceImpl<AboutMapper, About> implements
 
     @Override
     public About selectAbout() {
-        return baseMapper.selectById(ABOUT_ID);
+        About about = baseMapper.selectById(ABOUT_ID);
+        about.setAboutContent(MarkdownUtils.markdownToHtmlExtensions(about.getAboutContent()));
+        return about;
     }
 
 }

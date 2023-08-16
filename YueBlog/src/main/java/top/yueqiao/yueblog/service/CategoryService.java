@@ -1,9 +1,9 @@
 package top.yueqiao.yueblog.service;
 
-import top.yueqiao.yueblog.domain.PageInfo;
-import top.yueqiao.yueblog.domain.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
+import top.yueqiao.yueblog.domain.entity.Category;
+
+import java.util.List;
 
 /**
 * @author yueqiao
@@ -12,6 +12,6 @@ import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
 */
 public interface CategoryService extends IService<Category> {
 
-    PageInfo<BlogInfoVo> selectBlogInfoVoPageByCategoryName(String categoryName, Integer pageNum);
+    List<Category> selectCategoryList();
 
 }

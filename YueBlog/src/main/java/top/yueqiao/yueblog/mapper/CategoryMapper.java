@@ -12,7 +12,7 @@ import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
  */
 public interface CategoryMapper extends BaseMapper<Category> {
 
-    IPage<BlogInfoVo> selectBlogInfoVoPageByCategoryName(IPage<BlogInfoVo> page, String categoryName);
+
 
 }
 

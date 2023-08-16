@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import {ref} from "vue";
-  import {useStore} from "@/store";
   import {getArchives} from "@/api/archives.ts";
+  import {useRouter} from "vue-router";
+  import {ElNotification} from "element-plus";
 
   defineOptions({
     name: 'BlogArchive'
@@ -19,22 +20,28 @@
     4: 'tl-red',
   })
 
-  const useStores = useStore();
-
-  const toBlog = (blog: any) => {
-    useStores.goBlogPage(blog)
+  const router = useRouter();
+  const toBlog = (blog) => {
+    return router.push(`/blog/${blog.blogId}`)
   }
   const getArchive = () => {
     getArchives().then(res => {
       if (res.code === 200) {
-        console.log(res.data)
         blogMap.value = res.data.blogMap
         count.value = res.data.count
       } else {
-        console.log(res.msg)
+        ElNotification({
+          title: '获取失败',
+          message: res.msg,
+          type: 'warning',
+        })
       }
-    }).catch(() => {
-      console.log('请求失败')
+    }).catch((e) => {
+      ElNotification({
+        title: '请求失败',
+        message: e,
+        type: 'error',
+      })
     })
   }
   getArchive();
@@ -52,11 +59,11 @@
           <div class="tl-header">
             <a class="ui large label m-text-500">{{ key }}</a>
           </div>
-          <div class="tl-item" v-for="blog in value" :key="blog.id">
+          <div class="tl-item" v-for="blog in value" :key="blog.blogId">
             <div class="tl-wrap">
               <span class="tl-date">{{ blog.day }}</span>
               <a href="javascript:;" @click.prevent="toBlog(blog)">
-                <div class="ui left pointing label tl-title">{{ blog.title }}</div>
+                <div class="ui left pointing label tl-title">{{ blog.blogTitle }}</div>
               </a>
             </div>
           </div>

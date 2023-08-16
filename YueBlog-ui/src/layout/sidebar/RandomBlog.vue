@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {dateFormat} from "@/util/dateTimeFormatUtils.ts";
-import {useStore} from "@/store";
+import {useRouter} from "vue-router";
 
 defineOptions({
   name: 'RandomBlog',
 })
-defineProps(['randomBlogList'])
-const useStores = useStore();
+defineProps(['randomBlogList']);
+const router = useRouter();
 const toBlog = (blog: any) => {
-  useStores.goBlogPage(blog)
+  return router.push(`/blog/${blog.blogId}`)
 }
 </script>
 
@@ -18,11 +18,11 @@ const toBlog = (blog: any) => {
     <div class="ui secondary segment"><i class="bookmark icon"></i>随机文章</div>
     <div class="ui yellow segment">
       <div class="ui divided items">
-        <div class="m-item" v-for="blog in randomBlogList" :key="blog.id" @click.prevent="toBlog(blog)">
-          <div class="img" :style="{'background-image':'url(' + blog.firstPicture + ')'}"></div>
+        <div class="m-item" v-for="blog in randomBlogList" :key="blog.blogId" @click.prevent="toBlog(blog)">
+          <div class="img" :style="{'background-image':'url(' + blog.blogCover + ')'}"></div>
           <div class="info">
             <div class="date">{{ dateFormat(blog.createTime,'YYYY-MM-DD') }}</div>
-            <div class="title">{{ blog.title }}</div>
+            <div class="title">{{ blog.blogTitle }}</div>
           </div>
         </div>
       </div>

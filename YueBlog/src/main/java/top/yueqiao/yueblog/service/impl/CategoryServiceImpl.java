@@ -10,6 +10,8 @@ import top.yueqiao.yueblog.service.CategoryService;
 import top.yueqiao.yueblog.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static top.yueqiao.yueblog.constant.Constants.Page.PAGE_SIZE;
 
 /**
@@ -21,10 +23,8 @@ import static top.yueqiao.yueblog.constant.Constants.Page.PAGE_SIZE;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService{
 
     @Override
-    public PageInfo<BlogInfoVo> selectBlogInfoVoPageByCategoryName(String categoryName, Integer pageNum) {
-        IPage<BlogInfoVo> page = new Page<>(pageNum, PAGE_SIZE);
-        IPage<BlogInfoVo> result = baseMapper.selectBlogInfoVoPageByCategoryName(page, categoryName);
-        return PageInfo.build(result);
+    public List<Category> selectCategoryList() {
+        return baseMapper.selectList(null);
     }
 
 }

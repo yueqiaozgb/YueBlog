@@ -1,5 +1,4 @@
 import {defineStore} from 'pinia'
-import router from "@/router";
 
 export const useStore = defineStore( "userInfo",{
     state: () => {
@@ -48,10 +47,5 @@ export const useStore = defineStore( "userInfo",{
                 clientWidth: 1080
             }
         }
-    },
-    actions: {
-        goBlogPage(blog) {
-            return router.push(`/blog/${blog.id}`)
-        },
     }
 })

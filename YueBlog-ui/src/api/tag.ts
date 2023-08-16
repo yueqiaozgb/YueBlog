@@ -1,8 +1,9 @@
 import request from '@/axios/index.ts'
+import {RouteParamValue} from "vue-router";
 
-export function getBlogListByTagName(tagName: string, pageNum: number) {
+export function getBlogListByTagName(tagName: string | RouteParamValue[], pageNum: number) {
     return request({
-        url: 'tag',
+        url: '/blog/listByTagName',
         method: 'GET',
         params: {
             tagName: tagName,

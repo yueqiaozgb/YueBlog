@@ -1,9 +1,9 @@
 package top.yueqiao.yueblog.service;
 
-import top.yueqiao.yueblog.domain.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
-import top.yueqiao.yueblog.domain.PageInfo;
+import top.yueqiao.yueblog.domain.entity.Tag;
+
+import java.util.List;
 
 /**
 * @author yueqiao
@@ -12,6 +12,8 @@ import top.yueqiao.yueblog.domain.PageInfo;
 */
 public interface TagService extends IService<Tag> {
 
-    PageInfo<BlogInfoVo> selectBlogInfoVoPageByTagName(String tagName, Integer pageNum);
+
+
+    List<Tag> selectTagList();
 
 }

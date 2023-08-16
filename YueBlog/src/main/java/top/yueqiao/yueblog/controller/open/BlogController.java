@@ -5,13 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.yueqiao.yueblog.controller.BaseController;
+import top.yueqiao.yueblog.domain.PageInfo;
 import top.yueqiao.yueblog.domain.vo.BlogDetailVo;
 import top.yueqiao.yueblog.domain.Result;
+import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
 import top.yueqiao.yueblog.domain.vo.SearchBlogVo;
 import top.yueqiao.yueblog.service.BlogService;
 
@@ -37,7 +36,7 @@ public class BlogController extends BaseController {
         return Result.success(blogService.selectBlogDetailVoById(id));
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listByQuery")
     public Result<List<SearchBlogVo>> getBlogList(String query) {
         return Result.success(blogService.selectSearchBlogVoList(query));
     }
@@ -45,6 +44,21 @@ public class BlogController extends BaseController {
     @GetMapping("/archives")
     public Result<Map<String, Object>> getArchives() {
         return Result.success(blogService.selectArchiveBlogVoList());
+    }
+
+    @GetMapping("/list")
+    public PageInfo<BlogInfoVo> getBlogList(@RequestParam(defaultValue = "1") Integer pageNum) {
+        return blogService.selectBlogInfoVoPage(pageNum);
+    }
+
+    @GetMapping("/listByTagName")
+    public PageInfo<BlogInfoVo> getBlogListByTagName(@RequestParam String tagName, @RequestParam(defaultValue = "1") Integer pageNum) {
+        return blogService.selectBlogInfoVoPageByTagName(tagName, pageNum);
+    }
+
+    @GetMapping("/listByCategoryName")
+    public PageInfo<BlogInfoVo> getBlogListByCategoryName(@RequestParam String categoryName, @RequestParam(defaultValue = "1") Integer pageNum) {
+        return blogService.selectBlogInfoVoPageByCategoryName(categoryName, pageNum);
     }
 
 }

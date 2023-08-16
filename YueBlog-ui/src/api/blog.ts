@@ -2,20 +2,17 @@ import request from '@/axios/index.ts'
 
 export function getBlogById(id: number) {
     return request({
-        url: 'blog',
-        method: 'GET',
-        params: {
-            id: id
-        }
+        url: '/blog/' + id,
+        method: 'GET'
     })
 }
 
 export function getSearchBlogList(query: string) {
     return request({
-        url: 'searchBlog',
+        url: '/blog/listByQuery',
         method: 'GET',
         params: {
-            query
+            query: query
         }
     })
 }
