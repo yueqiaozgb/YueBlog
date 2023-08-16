@@ -59,23 +59,7 @@ public class PageInfo<T> implements Serializable {
         rspData.setCode(HttpStatus.HTTP_OK);
         rspData.setMsg("查询成功");
         rspData.setRows(page.getRecords());
-        rspData.setTotal(page.getTotal());
-        return rspData;
-    }
-
-    public static <T> PageInfo<T> build(List<T> list) {
-        PageInfo<T> rspData = new PageInfo<>();
-        rspData.setCode(HttpStatus.HTTP_OK);
-        rspData.setMsg("查询成功");
-        rspData.setRows(list);
-        rspData.setTotal(list.size());
-        return rspData;
-    }
-
-    public static <T> PageInfo<T> build() {
-        PageInfo<T> rspData = new PageInfo<>();
-        rspData.setCode(HttpStatus.HTTP_OK);
-        rspData.setMsg("查询成功");
+        rspData.setTotal(page.getPages());
         return rspData;
     }
 
