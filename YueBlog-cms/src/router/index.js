@@ -21,15 +21,7 @@ const routes = [
 	{
 		path: '/',
 		component: Layout,
-		redirect: '/dashboard',
-		children: [
-			{
-				path: 'dashboard',
-				name: 'Dashboard',
-				component: () => import('@/views/dashboard'),
-				meta: {title: 'Dashboard', icon: 'dashboard'}
-			}
-		]
+		redirect: '/blog'
 	},
 	{
 		path: '/blog',
@@ -45,12 +37,6 @@ const routes = [
 				meta: {title: '写文章', icon: 'el-icon-edit'}
 			},
 			{
-				path: 'moment/write',
-				name: 'WriteMoment',
-				component: () => import('@/views/blog/moment/WriteMoment'),
-				meta: {title: '写动态', icon: 'el-icon-edit'}
-			},
-			{
 				path: 'edit/:id',
 				name: 'EditBlog',
 				component: () => import('@/views/blog/blog/WriteBlog'),
@@ -58,23 +44,10 @@ const routes = [
 				hidden: true
 			},
 			{
-				path: 'moment/edit/:id',
-				name: 'EditMoment',
-				component: () => import('@/views/blog/moment/WriteMoment'),
-				meta: {title: '编辑动态', icon: 'el-icon-edit'},
-				hidden: true
-			},
-			{
 				path: 'list',
 				name: 'BlogList',
 				component: () => import('@/views/blog/blog/BlogList'),
 				meta: {title: '文章管理', icon: 'el-icon-s-order'}
-			},
-			{
-				path: 'moment/list',
-				name: 'MomentList',
-				component: () => import('@/views/blog/moment/MomentList'),
-				meta: {title: '动态管理', icon: 'el-icon-chat-dot-round'}
 			},
 			{
 				path: 'category/list',
@@ -87,12 +60,6 @@ const routes = [
 				name: 'TagList',
 				component: () => import('@/views/blog/tag/TagList'),
 				meta: {title: '标签管理', icon: 'biaoqian'}
-			},
-			{
-				path: 'comment/list',
-				name: 'CommentList',
-				component: () => import('@/views/blog/comment/CommentList'),
-				meta: {title: '评论管理', icon: 'el-icon-s-comment'}
 			},
 		]
 	},
@@ -108,12 +75,6 @@ const routes = [
 				name: 'SiteSetting',
 				component: () => import('@/views/page/SiteSetting'),
 				meta: {title: '站点设置', icon: 'bianjizhandian'}
-			},
-			{
-				path: 'friend',
-				name: 'FriendList',
-				component: () => import('@/views/page/FriendList'),
-				meta: {title: '友链管理', icon: 'friend'}
 			},
 			{
 				path: 'about',

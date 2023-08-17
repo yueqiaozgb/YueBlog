@@ -10,7 +10,7 @@
 			<div class="bullshit">
 				<div class="bullshit__oops">OOPS!</div>
 				<div class="bullshit__info">All rights reserved
-					<a style="color:#20a0ff" href="https://yueqiao.top" target="_blank">yueqiao's Blog</a>
+					<a style="color:#20a0ff" href="http://43.138.86.8" target="_blank">yueqiao's Blog</a>
 				</div>
 				<div class="bullshit__headline">{{ message }}</div>
 				<div class="bullshit__info">Please check that the URL you entered is correct, or click the button below to return to the homepage.</div>

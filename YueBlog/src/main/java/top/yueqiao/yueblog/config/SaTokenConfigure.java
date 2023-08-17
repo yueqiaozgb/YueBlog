@@ -5,6 +5,7 @@ import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author yueqiao
  */
+@Slf4j
 @Configuration
 public class SaTokenConfigure implements WebMvcConfigurer {
 
@@ -23,7 +25,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         registry.addInterceptor(new SaInterceptor(handle ->
             SaRouter
                     .match("/**")
-                    .notMatch("/open/**", "/user/login/**")
+                    .notMatch("/open/**", "/admin/user/login/**")
                     .check(StpUtil::checkLogin)
         )).addPathPatterns("/**");
     }
