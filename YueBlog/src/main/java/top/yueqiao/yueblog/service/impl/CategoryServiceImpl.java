@@ -1,18 +1,18 @@
 package top.yueqiao.yueblog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import top.yueqiao.yueblog.domain.PageInfo;
-import top.yueqiao.yueblog.domain.entity.Category;
-import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
-import top.yueqiao.yueblog.service.CategoryService;
-import top.yueqiao.yueblog.mapper.CategoryMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import static top.yueqiao.yueblog.constant.Constants.Page.PAGE_SIZE;
+import top.yueqiao.yueblog.domain.PageInfo;
+import top.yueqiao.yueblog.domain.PageQuery;
+import top.yueqiao.yueblog.domain.entity.BlogCategory;
+import top.yueqiao.yueblog.domain.entity.Category;
+import top.yueqiao.yueblog.exception.ServiceException;
+import top.yueqiao.yueblog.mapper.BlogCategoryMapper;
+import top.yueqiao.yueblog.mapper.CategoryMapper;
+import top.yueqiao.yueblog.service.CategoryService;
 
 /**
 * @author yueqiao
@@ -22,9 +22,24 @@ import static top.yueqiao.yueblog.constant.Constants.Page.PAGE_SIZE;
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService{
 
+    @Autowired
+    private BlogCategoryMapper blogCategoryMapper;
+
     @Override
-    public List<Category> selectCategoryList() {
-        return baseMapper.selectList(null);
+    public PageInfo<Category> selectPageCategoryList(PageQuery pageQuery) {
+        IPage<Category> categoryPage = baseMapper.selectPage(pageQuery.build(), null);
+        return PageInfo.build(categoryPage);
+    }
+
+    @Override
+    public int deleteCategory(Long categoryId) {
+        LambdaQueryWrapper<BlogCategory> lqw = new LambdaQueryWrapper<BlogCategory>()
+                .eq(BlogCategory::getCategoryId, categoryId);
+        boolean exists = blogCategoryMapper.exists(lqw);
+        if (exists) {
+            throw new ServiceException("该分类下存在博客，不能删除");
+        }
+        return baseMapper.deleteById(categoryId);
     }
 
 }

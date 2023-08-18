@@ -3,10 +3,12 @@ package top.yueqiao.yueblog.domain.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import top.yueqiao.yueblog.domain.BaseEntity;
+import top.yueqiao.yueblog.validate.InsertGroup;
 
 /**
  * 分类表
@@ -28,6 +30,7 @@ public class Category extends BaseEntity {
     /**
      * 分类名称
      */
+    @NotBlank(message = "分类名称不能为空", groups = InsertGroup.class)
     private String categoryName;
 
     /**

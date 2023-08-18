@@ -15,7 +15,7 @@ const toBlog = (blog: any) => {
 <template>
   <div>
     <div class="ui padded attached segment m-padded-tb-large m-margin-bottom-big m-box" v-for="item in blogList" :key="item.blogId">
-      <div class="ui large red right corner label" v-if="item.recommendIndex >= 0">
+      <div class="ui large red right corner label" v-if="item.recommendIndex > 0">
         <i class="arrow alternate circle up icon"></i>
       </div>
       <div class="ui middle aligned mobile reversed stackable">

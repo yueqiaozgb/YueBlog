@@ -7,7 +7,7 @@
 						<span>基础设置</span>
 					</div>
 					<el-form label-position="right" label-width="100px">
-						<el-form-item :label="item.nameZh" v-for="item in typeMap.type1" :key="item.id">
+						<el-form-item :label="item.settingIntroduction" v-for="item in typeMap.type1" :key="item.id">
 							<el-input v-model="item.value" size="mini"></el-input>
 						</el-form-item>
 					</el-form>
@@ -19,8 +19,8 @@
 						<span>资料卡</span>
 					</div>
 					<el-form label-position="right" label-width="100px">
-						<el-form-item :label="item.nameZh" v-for="item in typeMap.type2" :key="item.id">
-							<div v-if="item.nameEn=='favorite'">
+						<el-form-item :label="item.settingIntroduction" v-for="item in typeMap.type2" :key="item.id">
+							<div v-if="item.settingKey=='favorite'">
 								<el-col :span="20">
 									<el-input v-model="item.value" size="mini"></el-input>
 								</el-col>
@@ -102,8 +102,8 @@
 			addFavorite() {
 				this.typeMap.type2.push({
 					key: Date.now(),
-					nameEn: "favorite",
-					nameZh: "自定义",
+					settingKey: "favorite",
+					settingIntroduction: "自定义",
 					type: 2,
 					value: "{\"title\":\"\",\"content\":\"\"}"
 				})

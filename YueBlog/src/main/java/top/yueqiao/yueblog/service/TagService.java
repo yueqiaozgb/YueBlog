@@ -1,9 +1,9 @@
 package top.yueqiao.yueblog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.yueqiao.yueblog.domain.PageInfo;
+import top.yueqiao.yueblog.domain.PageQuery;
 import top.yueqiao.yueblog.domain.entity.Tag;
-
-import java.util.List;
 
 /**
 * @author yueqiao
@@ -12,8 +12,8 @@ import java.util.List;
 */
 public interface TagService extends IService<Tag> {
 
+    PageInfo<Tag> selectPageTagList(PageQuery pageQuery);
 
-
-    List<Tag> selectTagList();
+    int deleteTag(Long tagId);
 
 }

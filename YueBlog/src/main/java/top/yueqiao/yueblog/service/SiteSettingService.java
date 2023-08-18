@@ -3,6 +3,8 @@ package top.yueqiao.yueblog.service;
 import top.yueqiao.yueblog.domain.entity.SiteSetting;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,5 +15,9 @@ import java.util.Map;
 public interface SiteSettingService extends IService<SiteSetting> {
 
     Map<String, Object> selectSiteInfo();
+
+    Map<String, List<SiteSetting>> selectSiteSettingMap();
+
+    boolean updateSiteSetting(List<LinkedHashMap> siteSettings, List<Integer> deleteIds);
 
 }

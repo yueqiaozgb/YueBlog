@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<el-alert title="图床配置及用法请查看：https://github.com/Naccl/PictureHosting" type="warning" show-icon v-if="hintShow"></el-alert>
 		<el-card>
 			<div slot="header">
 				<span>GitHub配置</span>

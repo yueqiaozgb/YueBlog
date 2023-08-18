@@ -41,8 +41,8 @@ public class SiteSettingController {
     public Result<Map<String, Object>> getSiteSetting() {
         Map<String, Object> map = siteSettingService.selectSiteInfo();
         List<BlogPreviewVo> newBlogList = blogService.selectNewBlogVoList();
-        List<Category> categoryList = categoryService.selectCategoryList();
-        List<Tag> tagList = tagService.selectTagList();
+        List<Category> categoryList = categoryService.list();
+        List<Tag> tagList = tagService.list();
         List<BlogPreviewVo> randomBlogList = blogService.selectRandomBlogList();
         map.put("newBlogList", newBlogList);
         map.put("categoryList", categoryList);

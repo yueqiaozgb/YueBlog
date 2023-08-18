@@ -2,14 +2,14 @@ import axios from '@/util/request'
 
 export function getSiteSettingData() {
 	return axios({
-		url: 'siteSettings',
+		url: '/site',
 		method: 'GET'
 	})
 }
 
 export function update(settings, deleteIds) {
 	return axios({
-		url: 'siteSettings',
+		url: '/site',
 		method: 'POST',
 		data: {
 			settings,

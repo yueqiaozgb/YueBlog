@@ -2,7 +2,7 @@ import axios from '@/util/request'
 
 export function getData(queryInfo) {
 	return axios({
-		url: 'categories',
+		url: '/category/listByQuery',
 		method: 'GET',
 		params: {
 			...queryInfo
@@ -12,7 +12,7 @@ export function getData(queryInfo) {
 
 export function addCategory(form) {
 	return axios({
-		url: 'category',
+		url: '/category',
 		method: 'POST',
 		data: {
 			...form
@@ -22,7 +22,7 @@ export function addCategory(form) {
 
 export function editCategory(form) {
 	return axios({
-		url: 'category',
+		url: '/category',
 		method: 'PUT',
 		data: {
 			...form
@@ -32,11 +32,8 @@ export function editCategory(form) {
 
 export function deleteCategoryById(id) {
 	return axios({
-		url: 'category',
-		method: 'DELETE',
-		params: {
-			id
-		}
+		url: '/category/' + id,
+		method: 'DELETE' 
 	})
 }
 

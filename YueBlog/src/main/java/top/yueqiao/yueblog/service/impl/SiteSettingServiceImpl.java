@@ -1,23 +1,24 @@
 package top.yueqiao.yueblog.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.yueqiao.yueblog.domain.entity.SiteSetting;
 import top.yueqiao.yueblog.domain.vo.BadgeVo;
 import top.yueqiao.yueblog.domain.vo.CopyrightVo;
 import top.yueqiao.yueblog.domain.vo.FavoriteVo;
 import top.yueqiao.yueblog.domain.vo.IntroductionVo;
+import top.yueqiao.yueblog.exception.ServiceException;
 import top.yueqiao.yueblog.mapper.SiteSettingMapper;
 import top.yueqiao.yueblog.service.SiteSettingService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static top.yueqiao.yueblog.constant.Constants.Flag.INTEGER_SUCCESS;
 import static top.yueqiao.yueblog.constant.Constants.SiteSetting.*;
 
 /**
@@ -26,6 +27,7 @@ import static top.yueqiao.yueblog.constant.Constants.SiteSetting.*;
 * @createDate 2023-08-15 23:11:29
 */
 @Service
+@Transactional
 public class SiteSettingServiceImpl extends ServiceImpl<SiteSettingMapper, SiteSetting> implements SiteSettingService{
 
     private static final Pattern PATTERN = Pattern.compile("\"(.*?)\"");
@@ -100,6 +102,53 @@ public class SiteSettingServiceImpl extends ServiceImpl<SiteSettingMapper, SiteS
         map.put("siteInfo", siteInfo);
         map.put("badges", badges);
         return map;
+    }
+
+    @Override
+    public Map<String, List<SiteSetting>> selectSiteSettingMap() {
+        List<SiteSetting> siteSettings = baseMapper.selectList(null);
+        List<SiteSetting> type1 = new ArrayList<>();
+        List<SiteSetting> type2 = new ArrayList<>();
+        List<SiteSetting> type3 = new ArrayList<>();
+        siteSettings.forEach(s -> {
+            switch (s.getType()) {
+                case 1 -> type1.add(s);
+                case 2 -> type2.add(s);
+                case 3 -> type3.add(s);
+                default -> {
+                }
+            }
+        });
+        Map<String, List<SiteSetting>> map = new HashMap<>(8);
+        map.put("type1", type1);
+        map.put("type2", type2);
+        map.put("type3", type3);
+        return map;
+    }
+
+    @Override
+    public boolean updateSiteSetting(List<LinkedHashMap> siteSettings, List<Integer> deleteIds) {
+        if (ObjectUtil.isNull(deleteIds)) {
+            int rows = baseMapper.deleteBatchIds(deleteIds);
+            if (!ObjectUtil.equals(rows, deleteIds.size())) {
+                throw new ServiceException("删除配置失败");
+            }
+        }
+        for (LinkedHashMap s : siteSettings) {
+            SiteSetting setting = JSON.parseObject(JSON.toJSONString(s), SiteSetting.class);
+            if (setting.getId() != null) {
+                int update = baseMapper.updateById(setting);
+                if (!ObjectUtil.equals(update, INTEGER_SUCCESS)) {
+                    throw new ServiceException("修改配置失败");
+                }
+            } else {
+                int insert = baseMapper.insert(setting);
+                if (!ObjectUtil.equals(insert, INTEGER_SUCCESS)) {
+                    throw new ServiceException("添加配置失败");
+                }
+            }
+        }
+        return true;
     }
 
 }

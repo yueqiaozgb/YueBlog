@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<el-form :model="form" :rules="formRules" ref="formRef" label-position="top">
-			<el-form-item label="标题" prop="title" style="width: 50%">
-				<el-input v-model="form.title" placeholder="请输入标题"></el-input>
+			<el-form-item label="标题" prop="aboutTitle" style="width: 50%">
+				<el-input v-model="form.aboutTitle" placeholder="请输入标题"></el-input>
 			</el-form-item>
 
 			<el-row :gutter="20" style="width: 50%">
@@ -11,15 +11,10 @@
 						<el-input v-model="form.musicId" type="number" placeholder="请输入网易云歌曲ID（可选）"></el-input>
 					</el-form-item>
 				</el-col>
-				<el-col :span="12">
-					<el-form-item label="评论开关">
-						<el-switch v-model="form.commentEnabled" active-text="评论"></el-switch>
-					</el-form-item>
-				</el-col>
 			</el-row>
 
-			<el-form-item label="正文" prop="content">
-				<mavon-editor v-model="form.content"/>
+			<el-form-item label="正文" prop="aboutContent">
+				<mavon-editor v-model="form.aboutContent"/>
 			</el-form-item>
 
 			<el-form-item style="text-align: right;">
@@ -39,10 +34,9 @@
 		data() {
 			return {
 				form: {
-					title: '',
+					aboutTitle: '',
 					musicId: null,
-					content: '',
-					commentEnabled: true
+					aboutContent: ''
 				},
 				formRules: {
 					title: [{required: true, message: '请输入标题', trigger: 'change'}],
@@ -55,10 +49,7 @@
 		methods: {
 			getData() {
 				getAbout().then(res => {
-					this.form.title = res.data.title
-					this.form.musicId = res.data.musicId
-					this.form.content = res.data.content
-					this.form.commentEnabled = res.data.commentEnabled === 'true' ? true : false
+					this.form = res.data
 				})
 			},
 			submit() {

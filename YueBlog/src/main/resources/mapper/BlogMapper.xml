@@ -151,6 +151,7 @@
 
     <select id="selectBlogInfoVoPage" resultMap="BlogInfoVo">
         <include refid="selectBlogInfoVo"/>
+        ORDER BY b.recommend_index DESC
     </select>
 
     <select id="selectPageBlogInfoVoList" resultMap="BlogInfoVo">
