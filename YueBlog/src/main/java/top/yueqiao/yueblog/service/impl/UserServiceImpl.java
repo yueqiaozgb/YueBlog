@@ -27,7 +27,7 @@ import java.util.Map;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService{
 
     @Override
-    public Map<String, String> login(LoginDto loginDto) {
+    public Map<String, Object> login(LoginDto loginDto) {
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>()
                 .eq(User::getUsername, loginDto.getUsername());
         User user = baseMapper.selectOne(lqw);
@@ -38,9 +38,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new ServiceException("密码错误");
         }
         StpUtil.login(user.getId());
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("token", StpUtil.getTokenInfo().tokenValue);
-        map.put("user", JSON.toJSONString(user));
+        map.put("user", user);
         log.info(JSON.toJSONString(map));
         return map;
     }

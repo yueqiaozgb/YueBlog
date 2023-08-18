@@ -2,6 +2,8 @@ package top.yueqiao.yueblog.domain.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.yueqiao.yueblog.domain.entity.Category;
+import top.yueqiao.yueblog.domain.entity.Tag;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,12 +49,12 @@ public class BlogInfoVo {
     /**
      * 分类
      */
-    private BlogCategoryVo category;
+    private Category category;
 
     /**
      * 标签
      */
-    private List<BlogTagVo> tags = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
 
     /**
      * 创建时间

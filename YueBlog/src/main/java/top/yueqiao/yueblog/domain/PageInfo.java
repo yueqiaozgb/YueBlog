@@ -43,17 +43,6 @@ public class PageInfo<T> implements Serializable {
      */
     private String msg;
 
-    /**
-     * 分页
-     *
-     * @param list  列表数据
-     * @param total 总记录数
-     */
-    public PageInfo(List<T> list, long total) {
-        this.rows = list;
-        this.total = total;
-    }
-
     public static <T> PageInfo<T> build(IPage<T> page) {
         PageInfo<T> rspData = new PageInfo<>();
         rspData.setCode(HttpStatus.HTTP_OK);

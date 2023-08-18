@@ -13,7 +13,6 @@ public class Constants {
     }
 
     public interface SiteSetting {
-
         String COPYRIGHT = "copyright";
         String AVATAR = "avatar";
         String NAME = "name";
@@ -24,7 +23,17 @@ public class Constants {
         String EMAIL = "email";
         String FAVORITE = "favorite";
         String ROLL_TEXT = "rollText";
+    }
 
+    public interface Flag {
+        Integer INTEGER_SUCCESS = 1;
+        Integer INTEGER_FAIL = 0;
+        Boolean BOOLEAN_SUCCESS = true;
+        Boolean BOOLEAN_FAIL = false;
+    }
+
+    public interface Role {
+        String ROLE_ADMIN = "admin";
     }
 
 }

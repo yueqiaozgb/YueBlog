@@ -1,6 +1,7 @@
 package top.yueqiao.yueblog.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -8,6 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import top.yueqiao.yueblog.domain.BaseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 博客表
@@ -62,5 +66,17 @@ public class Blog extends BaseEntity {
      * 阅读时间
      */
     private Long readTime;
+
+    /**
+     * 分类
+     */
+    @TableField(exist = false)
+    private Category category;
+
+    /**
+     * 标签
+     */
+    @TableField(exist = false)
+    private List<Tag> tags = new ArrayList<>();
 
 }

@@ -13,6 +13,6 @@ import java.util.Map;
 */
 public interface UserService extends IService<User> {
 
-    Map<String, String> login(LoginDto loginDto);
+    Map<String, Object> login(LoginDto loginDto);
 
 }

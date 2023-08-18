@@ -39,3 +39,10 @@ export function deleteCategoryById(id) {
 		}
 	})
 }
+
+export function categoryList() {
+	return axios({
+		url: '/category/list',
+		method: 'GET'
+	})
+}

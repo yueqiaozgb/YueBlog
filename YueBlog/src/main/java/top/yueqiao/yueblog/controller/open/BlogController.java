@@ -11,7 +11,7 @@ import top.yueqiao.yueblog.domain.PageInfo;
 import top.yueqiao.yueblog.domain.vo.BlogDetailVo;
 import top.yueqiao.yueblog.domain.Result;
 import top.yueqiao.yueblog.domain.vo.BlogInfoVo;
-import top.yueqiao.yueblog.domain.vo.SearchBlogVo;
+import top.yueqiao.yueblog.domain.vo.BlogPreviewVo;
 import top.yueqiao.yueblog.service.BlogService;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class BlogController extends BaseController {
     }
 
     @GetMapping("/listByQuery")
-    public Result<List<SearchBlogVo>> getBlogList(String query) {
+    public Result<List<BlogPreviewVo>> getBlogList(String query) {
         return Result.success(blogService.selectSearchBlogVoList(query));
     }
 

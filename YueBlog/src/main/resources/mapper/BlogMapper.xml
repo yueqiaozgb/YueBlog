@@ -4,6 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.yueqiao.yueblog.mapper.BlogMapper">
 
+    <resultMap id="Blog" type="top.yueqiao.yueblog.domain.entity.Blog">
+        <id property="blogId" column="blog_id" jdbcType="BIGINT"/>
+        <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
+        <result property="blogIntroduction" column="blog_introduction" jdbcType="VARCHAR"/>
+        <result property="blogCover" column="blog_cover" jdbcType="VARCHAR"/>
+        <result property="blogContent" column="blog_content" jdbcType="VARCHAR"/>
+        <result property="recommendIndex" column="recommend_index" jdbcType="BIGINT"/>
+        <result property="blogWords" column="blog_words" jdbcType="BIGINT"/>
+        <result property="readTime" column="read_time" jdbcType="BIGINT"/>
+        <association property="category" javaType="top.yueqiao.yueblog.domain.entity.Category">
+            <id property="categoryId" column="category_id" jdbcType="BIGINT"/>
+        </association>
+        <collection property="tags" javaType="top.yueqiao.yueblog.domain.entity.Tag">
+            <id property="tagId" column="tag_id" jdbcType="BIGINT"/>
+        </collection>
+    </resultMap>
+
+    <sql id="selectBlog">
+        SELECT
+            b.blog_id, b.blog_title, blog_introduction, b.blog_cover,
+            b.blog_content, b.recommend_index,b.blog_words, b.read_time,
+            b.create_time, b.update_time,c.category_id, t.tag_id
+        FROM yue_blog.blog b
+            LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
+            LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
+            LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
+            LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+    </sql>
+
     <resultMap id="BlogDetailVo" type="top.yueqiao.yueblog.domain.vo.BlogDetailVo">
         <id property="blogId" column="blog_id" jdbcType="BIGINT"/>
         <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
@@ -13,14 +42,26 @@
         <result property="readTime" column="read_time" jdbcType="BIGINT"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <association property="category" javaType="top.yueqiao.yueblog.domain.vo.BlogCategoryVo">
+        <association property="category" javaType="top.yueqiao.yueblog.domain.entity.Category">
             <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
         </association>
-        <collection property="tags" javaType="top.yueqiao.yueblog.domain.vo.BlogTagVo">
+        <collection property="tags" javaType="top.yueqiao.yueblog.domain.entity.Tag">
             <result property="tagName" column="tag_name"/>
             <result property="tagColor" column="tag_color"/>
         </collection>
     </resultMap>
+
+    <sql id="selectBlogDetailVo">
+        SELECT
+            b.blog_id, b.blog_title, b.blog_content, b.recommend_index,
+            b.blog_words, b.read_time, b.create_time, b.update_time,
+            c.category_name, t.tag_name, t.tag_color
+        FROM yue_blog.blog b
+            LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
+            LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
+            LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
+            LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+    </sql>
 
     <resultMap id="BlogInfoVo" type="top.yueqiao.yueblog.domain.vo.BlogInfoVo">
         <id property="blogId" column="blog_id" jdbcType="BIGINT"/>
@@ -30,34 +71,56 @@
         <result property="blogWords" column="blog_words" jdbcType="BIGINT"/>
         <result property="readTime" column="read_time" jdbcType="BIGINT"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <association property="category" javaType="top.yueqiao.yueblog.domain.vo.BlogCategoryVo">
+        <association property="category" javaType="top.yueqiao.yueblog.domain.entity.Category">
             <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
         </association>
-        <collection property="tags" javaType="top.yueqiao.yueblog.domain.vo.BlogTagVo">
+        <collection property="tags" javaType="top.yueqiao.yueblog.domain.entity.Tag">
             <result property="tagName" column="tag_name"/>
             <result property="tagColor" column="tag_color"/>
         </collection>
     </resultMap>
 
-    <select id="selectBlogVoById" resultMap="BlogDetailVo">
-        SELECT b.blog_id, b.blog_title, b.blog_content, b.recommend_index,
-               b.blog_words, b.read_time, b.create_time, b.update_time,
-               c.category_name, t.tag_name, t.tag_color
+    <sql id="selectBlogInfoVo">
+        SELECT
+            b.blog_id, b.blog_title, b.blog_introduction, b.recommend_index,
+            b.blog_words, b.read_time, b.create_time,
+            c.category_name, t.tag_name, t.tag_color
         FROM yue_blog.blog b
-                 LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
-                 LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
-                 LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
-                 LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+            LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
+            LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
+            LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
+            LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+    </sql>
+
+    <resultMap id="BlogPreviewVo" type="top.yueqiao.yueblog.domain.vo.BlogPreviewVo">
+        <id property="blogId" column="blog_id" jdbcType="BIGINT"/>
+        <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
+        <result property="blogIntroduction" column="blog_introduction" jdbcType="VARCHAR"/>
+        <result property="blogCover" column="blog_cover" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <sql id="selectBlogPreviewVo">
+        SELECT b.blog_id, b.blog_title, b.blog_introduction, b.blog_cover, b.create_time
+        FROM yue_blog.blog b
+    </sql>
+
+    <select id="selectBlogByID" resultMap="Blog">
+        <include refid="selectBlog"/>
         WHERE b.blog_id = #{blogId}
     </select>
 
-    <select id="selectSearchBlogVoList" resultType="top.yueqiao.yueblog.domain.vo.SearchBlogVo">
-        SELECT b.blog_id, b.blog_title, b.blog_introduction
-        FROM yue_blog.blog b
+    <select id="selectBlogVoById" resultMap="BlogDetailVo">
+        <include refid="selectBlogDetailVo"/>
+        WHERE b.blog_id = #{blogId}
+    </select>
+
+    <select id="selectSearchBlogVoList" resultMap="BlogPreviewVo">
+        <include refid="selectBlogPreviewVo"/>
         WHERE b.blog_introduction like '%${query}%' or b.blog_title like '%${query}%'
     </select>
 
-    <select id="selectArchiveBlogVoList" resultType="top.yueqiao.yueblog.domain.vo.ArchiveBlogVo">
+    <select id="selectArchiveBlogVoList" resultType="top.yueqiao.yueblog.domain.vo.BlogArchiveVo">
         SELECT
             b.blog_id, b.blog_title,
             date_format(create_time, "%Y年%m月") AS yearMonth,
@@ -66,51 +129,41 @@
         ORDER BY b.create_time DESC;
     </select>
 
-    <select id="selectNewBlogVoList" resultType="top.yueqiao.yueblog.domain.vo.NewBlogVo">
-        SELECT b.blog_id, b.blog_title
-        FROM yue_blog.blog b
+    <select id="selectNewBlogVoList" resultMap="BlogPreviewVo">
+        <include refid="selectBlogPreviewVo"/>
         order by create_time desc
     </select>
 
-    <select id="selectRandomBlogList" resultType="top.yueqiao.yueblog.domain.vo.RandomBlogVo">
-        SELECT b.blog_id, b.blog_title, b.blog_cover, b.create_time
-        FROM yue_blog.blog b
+    <select id="selectRandomBlogList" resultMap="BlogPreviewVo">
+        <include refid="selectBlogPreviewVo"/>
         order by rand() limit #{randomLimitSize}
     </select>
 
     <select id="selectBlogInfoVoPageByTagName" resultMap="BlogInfoVo">
-        SELECT b.blog_id, b.blog_title, b.blog_introduction, b.recommend_index,
-               b.blog_words, b.read_time, b.create_time,
-               c.category_name, t.tag_name, t.tag_color
-        FROM yue_blog.blog b
-                 LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
-                 LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
-                 LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
-                 LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+        <include refid="selectBlogInfoVo"/>
         WHERE t.tag_name = #{tagName}
     </select>
 
     <select id="selectBlogInfoVoPageByCategoryName" resultMap="BlogInfoVo">
-        SELECT b.blog_id, b.blog_title, b.blog_introduction, b.recommend_index,
-               b.blog_words, b.read_time, b.create_time,
-               c.category_name, t.tag_name, t.tag_color
-        FROM yue_blog.blog b
-                 LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
-                 LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
-                 LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
-                 LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+        <include refid="selectBlogInfoVo"/>
         WHERE c.category_name = #{categoryName}
     </select>
 
     <select id="selectBlogInfoVoPage" resultMap="BlogInfoVo">
-        SELECT b.blog_id, b.blog_title, b.blog_introduction, b.recommend_index,
-               b.blog_words, b.read_time, b.create_time,
-               c.category_name, t.tag_name, t.tag_color
-        FROM yue_blog.blog b
-                 LEFT JOIN yue_blog.blog_category bc ON b.blog_id = bc.blog_id
-                 LEFT JOIN yue_blog.category c ON bc.category_id = c.category_id
-                 LEFT JOIN yue_blog.blog_tag bt ON b.blog_id = bt.blog_id
-                 LEFT JOIN yue_blog.tag t ON bt.tag_id = t.tag_id
+        <include refid="selectBlogInfoVo"/>
+    </select>
+
+    <select id="selectPageBlogInfoVoList" resultMap="BlogInfoVo">
+        <bind name="titlePattern" value="'%' + blogDto.blogTitle + '%'"/>
+        <include refid="selectBlogInfoVo"/>
+        <where>
+            <if test="blogDto.blogTitle!=null and blogDto.blogTitle!=''">
+                b.blog_title like #{titlePattern}
+            </if>
+            <if test="blogDto.category!=null">
+                and c.category_id=#{blogDto.category}
+            </if>
+        </where>
     </select>
 
 </mapper>

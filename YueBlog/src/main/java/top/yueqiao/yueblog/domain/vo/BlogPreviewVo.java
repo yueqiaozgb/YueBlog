@@ -3,12 +3,14 @@ package top.yueqiao.yueblog.domain.vo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @author yueqiao
  */
 @Data
 @NoArgsConstructor
-public class ArchiveBlogVo {
+public class BlogPreviewVo {
 
     /**
      * 博客id
@@ -21,13 +23,18 @@ public class ArchiveBlogVo {
     private String blogTitle;
 
     /**
-     * 年月信息
+     * 博客简介
      */
-    private String yearMonth;
+    private String blogIntroduction;
 
     /**
-     * 日期信息
+     * 博客封面
      */
-    private String day;
+    private String blogCover;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
 }

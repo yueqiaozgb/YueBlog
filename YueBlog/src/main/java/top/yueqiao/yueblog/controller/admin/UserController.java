@@ -29,7 +29,7 @@ public class UserController extends BaseController {
     private final UserService userService;
 
     @PostMapping("login")
-    public Result<Map<String, String>> login(@Validated @RequestBody LoginDto loginDto) {
+    public Result<Map<String, Object>> login(@Validated @RequestBody LoginDto loginDto) {
         return Result.success("登录成功", userService.login(loginDto));
     }
 

@@ -38,4 +38,11 @@ export function deleteTagById(id) {
 			id
 		}
 	})
+}	
+
+export function tagList() {
+	return axios({
+		url: '/tag/list',
+		method: 'GET'
+	})
 }

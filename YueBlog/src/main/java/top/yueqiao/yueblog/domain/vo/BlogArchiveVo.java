@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class SearchBlogVo {
+public class BlogArchiveVo {
 
     /**
      * 博客id
@@ -21,8 +21,13 @@ public class SearchBlogVo {
     private String blogTitle;
 
     /**
-     * 博客简介
+     * 年月信息
      */
-    private String blogIntroduction;
+    private String yearMonth;
+
+    /**
+     * 日期信息
+     */
+    private String day;
 
 }

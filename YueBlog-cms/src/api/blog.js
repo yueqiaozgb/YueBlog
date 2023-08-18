@@ -2,7 +2,7 @@ import axios from '@/util/request'
 
 export function getDataByQuery(queryInfo) {
 	return axios({
-		url: 'blogs',
+		url: '/blog/list',
 		method: 'GET',
 		params: {
 			...queryInfo
@@ -12,24 +12,14 @@ export function getDataByQuery(queryInfo) {
 
 export function deleteBlogById(id) {
 	return axios({
-		url: 'blog',
-		method: 'DELETE',
-		params: {
-			id
-		}
-	})
-}
-
-export function getCategoryAndTag() {
-	return axios({
-		url: 'categoryAndTag',
-		method: 'GET'
+		url: '/blog/' + id,
+		method: 'DELETE'
 	})
 }
 
 export function saveBlog(blog) {
 	return axios({
-		url: 'blog',
+		url: '/blog',
 		method: 'POST',
 		data: {
 			...blog
@@ -37,45 +27,10 @@ export function saveBlog(blog) {
 	})
 }
 
-export function updateTop(id, top) {
-	return axios({
-		url: 'blog/top',
-		method: 'PUT',
-		params: {
-			id,
-			top
-		}
-	})
-}
-
-export function updateRecommend(id, recommend) {
-	return axios({
-		url: 'blog/recommend',
-		method: 'PUT',
-		params: {
-			id,
-			recommend
-		}
-	})
-}
-
-export function updateVisibility(id, form) {
-	return axios({
-		url: `blog/${id}/visibility`,
-		method: 'PUT',
-		data: {
-			...form
-		}
-	})
-}
-
 export function getBlogById(id) {
 	return axios({
-		url: 'blog',
-		method: 'GET',
-		params: {
-			id
-		}
+		url: '/blog/' + id,
+		method: 'GET'
 	})
 }
 

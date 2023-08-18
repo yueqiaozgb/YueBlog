@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.yueqiao.yueblog.domain.Result;
 import top.yueqiao.yueblog.domain.entity.Category;
 import top.yueqiao.yueblog.domain.entity.Tag;
-import top.yueqiao.yueblog.domain.vo.NewBlogVo;
-import top.yueqiao.yueblog.domain.vo.RandomBlogVo;
+import top.yueqiao.yueblog.domain.vo.BlogPreviewVo;
 import top.yueqiao.yueblog.service.BlogService;
 import top.yueqiao.yueblog.service.CategoryService;
 import top.yueqiao.yueblog.service.SiteSettingService;
@@ -41,10 +40,10 @@ public class SiteSettingController {
     @GetMapping
     public Result<Map<String, Object>> getSiteSetting() {
         Map<String, Object> map = siteSettingService.selectSiteInfo();
-        List<NewBlogVo> newBlogList = blogService.selectNewBlogVoList();
+        List<BlogPreviewVo> newBlogList = blogService.selectNewBlogVoList();
         List<Category> categoryList = categoryService.selectCategoryList();
         List<Tag> tagList = tagService.selectTagList();
-        List<RandomBlogVo> randomBlogList = blogService.selectRandomBlogList();
+        List<BlogPreviewVo> randomBlogList = blogService.selectRandomBlogList();
         map.put("newBlogList", newBlogList);
         map.put("categoryList", categoryList);
         map.put("tagList", tagList);
