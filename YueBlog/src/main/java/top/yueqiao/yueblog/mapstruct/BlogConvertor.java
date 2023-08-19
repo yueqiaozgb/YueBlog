@@ -22,7 +22,9 @@ public interface BlogConvertor {
             @Mapping(target = "updateBy", ignore = true),
             @Mapping(target = "createTime", ignore = true),
             @Mapping(target = "createBy", ignore = true),
-            @Mapping(target = "updateTime", ignore = true)
+            @Mapping(target = "updateTime", ignore = true),
+            @Mapping(target = "tags", ignore = true),
+            @Mapping(target = "category", ignore = true)
     })
     Blog blogDto2Blog(BlogDto blogDto);
 
