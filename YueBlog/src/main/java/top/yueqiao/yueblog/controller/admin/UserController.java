@@ -1,6 +1,5 @@
 package top.yueqiao.yueblog.controller.admin;
 
-import cn.dev33.satoken.stp.StpUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +30,6 @@ public class UserController extends BaseController {
     @PostMapping("login")
     public Result<Map<String, Object>> login(@Validated @RequestBody LoginDto loginDto) {
         return Result.success("登录成功", userService.login(loginDto));
-    }
-
-    @RequestMapping("isLogin")
-    public String isLogin() {
-        log.info("当前会话ID:" + StpUtil.getLoginId());
-        return "当前会话是否登录：" + StpUtil.isLogin();
     }
 
 }

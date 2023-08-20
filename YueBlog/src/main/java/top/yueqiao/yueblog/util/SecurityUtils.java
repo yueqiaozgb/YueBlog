@@ -29,4 +29,8 @@ public class SecurityUtils {
         return StrUtil.equals(SecureUtil.md5(rawPassword), encodedPassword);
     }
 
+    public static void main(String[] args) {
+        System.out.println(encryptPassword(""));
+    }
+
 }
