@@ -9,7 +9,7 @@
 # 后端
 
 1. 核心框架：[Spring Boot](https://github.com/spring-projects/spring-boot)
-2. 安全框架：[sa-token
+2. 安全框架：[sa-token](https://github.com/dromara/Sa-Token)
 3. ORM 框架：[MyBatis](https://github.com/baomidou/mybatis-plus)
 4. NoSQL 缓存：[Redis](https://github.com/redis/redis)
 5. Markdown 转 HTML：[commonmark-java](https://github.com/commonmark/commonmark-java)
@@ -20,7 +20,7 @@
 
 ~~话说应该没人会拉取我的项目吧~~
 
-mysql推荐8.0以上的版本，5和8的默认字符集不一致，可能会出现字符异常问题
+mysql推荐8.0以上的版本，5.x和8.x的默认字符集不一致，可能会出现字符异常问题
 
 用户名是Admin，密码是123456，可以在SecurityUtils打印密码然后存储在数据库中
 
