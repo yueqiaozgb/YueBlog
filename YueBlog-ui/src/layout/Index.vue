@@ -138,7 +138,7 @@ const scrollToTop = () => {
     </div>
 
     <!--回到顶部-->
-    <el-backtop ref="backtop" style="box-shadow: none;background: none;z-index: 9999;">
+    <el-backtop ref="backtop" style="box-shadow: none;background: none;z-index: 9999;" class="custom-backtop">
       <img src="/img/paper-plane.png" style="width: 40px;height: 40px;">
     </el-backtop>
 
@@ -175,5 +175,9 @@ const scrollToTop = () => {
 
 .m-display-none {
   display: none !important;
+}
+
+.custom-backtop {
+  margin-bottom: 200px; /* 调整的距离，根据需要进行修改 */
 }
 </style>
