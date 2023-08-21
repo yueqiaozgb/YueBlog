@@ -7,8 +7,6 @@ defineOptions({
   name: 'BlogHeader',
 });
 
-const loaded = ref(false);
-
 const useStores = useStore();
 
 const {clientSize} = storeToRefs(useStores)
@@ -23,30 +21,12 @@ const scrollToMain = () => {
 
 const header = ref();
 
-const imgbg1 = ref();
-
 const setHeaderHeight = () => {
   header.value.style.height = clientSize.value.clientHeight + 'px'
 }
 
 onMounted(() => {
-  imgbg1.value.onload = () => {
-    loaded.value = true
-  }
   setHeaderHeight()
-  let startingPoint: number = 0
-  header.value.addEventListener('mouseenter', (e: any) => {
-    startingPoint = e.clientX
-  })
-  header.value.addEventListener('mouseout', () => {
-    header.value.classList.remove('moving')
-    header.value.style.setProperty('--percentage', 0.5)
-  })
-  header.value.addEventListener('mousemove', (e: any) => {
-    let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5
-    header.value.style.setProperty('--percentage', percentage)
-    header.value.classList.add('moving')
-  })
 })
 
 </script>
@@ -54,10 +34,10 @@ onMounted(() => {
 <template>
   <header ref="header">
     <div class="view">
-      <img ref="imgbg1" src="/img/picture/lp2.jpg" style="display: none;" alt="">
-      <div class="bg1" style="background-image: url('/img/picture/lp2.jpg')"></div>
-      <div class="bg2" style="background-image: url('/img/picture/lp1.jpg')"></div>
-      <div class="bg3" style="background-image: url('/img/picture/lp3.jpg')" v-show="loaded"></div>
+        <video autoplay loop muted class="background-video">
+          <source src="/video/zm.mp4" type="video/mp4">
+          您的浏览器不支持视频播放。
+        </video>
     </div>
     <div class="text-malfunction" data-word="Yue's Blog">
       <div class="line"></div>
@@ -65,14 +45,12 @@ onMounted(() => {
     <div class="wrapper">
       <i class="ali-iconfont icon-down" @click="scrollToMain"></i>
     </div>
-    <div class="wave1" style="background: url('/img/wave/wave1.png') repeat-x;"></div>
-    <div class="wave2" style="background: url('/img/wave/wave2.png') repeat-x;"></div>
   </header>
 </template>
 
 <style scoped>
 header {
-  --percentage: 0.5;
+  /* --percentage: 0.5; */
   user-select: none;
 }
 
@@ -82,43 +60,13 @@ header {
   right: 0;
   bottom: 0;
   left: 0;
-  display: flex;
   justify-content: center;
-  transform: translatex(calc(var(--percentage) * 100px));
 }
 
-.view div {
-  background-position: center center;
-  background-size: cover;
-  position: absolute;
-  width: 110%;
+.background-video {
+  object-fit: cover;
+  width: 100%;
   height: 100%;
-}
-
-.view .bg1 {
-  z-index: 10;
-  opacity: calc(1 - (var(--percentage) - 0.5) / 0.5);
-}
-
-.view .bg2 {
-  z-index: 20;
-  opacity: calc(1 - (var(--percentage) - 0.25) / 0.25);
-}
-
-.view .bg3 {
-  left: -10%;
-}
-
-header .view,
-header .bg1,
-header .bg2 {
-  transition: .2s all ease-in;
-}
-
-header.moving .view,
-header.moving .bg1,
-header.moving .bg2 {
-  transition: none;
 }
 
 .text-malfunction {

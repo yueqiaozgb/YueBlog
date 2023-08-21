@@ -44,7 +44,7 @@ const toBlog = (blog: any) => {
         <router-link to="/" style="color:#ffe500" v-if="siteInfo.copyright">{{ siteInfo.copyright.siteName }}</router-link>
         <span style="margin: 0 15px" v-if="siteInfo.copyright && siteInfo.beian">|</span>
         <img src="/img/beian.png" alt="" class="beian" v-if="siteInfo.beian">
-        <a rel="external nofollow noopener" href="http://www.beian.miit.gov.cn/" target="_blank" style="color:#ffe500">{{ siteInfo.beian }}</a>
+        <a rel="external nofollow noopener" href="http://beian.miit.gov.cn/" target="_blank" style="color:#ffe500">{{ siteInfo.beian }}</a>
       </p>
 
       <div class="github-badge" v-for="(item,index) in badges" :key="index">
