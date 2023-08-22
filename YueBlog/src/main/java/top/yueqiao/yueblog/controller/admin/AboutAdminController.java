@@ -15,6 +15,8 @@ import top.yueqiao.yueblog.validate.UpdateGroup;
 import static top.yueqiao.yueblog.constant.Constants.Role.ROLE_ADMIN;
 
 /**
+ * 关于
+ *
  * @author yueqiao
  */
 @Slf4j

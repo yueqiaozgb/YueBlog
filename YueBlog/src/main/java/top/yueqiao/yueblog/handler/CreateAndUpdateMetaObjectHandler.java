@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import top.yueqiao.yueblog.domain.BaseEntity;
+import top.yueqiao.yueblog.domain.entity.User;
 import top.yueqiao.yueblog.exception.ServiceException;
+import top.yueqiao.yueblog.util.LoginUtils;
 
 import java.util.Date;
 
@@ -71,7 +73,8 @@ public class CreateAndUpdateMetaObjectHandler implements MetaObjectHandler {
      * 获取登录用户名
      */
     private String getLoginUsername() {
-        return "admin";
+        User loginUser = LoginUtils.getLoginUser();
+        return loginUser.getUsername();
     }
 
 }

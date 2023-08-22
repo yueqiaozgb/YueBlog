@@ -1,19 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : yueqiao
- Source Server Type    : MySQL
- Source Server Version : 80034
- Source Host           : 43.138.86.8:3306
- Source Schema         : yue_blog
-
- Target Server Type    : MySQL
- Target Server Version : 80034
- File Encoding         : 65001
-
- Date: 20/08/2023 01:57:09
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

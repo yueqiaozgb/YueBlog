@@ -1,10 +1,15 @@
 package top.yueqiao.yueblog.constant;
 
 /**
+ * 常量
+ *
  * @author yueqiao
  */
 public class Constants {
 
+    /**
+     * 分页常量
+     */
     public interface Page {
         int CURRENT_PAGE = 1;
         int PAGE_SIZE = 5;
@@ -12,6 +17,9 @@ public class Constants {
         int RANDOM_LIMIT_SIZE = 5;
     }
 
+    /**
+     * 网站常量
+     */
     public interface SiteSetting {
         String COPYRIGHT = "copyright";
         String AVATAR = "avatar";
@@ -25,6 +33,9 @@ public class Constants {
         String ROLL_TEXT = "rollText";
     }
 
+    /**
+     * 操作常量
+     */
     public interface Flag {
         Integer INTEGER_SUCCESS = 1;
         Integer INTEGER_FAIL = 0;
@@ -32,6 +43,9 @@ public class Constants {
         Boolean BOOLEAN_FAIL = false;
     }
 
+    /**
+     * 角色常量
+     */
     public interface Role {
         String ROLE_ADMIN = "admin";
     }

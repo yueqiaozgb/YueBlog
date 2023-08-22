@@ -12,13 +12,17 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * sa-token 配置
+ *
  * @author yueqiao
  */
 @Slf4j
 @Configuration
 public class SaTokenConfigure implements WebMvcConfigurer {
 
-    // 注册 Sa-Token 拦截器，打开注解式鉴权功能
+    /**
+     * 注册 Sa-Token 拦截器，打开注解式鉴权功能
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册 Sa-Token 拦截器，打开注解式鉴权功能
@@ -30,7 +34,9 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         )).addPathPatterns("/**");
     }
 
-    // Sa-Token 整合 jwt (Simple 简单模式)
+    /**
+     * Sa-Token 整合 jwt (Simple 简单模式)
+     */
     @Bean
     public StpLogic getStpLogicJwt() {
         return new StpLogicJwtForSimple();

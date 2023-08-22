@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 登录Dto对象
+ *
  * @author yueqiao
  */
 @Data

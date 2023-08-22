@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 博客表
+ * 博客Dto对象
  *
  * @author yueqiao
  * @TableName blog

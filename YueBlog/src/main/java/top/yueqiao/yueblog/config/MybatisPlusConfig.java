@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import top.yueqiao.yueblog.handler.CreateAndUpdateMetaObjectHandler;
 
 /**
+ * MybatisPlus配置
+ *
  * @author yueqiao
  */
 @Configuration
@@ -34,7 +36,7 @@ public class MybatisPlusConfig {
     }
 
     /**
-     * 元对象字段填充控制器
+     * 元对象字段填充控制器, 在新增和修改的时候自动填充
      */
     @Bean
     public MetaObjectHandler metaObjectHandler() {
