@@ -2,7 +2,6 @@ package top.yueqiao.yueblog.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +11,7 @@ import top.yueqiao.yueblog.domain.entity.User;
 import top.yueqiao.yueblog.exception.ServiceException;
 import top.yueqiao.yueblog.mapper.UserMapper;
 import top.yueqiao.yueblog.service.UserService;
+import top.yueqiao.yueblog.util.LoginUtils;
 import top.yueqiao.yueblog.util.SecurityUtils;
 
 import java.util.HashMap;
@@ -38,10 +38,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new ServiceException("密码错误");
         }
         StpUtil.login(user.getId());
+        LoginUtils.setLoginUser(user);
         Map<String, Object> map = new HashMap<>();
         map.put("token", StpUtil.getTokenInfo().tokenValue);
         map.put("user", user);
-        log.info(JSON.toJSONString(map));
         return map;
     }
 

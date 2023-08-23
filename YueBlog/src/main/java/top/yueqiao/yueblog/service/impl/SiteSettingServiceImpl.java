@@ -3,6 +3,8 @@ package top.yueqiao.yueblog.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.yueqiao.yueblog.domain.entity.SiteSetting;
@@ -105,6 +107,7 @@ public class SiteSettingServiceImpl extends ServiceImpl<SiteSettingMapper, SiteS
     }
 
     @Override
+    @Cacheable(value = "siteSettingCache", key = "'siteSetting'")
     public Map<String, List<SiteSetting>> selectSiteSettingMap() {
         List<SiteSetting> siteSettings = baseMapper.selectList(null);
         List<SiteSetting> type1 = new ArrayList<>();
@@ -127,6 +130,7 @@ public class SiteSettingServiceImpl extends ServiceImpl<SiteSettingMapper, SiteS
     }
 
     @Override
+    @CacheEvict(value = "siteSettingCache", key = "'siteSetting'")
     public boolean updateSiteSetting(List<LinkedHashMap> siteSettings, List<Integer> deleteIds) {
         if (ObjectUtil.isNull(deleteIds)) {
             int rows = baseMapper.deleteBatchIds(deleteIds);
