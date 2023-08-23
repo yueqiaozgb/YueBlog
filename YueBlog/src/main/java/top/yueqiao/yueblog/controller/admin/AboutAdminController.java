@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.yueqiao.yueblog.controller.BaseController;
@@ -35,6 +36,7 @@ public class AboutAdminController extends BaseController {
 
     @PutMapping
     @SaCheckRole(ROLE_ADMIN)
+    @CacheEvict(value = "aboutCache", key = "'about'")
     public Result<Void> updateAbout(@Validated(UpdateGroup.class) @RequestBody About about) {
         return toAjax(aboutService.updateById(about));
     }
