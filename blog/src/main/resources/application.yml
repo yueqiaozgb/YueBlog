@@ -1,6 +1,8 @@
 spring:
   application:
     name: blog
+  profiles:
+    active: dev
 
 server:
   port: 8080
