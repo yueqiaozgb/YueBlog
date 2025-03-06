@@ -1,4 +1,4 @@
-package top.yueqiao.blog.entity.po;
+package top.yueqiao.blog.entity.model;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
