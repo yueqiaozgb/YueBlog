@@ -17,6 +17,7 @@ const debounceErr = debounce(msg => {
 
 /* Axios配置 START */
 const request = axios.create({
+  baseURL: "api",
   timeout: 60 * 1000, // 请求超时秒数
 });
 

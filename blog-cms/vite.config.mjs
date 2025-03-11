@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
         "/api": {
           target: env.VITE_PROXY_TARGET,
           changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, ""),
           configure: (proxy, options) => {
             proxy.on("proxyRes", (proxyRes, req, res) => {
               proxyRes.headers["x-proxy-url"] = env.VITE_PROXY_TARGET + req.originalUrl;

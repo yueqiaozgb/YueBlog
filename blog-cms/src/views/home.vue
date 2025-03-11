@@ -5,6 +5,13 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+
+import {login} from "@/api/login";
+
+login().then(res => {
+  console.log(res)
+})
+</script>
 
 <style lang="scss" scoped></style>
