@@ -1,8 +1,6 @@
 package top.yueqiao.blog.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,24 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping("/login")
-    public SaResult login(String username, String password) {
-        if ("admin".equals(username) && "123456".equals(password)) {
-            // 登录认证
-            StpUtil.login(100000);
-            // 生成token，token 信息自动存入redis，在yml里配置 sa-token 相关信息
-            String token = StpUtil.getTokenValue();
-            System.out.println(token);
-            // 将用户信息存入 redis
-            return SaResult.ok("登录成功");
+    // 测试登录，浏览器访问： http://localhost:8080/user/doLogin?username=zhang&password=123456
+    @RequestMapping("doLogin")
+    public String doLogin(String username, String password) {
+        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
+        if("zhang".equals(username) && "123456".equals(password)) {
+            StpUtil.login(10001);
+            return "登录成功";
         }
-        return SaResult.error("登录失败");
+        return "登录失败";
     }
 
-    @GetMapping("/logout")
-    public SaResult logout() {
+    // 查询登录状态，浏览器访问： http://localhost:8080/user/isLogin
+    @RequestMapping("isLogin")
+    public String isLogin() {
+        return "当前会话是否登录：" + StpUtil.isLogin();
+    }
+
+    // 退出登录，浏览器访问： http://localhost:8080/user/logout
+    @RequestMapping("logout")
+    public String logout() {
         StpUtil.logout();
-        return SaResult.ok("退出成功");
+        return "退出登录";
     }
 
 }
