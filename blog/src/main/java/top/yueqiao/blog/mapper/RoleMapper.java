@@ -1,7 +1,7 @@
 package top.yueqiao.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import top.yueqiao.blog.entity.model.Role;
+import top.yueqiao.blog.entity.Role;
 
 /**
  * @author yueqiao

@@ -1,6 +1,6 @@
 package top.yueqiao.blog.controller;
 
-import top.yueqiao.blog.entity.AjaxResult;
+import top.yueqiao.blog.model.AjaxResult;
 
 /**
  * @author : yueqiao
@@ -10,6 +10,10 @@ public class BaseController {
 
     public static AjaxResult success(Object data) {
         return AjaxResult.success(data);
+    }
+
+    public static AjaxResult success() {
+        return AjaxResult.success();
     }
 
     public static AjaxResult toAjax(int result) {

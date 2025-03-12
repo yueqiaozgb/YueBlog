@@ -1,7 +1,7 @@
 package top.yueqiao.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.yueqiao.blog.entity.model.User;
+import top.yueqiao.blog.entity.User;
 
 /**
  * @author : yueqiao
@@ -9,6 +9,6 @@ import top.yueqiao.blog.entity.model.User;
  */
 public interface ILoginService extends IService<User> {
 
-    int login(String username, String password);
+    String login(String username, String password);
 
 }

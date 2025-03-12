@@ -1,4 +1,4 @@
-package top.yueqiao.blog.entity;
+package top.yueqiao.blog.model;
 
 import lombok.Data;
 import top.yueqiao.blog.enums.ReturnCode;

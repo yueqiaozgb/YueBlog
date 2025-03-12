@@ -1,9 +1,7 @@
 package top.yueqiao.blog.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
-import top.yueqiao.blog.mapper.UserMapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,9 +13,6 @@ import java.util.List;
  */
 @Component
 public class StpInterfaceImpl implements StpInterface {
-
-    @Resource
-    private UserMapper userMapper;
 
     /**
      * 返回一个账号所拥有的权限码集合

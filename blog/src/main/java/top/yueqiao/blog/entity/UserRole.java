@@ -1,9 +1,8 @@
-package top.yueqiao.blog.entity.model;
+package top.yueqiao.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import top.yueqiao.blog.entity.BaseEntity;
 
 /**
  * @author : yueqiao

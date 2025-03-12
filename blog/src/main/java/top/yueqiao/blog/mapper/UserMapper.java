@@ -1,7 +1,8 @@
 package top.yueqiao.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import top.yueqiao.blog.entity.model.User;
+import org.apache.ibatis.annotations.Param;
+import top.yueqiao.blog.entity.User;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ import java.util.List;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-    List<String> selectRoleListByUserId(Integer userId);
+    List<String> selectRoleListByUserId(@Param("userId") Integer userId);
 
 }

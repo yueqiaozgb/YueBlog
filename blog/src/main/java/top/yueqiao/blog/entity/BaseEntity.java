@@ -2,6 +2,8 @@ package top.yueqiao.blog.entity;
 
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -9,7 +11,9 @@ import java.time.LocalDateTime;
  * @date 2025/03/05/16:44
  */
 @Data
-public class BaseEntity {
+public class BaseEntity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 }
