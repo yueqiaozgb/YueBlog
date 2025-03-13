@@ -5,6 +5,10 @@
 <mapper namespace="top.yueqiao.blog.mapper.UserMapper">
 
     <select id="selectRoleListByUserId" resultType="java.lang.String">
+        SELECT sr.role_key
+        FROM `sys_user` su
+                 LEFT JOIN `sys_user_role` sur ON su.id = sur.user_id
+                 LEFT JOIN `sys_role` sr ON sur.role_id = sr.id
 
     </select>
 

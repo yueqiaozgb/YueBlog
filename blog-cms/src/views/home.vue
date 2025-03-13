@@ -7,9 +7,9 @@
 
 <script setup>
 
-import {login} from "@/api/login";
+import {blog} from "@/api/blog";
 
-login().then(res => {
+blog().then(res => {
   console.log(res)
 })
 </script>

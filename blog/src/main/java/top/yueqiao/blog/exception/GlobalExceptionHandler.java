@@ -1,5 +1,8 @@
 package top.yueqiao.blog.exception;
 
+import cn.dev33.satoken.exception.NotRoleException;
+import cn.hutool.http.HttpStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,6 +26,16 @@ public class GlobalExceptionHandler {
     public AjaxResult handlerServiceException(ServiceException e) {
         log.error("业务异常", e);
         return AjaxResult.error(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * 角色校验异常
+     */
+    @ExceptionHandler(NotRoleException.class)
+    public AjaxResult handleAccessDeniedException(NotRoleException e, HttpServletRequest request) {
+        String requestUri = request.getRequestURI();
+        log.error("请求地址'{}',角色校验失败'{}'", requestUri, e.getMessage());
+        return AjaxResult.error(HttpStatus.HTTP_FORBIDDEN, "没有角色，请联系管理员授权");
     }
 
 }

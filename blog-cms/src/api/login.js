@@ -2,8 +2,8 @@ import request from "@/utils/request";
 
 export const login = params => {
     return request({
-        url: "/user/doLogin",
+        url: "/user/login",
         method: "post",
-        data: params,
+        params: params,
     });
 };

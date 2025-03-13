@@ -69,6 +69,7 @@ import { arr2tree } from "@/utils/index.js";
 import menuJson from "@/router/menu.json";
 import { menuKey } from "@/router/menuConfig.js";
 import { useLayoutStore } from "@/stores/layout.js";
+import {login} from "@/api/login";
 
 const layoutStore = useLayoutStore();
 const { isNavigating } = storeToRefs(layoutStore);
@@ -97,19 +98,23 @@ const inputBlur = params => {
 };
 
 const handleLogin = params => {
-  // 模拟接口返回菜单 START
-  const userStore = useUserStore();
-  userStore.$patch(state => {
-    state.menu = arr2tree(menuJson, {
-      id: menuKey.id,
-      parentId: menuKey.parentId,
-      children: menuKey.children,
-    });
-  });
-  // 模拟接口返回菜单 END
-  router.replace({
-    path: "/",
-  });
+  login({username: form.username, password: form.password}).then((res) => {
+    if (res["code"] === 200) {
+      // 模拟接口返回菜单 START
+      const userStore = useUserStore();
+      userStore.$patch(state => {
+        state.menu = arr2tree(menuJson, {
+          id: menuKey.id,
+          parentId: menuKey.parentId,
+          children: menuKey.children,
+        });
+      });
+      // 模拟接口返回菜单 END
+      router.replace({
+        path: "/",
+      });
+    }
+  })
 };
 </script>
 
