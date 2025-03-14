@@ -65,7 +65,7 @@ import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user.js";
 import { storeToRefs } from "pinia";
-import { arr2tree } from "@/utils/index.js";
+import {arr2tree, setLocalStorage} from "@/utils/index.js";
 import menuJson from "@/router/menu.json";
 import { menuKey } from "@/router/menuConfig.js";
 import { useLayoutStore } from "@/stores/layout.js";
@@ -100,6 +100,7 @@ const inputBlur = params => {
 const handleLogin = params => {
   login({username: form.username, password: form.password}).then((res) => {
     if (res["code"] === 200) {
+      setLocalStorage('token', res["data"]);
       // 模拟接口返回菜单 START
       const userStore = useUserStore();
       userStore.$patch(state => {

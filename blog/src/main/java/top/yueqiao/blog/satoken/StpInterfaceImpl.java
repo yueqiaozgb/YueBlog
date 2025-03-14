@@ -1,10 +1,10 @@
 package top.yueqiao.blog.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.stereotype.Component;
+import top.yueqiao.blog.model.bo.UserBo;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +19,8 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return Collections.emptyList();
+        UserBo userBo = (UserBo) StpUtil.getSession().get("user");
+        return userBo.getPermissionList();
     }
 
     /**
@@ -27,11 +28,8 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        // 本 list 仅做模拟，实际项目中要根据具体业务逻辑来查询角色
-        List<String> list = new ArrayList<String>();
-        list.add("admin");
-        list.add("super-admin");
-        return list;
+        UserBo userBo = (UserBo) StpUtil.getSession().get("user");
+        return userBo.getRoleList();
     }
 
 }

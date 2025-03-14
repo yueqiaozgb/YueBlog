@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
 import { debounce } from "lodash-es";
-import { removeAllLoginInfo } from "@/utils/index";
+import {getLocalStorage, removeAllLoginInfo} from "@/utils/index";
 import router from "@/router";
 
 // 登出逻辑（接口返回 401 时调用这个函数，用于清空登录信息，然后跳转登录页）
@@ -25,6 +25,10 @@ const request = axios.create({
 request.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
+      const token = getLocalStorage('token');
+      if (token) {
+          config.headers['Authentication'] = 'Bearer ' + token;
+      }
     return config;
   },
   function (error) {

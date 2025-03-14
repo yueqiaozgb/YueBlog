@@ -1,5 +1,6 @@
 package top.yueqiao.blog.exception;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.hutool.http.HttpStatus;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,14 +29,18 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(e.getCode(), e.getMessage());
     }
 
-    /**
-     * 角色校验异常
-     */
     @ExceptionHandler(NotRoleException.class)
     public AjaxResult handleAccessDeniedException(NotRoleException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',角色校验失败'{}'", requestUri, e.getMessage());
         return AjaxResult.error(HttpStatus.HTTP_FORBIDDEN, "没有角色，请联系管理员授权");
+    }
+
+    @ExceptionHandler(NotLoginException.class)
+    public AjaxResult handleNotLoginException(NotLoginException e, HttpServletRequest request) {
+        String requestUri = request.getRequestURI();
+        log.error("请求地址'{}',登录校验失败'{}'", requestUri, e.getMessage());
+        return AjaxResult.error(HttpStatus.HTTP_FORBIDDEN, "未登录，请先登录");
     }
 
 }

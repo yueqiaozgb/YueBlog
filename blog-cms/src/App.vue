@@ -43,7 +43,7 @@ watch(
 
 /* 检测版本号 START */
 const version = getLocalStorage("version"); // 获取当前缓存版本号
-const isVersionExpired = compareVersions(__APP_VERSION__, version) == 1 ? true : false; // 当前缓存版本号是否过期
+const isVersionExpired = compareVersions(__APP_VERSION__, version) === 1; // 当前缓存版本号是否过期
 // 当前缓存版本号过期时，则删除缓存，重新登录
 if (!version || isVersionExpired) {
   ElMessage({ type: "info", message: `检测到新版本，请重新登录！` });

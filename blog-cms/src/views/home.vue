@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-
 import {blog} from "@/api/blog";
 
 blog().then(res => {

@@ -47,6 +47,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements I
         } else {
             userBo.setRoleList(baseMapper.selectRoleListByUserId(user.getId()));
         }
+        StpUtil.getSession().set("user", userBo);
         return StpUtil.getTokenValue();
     }
 
