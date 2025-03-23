@@ -1,6 +1,6 @@
 package top.yueqiao.blog.controller;
 
-import top.yueqiao.blog.model.AjaxResult;
+import top.yueqiao.blog.domain.AjaxResult;
 
 /**
  * @author : yueqiao

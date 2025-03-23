@@ -14,7 +14,7 @@ import top.yueqiao.blog.domain.entity.User;
 import top.yueqiao.blog.exception.ServiceException;
 import top.yueqiao.blog.mapper.UserMapper;
 import top.yueqiao.blog.mapstruct.IUserMapper;
-import top.yueqiao.blog.model.bo.UserBo;
+import top.yueqiao.blog.domain.model.bo.UserBo;
 import top.yueqiao.blog.service.ILoginService;
 
 /**

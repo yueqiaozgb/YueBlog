@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.yueqiao.blog.model.AjaxResult;
+import top.yueqiao.blog.domain.AjaxResult;
 import top.yueqiao.blog.service.ILoginService;
 
 /**

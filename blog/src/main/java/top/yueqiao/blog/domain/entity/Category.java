@@ -9,22 +9,16 @@ import top.yueqiao.blog.domain.BaseEntity;
 import java.io.Serial;
 
 /**
- * @author yueqiao
- * @date 2025/03/05/17:04
+ * @author : yueqiao
+ * @date : 2025/3/23 21:18
  */
-
 @Data
-@TableName("blog")
+@TableName("category")
 @EqualsAndHashCode(callSuper = true)
-public class Blog extends BaseEntity {
+public class Category extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
     @TableId
     private Integer id;
-    private Integer categoryId;
-    private String title;
-    private String cover;
-    private String content;
-    private Integer wordCount;
-    private Integer readTime;
+    private String name;
 }

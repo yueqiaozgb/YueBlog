@@ -1,4 +1,4 @@
-package top.yueqiao.blog.model.bo;
+package top.yueqiao.blog.domain.model.bo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

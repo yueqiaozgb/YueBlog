@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 import top.yueqiao.blog.domain.entity.User;
-import top.yueqiao.blog.model.bo.UserBo;
+import top.yueqiao.blog.domain.model.bo.UserBo;
 
 /**
  * @author yueqiao
