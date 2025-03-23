@@ -2,7 +2,7 @@ package top.yueqiao.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import top.yueqiao.blog.entity.User;
+import top.yueqiao.blog.domain.entity.User;
 
 import java.util.List;
 

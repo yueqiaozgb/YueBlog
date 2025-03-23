@@ -2,7 +2,7 @@ package top.yueqiao.blog.model.bo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import top.yueqiao.blog.entity.User;
+import top.yueqiao.blog.domain.entity.User;
 
 import java.util.List;
 

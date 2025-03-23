@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-import top.yueqiao.blog.entity.User;
+import top.yueqiao.blog.domain.entity.User;
 import top.yueqiao.blog.model.bo.UserBo;
 
 /**

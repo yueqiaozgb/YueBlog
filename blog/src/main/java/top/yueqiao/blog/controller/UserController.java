@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,14 +24,14 @@ public class UserController extends BaseController {
     private ILoginService loginService;
 
     // 用户登录，浏览器访问： http://localhost:8080/user/login?username=admin&password=123456
-    @RequestMapping("/login")
-    public AjaxResult doLogin(@NotBlank(message = "用户名不能为空") @RequestParam String username,
+    @PostMapping("/login")
+    public AjaxResult login(@NotBlank(message = "用户名不能为空") @RequestParam String username,
                               @NotBlank(message = "密码不能为空") @RequestParam String password) {
         return success(loginService.login(username, password));
     }
 
     // 退出登录，浏览器访问： http://localhost:8080/user/logout
-    @RequestMapping("/logout")
+    @PostMapping("/logout")
     public AjaxResult logout() {
         log.info("退出登录,用户 id: {}", StpUtil.getLoginId());
         StpUtil.logout();

@@ -1,7 +1,7 @@
 package top.yueqiao.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.yueqiao.blog.entity.User;
+import top.yueqiao.blog.domain.entity.User;
 
 /**
  * @author : yueqiao

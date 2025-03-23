@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
-import { arr2tree, tree2arr, getLocalStorage, removeAllLoginInfo } from "@/utils/index";
+import { createRouter, createWebHistory } from "vue-router";
+import { arr2tree, tree2arr, getLocalStorage, removeAllLoginInfo } from "@/utils";
 import NProgress from "@/utils/nProgress.js";
 import { menuKey } from "@/router/menuConfig.js";
 import { useLayoutStore } from "@/stores/layout.js";
@@ -13,11 +13,11 @@ const notFound = () => import("@/views/404.vue"); // 404页
 /* 页面路由 START */
 const largeScreen = () => import("@/views/largeScreen.vue");
 const home = () => import("@/views/home.vue"); // 首页
-import routeExample from "./routeExample"; // 示例页面路由（拆分示例）
+import myRoute from "@/router/route"
 /* 页面路由 END */
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     { path: "/login", name: "登录页", component: login },
     { path: "/largeScreen", name: "largeScreen", component: largeScreen },
@@ -29,7 +29,9 @@ const router = createRouter({
         // 校验未登录，则返回登录页
         if (!getLocalStorage("user")) return "/login";
         // 成功登录且权限完整，默认重定向到用户权限路由的第一个
+        console.log(getLocalStorage("user"))
         const menuList = tree2arr(JSON.parse(getLocalStorage("user")).menu);
+        console.log(menuList)
         const defaultPage = menuList.find(i => i[menuKey.url]);
         if (!defaultPage) {
           console.error("Please check your menuKey in /src/router/menuConfig.js file.");
@@ -42,9 +44,8 @@ const router = createRouter({
       children: [
         /* 页面路由 START */
         { path: "/home", name: "home", component: home },
-        ...routeExample,
+        ...myRoute,
         /* 页面路由 END */
-
         {
           path: "/refresh",
           name: "refreshPage",

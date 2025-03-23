@@ -1,6 +1,7 @@
 package top.yueqiao.blog.controller;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.yueqiao.blog.model.AjaxResult;
@@ -14,7 +15,7 @@ import top.yueqiao.blog.model.AjaxResult;
 public class BlogController extends BaseController{
 
     @SaCheckRole("ADMIN")
-    @RequestMapping()
+    @GetMapping()
     public AjaxResult getInfo() {
         return success("1");
     }

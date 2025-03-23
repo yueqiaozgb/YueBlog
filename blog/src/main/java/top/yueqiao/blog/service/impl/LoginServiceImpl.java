@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import top.yueqiao.blog.entity.User;
+import top.yueqiao.blog.domain.entity.User;
 import top.yueqiao.blog.exception.ServiceException;
 import top.yueqiao.blog.mapper.UserMapper;
 import top.yueqiao.blog.mapstruct.IUserMapper;

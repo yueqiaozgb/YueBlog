@@ -1,4 +1,4 @@
-package top.yueqiao.blog.entity;
+package top.yueqiao.blog.domain;
 
 import lombok.Data;
 
