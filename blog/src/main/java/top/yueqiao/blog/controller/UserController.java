@@ -25,14 +25,14 @@ public class UserController extends BaseController {
 
     // 用户登录，浏览器访问： http://localhost:8080/user/login?username=admin&password=123456
     @PostMapping("/login")
-    public AjaxResult login(@NotBlank(message = "用户名不能为空") @RequestParam String username,
+    public AjaxResult<String> login(@NotBlank(message = "用户名不能为空") @RequestParam String username,
                               @NotBlank(message = "密码不能为空") @RequestParam String password) {
         return success(loginService.login(username, password));
     }
 
     // 退出登录，浏览器访问： http://localhost:8080/user/logout
     @PostMapping("/logout")
-    public AjaxResult logout() {
+    public AjaxResult<Void> logout() {
         log.info("退出登录,用户 id: {}", StpUtil.getLoginId());
         StpUtil.logout();
         return success();

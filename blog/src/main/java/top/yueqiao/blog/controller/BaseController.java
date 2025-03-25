@@ -8,19 +8,19 @@ import top.yueqiao.blog.domain.AjaxResult;
  */
 public class BaseController {
 
-    public static AjaxResult success(Object data) {
+    public static <T> AjaxResult<T> success(T data) {
         return AjaxResult.success(data);
     }
 
-    public static AjaxResult success() {
+    public static <T> AjaxResult<T> success() {
         return AjaxResult.success();
     }
 
-    public static AjaxResult toAjax(int result) {
+    public static <T> AjaxResult<T> toAjax(int result) {
         return result == 1 ? AjaxResult.success() : AjaxResult.error();
     }
 
-    public static AjaxResult toAjax(boolean result) {
+    public static <T> AjaxResult<T> toAjax(boolean result) {
         return result ? AjaxResult.success() : AjaxResult.error();
     }
 
