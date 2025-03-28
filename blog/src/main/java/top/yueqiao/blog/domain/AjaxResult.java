@@ -3,14 +3,23 @@ package top.yueqiao.blog.domain;
 import lombok.Data;
 import top.yueqiao.blog.enums.ReturnCode;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * @author : yueqiao
  * @date : 2025/3/11 23:31
  */
 @Data
-public class AjaxResult<T> {
+public class AjaxResult<T> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private Integer code;
+
     private String msg;
+
     private T data;
 
     public AjaxResult(Integer code, String msg, T data) {

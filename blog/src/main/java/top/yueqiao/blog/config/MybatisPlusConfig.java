@@ -1,9 +1,11 @@
 package top.yueqiao.blog.config;
 
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import top.yueqiao.blog.handler.CreateAndUpdateMetaObjectHandler;
 
 /**
  * @author : yueqiao
@@ -31,6 +33,11 @@ public class MybatisPlusConfig {
         mybatisPlusInterceptor.addInnerInterceptor(paginationInnerInterceptor);
         //添加组件，大功告成！
         return mybatisPlusInterceptor;
+    }
+
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new CreateAndUpdateMetaObjectHandler();
     }
 
 }

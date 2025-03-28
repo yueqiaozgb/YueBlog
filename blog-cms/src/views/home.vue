@@ -6,11 +6,7 @@
 </template>
 
 <script setup>
-import {blog} from "@/api/blog";
 
-blog().then(res => {
-  console.log(res)
-})
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,15 +1,17 @@
 <script setup>
+import {getBlog} from "@/api/blog";
+
 defineOptions({
   name: 'Blog'
+})
+
+getBlog(1).then(res => {
+  console.log(res)
 })
 </script>
 
 <template>
-  <el-form>
-    <el-form-item>
-      <el-input></el-input>
-    </el-form-item>
-  </el-form>
+
 </template>
 
 <style scoped lang="scss">

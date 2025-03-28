@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import top.yueqiao.blog.domain.BaseEntity;
-import top.yueqiao.blog.interfaces.DeleteGroup;
 import top.yueqiao.blog.interfaces.InsertGroup;
 import top.yueqiao.blog.interfaces.UpdateGroup;
 
@@ -25,7 +24,7 @@ public class Blog extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
     @TableId
-    @NotNull(message = "id不能为空", groups = {DeleteGroup.class, UpdateGroup.class})
+    @NotNull(message = "id不能为空", groups = {UpdateGroup.class})
     private Integer id;
     @NotNull(message = "分类不能为空", groups = {InsertGroup.class, UpdateGroup.class})
     private Integer categoryId;
