@@ -1,6 +1,6 @@
 [
   {
-    "id": "2",
+    "id": "1",
     "parentId": "0",
     "url": "/home",
     "title": "首页",
@@ -8,10 +8,26 @@
     "menuType": 0
   },
   {
-    "id": "3",
+    "id": "2",
     "parentId": "0",
     "url": "/blog",
     "title": "博客管理",
+    "icon": "icon-shouye",
+    "menuType": 0
+  },
+  {
+    "id": "20",
+    "parentId": "0",
+    "url": "/blog/info",
+    "title": "博客信息",
+    "icon": "icon-shouye",
+    "menuType": 1
+  },
+  {
+    "id": "3",
+    "parentId": "0",
+    "url": "/category",
+    "title": "分类管理",
     "icon": "icon-shouye",
     "menuType": 0
   },

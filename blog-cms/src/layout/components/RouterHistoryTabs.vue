@@ -81,15 +81,15 @@ watch(
       scrollTabs(routeIdxInHistory);
     });
     if (!currentRoute) return;
-    if (currentRoute[menuKey.menuType] != menuKey.menuValue) {
-      function findParentRouteWithoutHidden(_route) {
-        let _parentRoute = userStore.menuArrWithoutEmptyUrl.find(i => i[menuKey.id] === _route.parentId);
-        if (!_parentRoute) return;
-        if (_parentRoute[menuKey.menuType] == menuKey.menuValue) return _parentRoute;
-        findParentRouteWithoutHidden(_parentRoute);
-      }
-      currentRoute = findParentRouteWithoutHidden(currentRoute);
-    }
+    // if (currentRoute[menuKey.menuType] != menuKey.menuValue) {
+    //   function findParentRouteWithoutHidden(_route) {
+    //     let _parentRoute = userStore.menuArrWithoutEmptyUrl.find(i => i[menuKey.id] === _route.parentId);
+    //     if (!_parentRoute) return;
+    //     if (_parentRoute[menuKey.menuType] == menuKey.menuValue) return _parentRoute;
+    //     findParentRouteWithoutHidden(_parentRoute);
+    //   }
+    //   currentRoute = findParentRouteWithoutHidden(currentRoute);
+    // }
     if (routeHistory.value.findIndex(i => i[menuKey.url] === currentRoute[menuKey.url]) !== -1) return;
     userStore.$patch(state => {
       state.routeHistory.push({

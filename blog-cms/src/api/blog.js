@@ -14,3 +14,10 @@ export const getBlog = id => {
         method: "get"
     });
 }
+
+export const deleteBlog = id => {
+    return request({
+        url: "/blog/" + id,
+        method: "delete"
+    });
+}
