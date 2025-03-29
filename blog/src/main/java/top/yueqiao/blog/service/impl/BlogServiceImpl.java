@@ -42,7 +42,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
                         Blog::getReadTime,
                         Blog::getCreateTime)
                 .like(StrUtil.isNotBlank(blog.getTitle()), Blog::getTitle, blog.getTitle())
-                .eq(ObjectUtil.isNotNull(blog.getId()), Blog::getId, blog.getId());
+                .eq(ObjectUtil.isNotNull(blog.getCategoryId()), Blog::getCategoryId, blog.getCategoryId());
         Page<Blog> page = page(pageQuery.build(), lqw);
         List<BlogListItemVo> list = page.getRecords().stream()
                 .map(IBlogMapper.INSTANCE::blogToBlogListItemVo)

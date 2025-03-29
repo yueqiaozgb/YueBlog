@@ -1,9 +1,10 @@
 import request from "@/utils/request";
 
-export const listBlog = () => {
+export const listBlog = (data) => {
     return request({
         url: "/blog/list",
-        method: "get"
+        method: "get",
+        params: data
     });
 };
 
