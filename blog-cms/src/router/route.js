@@ -1,6 +1,6 @@
 const blog = () => import("@/views/blog/index.vue")
 
-const blogInfo = () => import("@/views/blog/info.vue")
+const blogInfo = () => import("@/views/blog/EditBlog.vue")
 
 const route = [
     {
