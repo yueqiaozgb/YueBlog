@@ -20,6 +20,11 @@ import "./styles/tailwind-reset.scss"; // 单独引入reset文件，防止 tailw
 
 import directives from "./directives"; // 导入所有指令
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
+import 'highlight.js/styles/default.css';
+
 const pinia = createPinia().use(piniaPluginPersistedstate);
 const app = createApp(App);
 
@@ -40,5 +45,7 @@ app.use(pinia);
 app.use(router);
 app.use(ElementPlus);
 app.use(globalComponents);
+
+app.use(mavonEditor)
 
 app.mount("#app");

@@ -1,10 +1,9 @@
 <script setup>
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
-import Editor from "@/views/blog/tiptap.vue";
 
 defineOptions({
-  name: 'BlogInfo'
+  name: 'EditBlog'
 })
 
 const router = useRouter()
@@ -13,6 +12,8 @@ const route = useRoute()
 let params = route.params;
 
 let title = ref('')
+
+let content = ref('')
 
 if (params.id) {
   title.value = '编辑博客'
@@ -24,7 +25,7 @@ if (params.id) {
 
 <template>
   <div>
-    <Editor/>
+    <mavon-editor ref="mavonEditorRef" v-model="content" :ishljs="true"/>
   </div>
 </template>
 
