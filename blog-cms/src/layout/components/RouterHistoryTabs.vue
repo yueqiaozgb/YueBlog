@@ -15,7 +15,7 @@
         v-show="tabActive(routeItem)"
       ></div>
       {{ routeItem[menuKey.title] }}
-      <el-icon class="ml-2" v-if="routeHistory.length != 1" @click.stop="removeRouteHistory(routeItem, idx)">
+      <el-icon class="ml-2" v-if="routeHistory.length !== 1" @click.stop="removeRouteHistory(routeItem, idx)">
         <Close />
       </el-icon>
     </div>
@@ -58,10 +58,7 @@ const tabsWrapperRef = ref();
 const tabRef = ref();
 
 const tabActive = routeItem => {
-  if (route.path === routeItem[menuKey.url] || route.meta.targetMenuPath === routeItem[menuKey.url]) {
-    return true;
-  }
-  return false;
+  return route.path === routeItem[menuKey.url] || route.meta.targetMenuPath === routeItem[menuKey.url];
 };
 
 // 标签容器滚动，使标签溢出时可见
@@ -81,11 +78,11 @@ watch(
       scrollTabs(routeIdxInHistory);
     });
     if (!currentRoute) return;
-    // if (currentRoute[menuKey.menuType] != menuKey.menuValue) {
+    // if (currentRoute[menuKey.menuType] !== menuKey.menuValue) {
     //   function findParentRouteWithoutHidden(_route) {
     //     let _parentRoute = userStore.menuArrWithoutEmptyUrl.find(i => i[menuKey.id] === _route.parentId);
     //     if (!_parentRoute) return;
-    //     if (_parentRoute[menuKey.menuType] == menuKey.menuValue) return _parentRoute;
+    //     if (_parentRoute[menuKey.menuType] === menuKey.menuValue) return _parentRoute;
     //     findParentRouteWithoutHidden(_parentRoute);
     //   }
     //   currentRoute = findParentRouteWithoutHidden(currentRoute);
@@ -116,7 +113,7 @@ const changeRoute = (currentRoute, index) => {
 const removeRouteHistory = (tabRoute, idx) => {
   if (routeHistory.value.length === 1) return;
   userStore.delRouterHistory(idx);
-  if (route.path == tabRoute[menuKey.url] || route.meta.targetMenuPath == tabRoute[menuKey.url]) {
+  if (route.path === tabRoute[menuKey.url] || route.meta.targetMenuPath === tabRoute[menuKey.url]) {
     router.push({
       path: routeHistory.value[idx] ? routeHistory.value[idx][menuKey.url] : routeHistory.value[idx - 1][menuKey.url],
     });
