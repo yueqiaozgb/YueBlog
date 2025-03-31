@@ -1,12 +1,14 @@
-package top.yueqiao.blog.controller;
+package top.yueqiao.blog.controller.admin;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
-import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.yueqiao.blog.constant.RoleConstant;
+import top.yueqiao.blog.controller.BaseController;
 import top.yueqiao.blog.domain.AjaxResult;
 import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
@@ -23,10 +25,10 @@ import top.yueqiao.blog.service.IBlogService;
  */
 @RestController
 @RequestMapping("/blog")
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class BlogController extends BaseController {
 
-    @Resource
-    private IBlogService blogService;
+    private final IBlogService blogService;
 
     @SaCheckRole(RoleConstant.ADMIN)
     @GetMapping("/list")
