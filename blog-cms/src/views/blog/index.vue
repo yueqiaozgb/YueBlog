@@ -43,8 +43,8 @@ const handleDelete = (id) => {
       '是否删除id为' + options + '的数据?',
       '提示',
       {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: '确认',
+        cancelButtonText: '关闭',
         type: 'warning',
       }
   ).then(() => {
@@ -129,7 +129,7 @@ handleQuery()
       </el-table-column>
     </el-table>
 
-    <div class="pagination-container">
+    <div class="pagination">
       <el-pagination
           v-model:current-page="queryParam.pageNum"
           v-model:page-size="queryParam.pageSize"
