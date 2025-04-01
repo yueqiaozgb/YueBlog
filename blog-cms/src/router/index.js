@@ -29,9 +29,7 @@ const router = createRouter({
         // 校验未登录，则返回登录页
         if (!getLocalStorage("user")) return "/login";
         // 成功登录且权限完整，默认重定向到用户权限路由的第一个
-        console.log(getLocalStorage("user"))
         const menuList = tree2arr(JSON.parse(getLocalStorage("user")).menu);
-        console.log(menuList)
         const defaultPage = menuList.find(i => i[menuKey.url]);
         if (!defaultPage) {
           console.error("Please check your menuKey in /src/router/menuConfig.js file.");

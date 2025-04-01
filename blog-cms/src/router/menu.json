@@ -10,33 +10,40 @@
   {
     "id": "2",
     "parentId": "0",
-    "url": "/blog",
     "title": "博客管理",
-    "icon": "icon-shouye",
+    "icon": "icon-bokeguanli",
     "menuType": "0"
   },
   {
     "id": "20",
-    "parentId": "0",
-    "url": "/blog/info",
+    "parentId": "2",
+    "url": "/blog",
     "title": "博客信息",
-    "icon": "icon-shouye",
-    "menuType": "1"
-  },
-  {
-    "id": "3",
-    "parentId": "0",
-    "url": "/category",
-    "title": "分类管理",
-    "icon": "icon-shouye",
+    "icon": "icon-boke",
     "menuType": "0"
   },
   {
-    "id": "4",
-    "parentId": "0",
+    "id": "21",
+    "parentId": "2",
+    "url": "/blog/edit",
+    "title": "编辑博客",
+    "icon": "icon-boke",
+    "menuType": "0"
+  },
+  {
+    "id": "22",
+    "parentId": "2",
+    "url": "/category",
+    "title": "分类信息",
+    "icon": "icon-fenlei",
+    "menuType": "0"
+  },
+  {
+    "id": "23",
+    "parentId": "2",
     "url": "/tag",
-    "title": "标签管理",
-    "icon": "icon-shouye",
+    "title": "标签信息",
+    "icon": "icon-biaoqian",
     "menuType": "0"
   }
 ]

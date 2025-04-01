@@ -1,5 +1,5 @@
 <script setup>
-import {deleteBlog, getBlog, listBlog} from "@/api/blog";
+import {delBlog, getBlog, listBlog} from "@/api/blog";
 import {ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {useRouter} from "vue-router";
@@ -47,23 +47,27 @@ const handleDelete = (id) => {
         cancelButtonText: 'Cancel',
         type: 'warning',
       }
-  )
-      .then(() => {
-        deleteBlog(options).then(res => {
-          console.log(res)
-          if (res.code === 200) {
-            ElMessage({
-              type: 'success',
-              message: res.msg,
-            })
-            handleQuery()
-          }
+  ).then(() => {
+    delBlog(options).then(res => {
+      if (res.code === 200) {
+        ElMessage({
+          type: 'success',
+          message: res.msg,
         })
-      })
+        handleQuery()
+      }
+    })
+  })
 }
 
 const handleAdd = () => {
-  router.push('/blog/info')
+  router.push('/blog/edit')
+}
+
+const handleUpdate = (id) => {
+  const options = id ? id : (ids.value.length > 0 ? ids.value[0] : null)
+  console.log(options)
+  router.push({path: '/blog/edit', query: {id: options}})
 }
 
 const reset = () => {
@@ -105,7 +109,7 @@ handleQuery()
 
     <div>
       <el-button type="primary" @click="handleAdd">新增</el-button>
-      <el-button type="success" @click="getBlog" :disabled="singleChoice">修改</el-button>
+      <el-button type="success" @click="handleUpdate(undefined)" :disabled="singleChoice">修改</el-button>
       <el-button type="danger" @click="handleDelete(undefined)" :disabled="multipleChoice">删除</el-button>
     </div>
 
@@ -119,7 +123,7 @@ handleQuery()
       <el-table-column prop="createTime" align="center" label="创建时间"/>
       <el-table-column fixed="right" align="center" label="操作" min-width="120">
         <template #default="scope">
-          <el-button type="success" size="small">修改</el-button>
+          <el-button type="success" size="small" @click="handleUpdate(scope.row.id)">修改</el-button>
           <el-button type="danger" size="small" @click="handleDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

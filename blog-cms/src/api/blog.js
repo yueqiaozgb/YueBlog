@@ -15,7 +15,7 @@ export const getBlog = id => {
     });
 }
 
-export const deleteBlog = id => {
+export const delBlog = id => {
     return request({
         url: "/blog/" + id,
         method: "delete"

@@ -9,12 +9,12 @@ defineOptions({
 const router = useRouter()
 const route = useRoute()
 
-let params = route.params;
+let params = route.query;
 
 let title = ref('')
 
 let content = ref('')
-
+console.log(params)
 if (params.id) {
   title.value = '编辑博客'
 } else {
