@@ -10,48 +10,48 @@ import top.yueqiao.blog.controller.BaseController;
 import top.yueqiao.blog.domain.AjaxResult;
 import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
-import top.yueqiao.blog.domain.entity.Category;
-import top.yueqiao.blog.service.ICategoryService;
+import top.yueqiao.blog.domain.entity.Tag;
+import top.yueqiao.blog.service.ITagService;
 
 /**
- * @author yueqiao
- * @date 2025/03/31/16:51
+ * @author : yueqiao
+ * @date : 2025/4/1 23:19
  */
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/tag")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class CategoryController extends BaseController {
+public class TagController extends BaseController {
 
-    private final ICategoryService categoryService;
+    private final ITagService tagService;
 
     @SaCheckRole(RoleConstant.ADMIN)
     @GetMapping("/list")
-    public PageResult<Category> list(Category category, PageQuery pageQuery) {
-        return categoryService.selectPageCategoryList(category, pageQuery);
+    public PageResult<Tag> list(Tag tag, PageQuery pageQuery) {
+        return tagService.selectPageTagList(tag, pageQuery);
     }
 
     @SaCheckRole(RoleConstant.ADMIN)
     @GetMapping("/{id}")
-    public AjaxResult<Category> select(@NotNull(message = "id不能为空") @PathVariable Integer id) {
-        return AjaxResult.success(categoryService.selectCategoryById(id));
+    public AjaxResult<Tag> select(@NotNull(message = "id不能为空") @PathVariable Integer id) {
+        return AjaxResult.success(tagService.selectTagById(id));
     }
 
     @SaCheckRole(RoleConstant.ADMIN)
     @PostMapping
-    public AjaxResult<Void> insert(@RequestBody Category category) {
-        return toAjax(categoryService.insertCategory(category));
+    public AjaxResult<Void> insert(@RequestBody Tag tag) {
+        return toAjax(tagService.insertTag(tag));
     }
 
     @SaCheckRole(RoleConstant.ADMIN)
     @PutMapping
-    public AjaxResult<Void> update(@RequestBody Category category) {
-        return toAjax(categoryService.updateCategory(category));
+    public AjaxResult<Void> update(@RequestBody Tag tag) {
+        return toAjax(tagService.updateTag(tag));
     }
 
     @SaCheckRole(RoleConstant.ADMIN)
     @DeleteMapping("/{ids}")
     public AjaxResult<Void> delete(@PathVariable Integer[] ids) {
-        return toAjax(categoryService.deleteCategoryByIds(ids));
+        return toAjax(tagService.deleteTagByIds(ids));
     }
 
 }

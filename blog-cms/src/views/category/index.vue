@@ -200,6 +200,6 @@ handleQuery()
 }
 
 .el-pagination {
-  float: right; /* 右浮动 */
+  float: right;
 }
 </style>
