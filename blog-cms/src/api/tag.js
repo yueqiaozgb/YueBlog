@@ -1,38 +1,38 @@
 import request from "@/utils/request";
 
-export const listCategory = () => {
+export const listTag = () => {
     return request({
-        url: "/category/list",
+        url: "/tag/list",
         method: "get",
     });
 }
 
-export const getCategory = id => {
+export const getTag = id => {
     return request({
-        url: "/category/" + id,
+        url: "/tag/" + id,
         method: "get",
     });
 }
 
-export const addCategory = data => {
+export const addTag = data => {
     return request({
-        url: "/category",
+        url: "/tag",
         method: "post",
         data,
     });
 }
 
-export const updateCategory = (data) => {
+export const updateTag = (data) => {
     return request({
-        url: "/category",
+        url: "/tag",
         method: "put",
         data,
     });
 }
 
-export const delCategory = id => {
+export const delTag = id => {
     return request({
-        url: "/category/" + id,
+        url: "/tag/" + id,
         method: "delete",
     });
 }

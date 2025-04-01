@@ -1,7 +1,6 @@
 <script setup>
 import {ref} from "vue";
 import {addCategory, delCategory, getCategory, listCategory, updateCategory} from "@/api/category";
-import {delBlog, getBlog} from "@/api/blog";
 import {ElMessage, ElMessageBox} from "element-plus";
 
 defineOptions({

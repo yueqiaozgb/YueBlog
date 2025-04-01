@@ -1,6 +1,7 @@
 package top.yueqiao.blog.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,7 +29,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
     @Override
     public PageResult<Tag> selectPageTagList(Tag tag, PageQuery pageQuery) {
         LambdaQueryWrapper<Tag> lqw = new LambdaQueryWrapper<Tag>()
-                .like(Tag::getName, tag.getName());
+                .like(StrUtil.isNotBlank(tag.getName()), Tag::getName, tag.getName());
         Page<Tag> page = page(pageQuery.build(), lqw);
         return PageResult.build(page);
     }
