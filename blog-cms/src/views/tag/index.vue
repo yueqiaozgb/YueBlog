@@ -3,6 +3,7 @@ import {ref} from "vue";
 import {addTag, delTag, getTag, listTag, updateTag} from "@/api/tag";
 import {ElMessage, ElMessageBox} from "element-plus";
 import ColorTag from "@/components/ColorTag.vue";
+import {confirmAdd, confirmUpdate} from "@/utils/comfirm";
 
 defineOptions({
   name: 'Tag'
@@ -62,24 +63,12 @@ const cancel = () => {
 const submit = () => {
   showDialog.value = false
   if (form.value.id) {
-    updateTag(form.value).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
+    confirmUpdate(form.value, updateTag).then(() => {
+      handleQuery()
     })
   } else {
-    addTag(form.value).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
+    confirmAdd(form.value, addTag).then(() => {
+      handleQuery()
     })
   }
 }

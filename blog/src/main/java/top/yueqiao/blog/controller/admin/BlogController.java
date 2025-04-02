@@ -45,8 +45,8 @@ public class BlogController extends BaseController {
 
     @SaCheckRole(RoleConstant.ADMIN)
     @PostMapping
-    public AjaxResult<Void> insert(@Validated(InsertGroup.class) @RequestBody BlogEditDto blog) {
-        return toAjax(blogService.insertBlog(blog));
+    public AjaxResult<Integer> insert(@Validated(InsertGroup.class) @RequestBody BlogEditDto blog) {
+        return AjaxResult.success(blogService.insertBlog(blog));
     }
 
     @SaCheckRole(RoleConstant.ADMIN)
