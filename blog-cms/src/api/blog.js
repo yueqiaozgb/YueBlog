@@ -21,3 +21,19 @@ export const delBlog = id => {
         method: "delete"
     });
 }
+
+export const addBlog = data => {
+    return request({
+        url: "/blog",
+        method: "post",
+        data
+    });
+}
+
+export const updateBlog = (data) => {
+    return request({
+        url: "/blog",
+        method: "put",
+        data,
+    });
+}

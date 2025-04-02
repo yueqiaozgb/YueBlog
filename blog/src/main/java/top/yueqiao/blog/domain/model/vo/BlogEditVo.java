@@ -1,10 +1,9 @@
 package top.yueqiao.blog.domain.model.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import top.yueqiao.blog.domain.entity.Blog;
-import top.yueqiao.blog.domain.entity.Tag;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +11,16 @@ import java.util.List;
  * @date 2025/03/28/17:46
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class BlogEditVo extends Blog {
-    private List<Tag> tagList;
+public class BlogEditVo implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private Integer id;
+    private Integer categoryId;
+    private List<Integer> tagIdList;
+    private String title;
+    private String cover;
+    private String description;
+    private String content;
+    private Integer wordCount;
+    private Integer readTime;
 }

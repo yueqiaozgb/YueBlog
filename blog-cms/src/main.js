@@ -23,8 +23,6 @@ import directives from "./directives"; // 导入所有指令
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-import 'highlight.js/styles/default.css';
-
 const pinia = createPinia().use(piniaPluginPersistedstate);
 const app = createApp(App);
 

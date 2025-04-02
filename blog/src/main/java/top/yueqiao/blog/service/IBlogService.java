@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
 import top.yueqiao.blog.domain.entity.Blog;
+import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
 
@@ -17,9 +18,9 @@ public interface IBlogService extends IService<Blog> {
 
     BlogEditVo selectBlogById(Integer id);
 
-    int insertBlog(Blog blog);
+    int insertBlog(BlogEditDto blog);
 
-    int updateBlog(Blog blog);
+    int updateBlog(BlogEditDto blog);
 
     int deleteBlogByIds(Integer[] ids);
 

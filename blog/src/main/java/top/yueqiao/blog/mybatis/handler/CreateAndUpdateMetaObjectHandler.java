@@ -1,4 +1,4 @@
-package top.yueqiao.blog.handler;
+package top.yueqiao.blog.mybatis.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;

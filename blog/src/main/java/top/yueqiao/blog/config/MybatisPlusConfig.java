@@ -1,11 +1,15 @@
 package top.yueqiao.blog.config;
 
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.yueqiao.blog.handler.CreateAndUpdateMetaObjectHandler;
+import top.yueqiao.blog.mybatis.handler.CreateAndUpdateMetaObjectHandler;
+import top.yueqiao.blog.mybatis.injector.InsertBatchSqlInjector;
 
 /**
  * @author : yueqiao
@@ -38,6 +42,18 @@ public class MybatisPlusConfig {
     @Bean
     public MetaObjectHandler metaObjectHandler() {
         return new CreateAndUpdateMetaObjectHandler();
+    }
+
+    @Bean
+    public InsertBatchSqlInjector easySqlInjector() {
+        return new InsertBatchSqlInjector();
+    }
+
+    @Bean
+    public GlobalConfig globalConfig(@Qualifier("easySqlInjector") ISqlInjector easySqlInjector){
+        GlobalConfig globalConfig = new GlobalConfig();
+        globalConfig.setSqlInjector(easySqlInjector);
+        return globalConfig;
     }
 
 }

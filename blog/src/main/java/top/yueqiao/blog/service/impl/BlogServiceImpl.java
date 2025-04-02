@@ -9,13 +9,20 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
 import top.yueqiao.blog.domain.entity.Blog;
+import top.yueqiao.blog.domain.entity.BlogTag;
+import top.yueqiao.blog.domain.entity.Category;
 import top.yueqiao.blog.domain.entity.Tag;
+import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
+import top.yueqiao.blog.exception.ServiceException;
 import top.yueqiao.blog.mapper.BlogMapper;
+import top.yueqiao.blog.mapper.BlogTagMapper;
+import top.yueqiao.blog.mapper.CategoryMapper;
 import top.yueqiao.blog.mapper.TagMapper;
 import top.yueqiao.blog.mapstruct.IBlogMapper;
 import top.yueqiao.blog.service.IBlogService;
@@ -29,6 +36,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
+
+    private final BlogTagMapper blogTagMapper;
+
+    private final CategoryMapper categoryMapper;
 
     private final TagMapper tagMapper;
 
@@ -52,25 +63,58 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public BlogEditVo selectBlogById(Integer id) {
-        List<Tag> tags = tagMapper.selectTagListByBlogId(id);
+        LambdaQueryWrapper<BlogTag> lqw = new LambdaQueryWrapper<BlogTag>()
+                .eq(BlogTag::getBlogId, id);
+        List<BlogTag> blogTagList = blogTagMapper.selectList(lqw);
+        List<Integer> tagIdList = blogTagList.stream().map(BlogTag::getTagId).toList();
         Blog blog = baseMapper.selectById(id);
-        return IBlogMapper.INSTANCE.blogToBlogEditVo(blog, tags);
+        return IBlogMapper.INSTANCE.blogToBlogEditVo(blog, tagIdList);
     }
 
+    @Transactional
     @Override
-    public int insertBlog(Blog blog) {
-        int length = blog.getContent().length();
-        blog.setWordCount(length);
-        blog.setReadTime(length / 300);
-        return baseMapper.insert(blog);
+    public int insertBlog(BlogEditDto blogEditDto) {
+        int length = blogEditDto.getContent().length();
+        blogEditDto.setWordCount(length);
+        blogEditDto.setReadTime(length / 200);
+        Blog blog = checkBlog(blogEditDto);
+        baseMapper.insert(blog);
+        return updateBlogTag(blog.getId(), blogEditDto.getTagIdList());
     }
 
+    @Transactional
     @Override
-    public int updateBlog(Blog blog) {
-        int length = blog.getContent().length();
-        blog.setWordCount(length);
-        blog.setReadTime(length / 300);
+    public int updateBlog(BlogEditDto blogEditDto) {
+        int length = blogEditDto.getContent().length();
+        blogEditDto.setWordCount(length);
+        blogEditDto.setReadTime(length / 200);
+        Blog blog = checkBlog(blogEditDto);
+        updateBlogTag(blog.getId(), blogEditDto.getTagIdList());
         return baseMapper.updateById(blog);
+    }
+
+    private Blog checkBlog(BlogEditDto blogEditDto) {
+        LambdaQueryWrapper<Category> lqw = new LambdaQueryWrapper<Category>()
+                .eq(Category::getId, blogEditDto.getCategoryId());
+        if (categoryMapper.selectCount(lqw) == 0) {
+            throw new ServiceException("分类不存在");
+        }
+        LambdaQueryWrapper<Tag> lqw1 = new LambdaQueryWrapper<Tag>()
+                .in(Tag::getId, blogEditDto.getTagIdList());
+        if (tagMapper.selectCount(lqw1) != blogEditDto.getTagIdList().size()) {
+            throw new ServiceException("标签不存在");
+        }
+        return IBlogMapper.INSTANCE.blogEditDtoToBlog(blogEditDto);
+    }
+
+    private int updateBlogTag(Integer blogId, List<Integer> tagIdList) {
+        LambdaQueryWrapper<BlogTag> lqw = new LambdaQueryWrapper<BlogTag>()
+                .eq(BlogTag::getBlogId, blogId);
+        blogTagMapper.delete(lqw);
+        List<BlogTag> list = tagIdList.stream()
+                .map(tagId -> new BlogTag(blogId, tagId))
+                .toList();
+        return blogTagMapper.insertBatchSomeColumn(list);
     }
 
     @Override

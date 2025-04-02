@@ -13,6 +13,7 @@ import top.yueqiao.blog.domain.AjaxResult;
 import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
 import top.yueqiao.blog.domain.entity.Blog;
+import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
 import top.yueqiao.blog.interfaces.InsertGroup;
@@ -44,13 +45,13 @@ public class BlogController extends BaseController {
 
     @SaCheckRole(RoleConstant.ADMIN)
     @PostMapping
-    public AjaxResult<Void> insert(@Validated(InsertGroup.class) @RequestBody Blog blog) {
+    public AjaxResult<Void> insert(@Validated(InsertGroup.class) @RequestBody BlogEditDto blog) {
         return toAjax(blogService.insertBlog(blog));
     }
 
     @SaCheckRole(RoleConstant.ADMIN)
     @PutMapping
-    public AjaxResult<Void> update(@Validated(UpdateGroup.class) @RequestBody Blog blog) {
+    public AjaxResult<Void> update(@Validated(UpdateGroup.class) @RequestBody BlogEditDto blog) {
         return toAjax(blogService.updateBlog(blog));
     }
 
