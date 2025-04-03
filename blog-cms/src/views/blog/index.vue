@@ -3,6 +3,8 @@ import {delBlog, getBlog, listBlog} from "@/api/blog";
 import {ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {useRouter} from "vue-router";
+import {confirmDel} from "@/utils/comfirm";
+import {listCategory} from "@/api/category";
 
 defineOptions({
   name: 'Blog'
@@ -17,6 +19,8 @@ let queryParam = ref({
 
 let blogList = ref([])
 
+let categoryList = ref([])
+
 let total = ref(0)
 
 let ids = ref([])
@@ -27,36 +31,28 @@ let multipleChoice = ref(true)
 
 const router = useRouter()
 
+const getParamsList = () => {
+  listCategory().then(res => {
+    categoryList.value = res.data
+  })
+}
+getParamsList()
+
 const handleQuery = () => {
   listBlog(queryParam.value).then(res => {
     blogList.value = res.data
     total.value = res.total
   })
 }
+handleQuery()
 
 const handleDelete = (id) => {
   const options = id ? [id] : [...ids.value]
   if (options.length === 0) {
     return
   }
-  ElMessageBox.confirm(
-      '是否删除id为' + options + '的数据?',
-      '提示',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '关闭',
-        type: 'warning',
-      }
-  ).then(() => {
-    delBlog(options).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
-    })
+  confirmDel(options, delBlog).then(() => {
+    handleQuery()
   })
 }
 
@@ -66,7 +62,6 @@ const handleAdd = () => {
 
 const handleUpdate = (id) => {
   const options = id ? id : (ids.value.length > 0 ? ids.value[0] : null)
-  console.log(options)
   router.push({path: '/blog/edit', query: {id: options}})
 }
 
@@ -86,7 +81,10 @@ const handleSelectionChange = (selection) => {
   multipleChoice.value = !selection.length
 }
 
-handleQuery()
+const getCategoryName = (id) => {
+  const category = categoryList.value.find(item => item.id === id)
+  return category ? category.name : ''
+}
 </script>
 
 <template>
@@ -94,8 +92,11 @@ handleQuery()
     <el-form :inline="true" :model="queryParam">
       <el-form-item prop="categoryId" label="分类名称">
         <el-select v-model="queryParam.categoryId" placeholder="请选择分类" style="width: 200px">
-          <el-option label="分类一" :value="1"></el-option>
-          <el-option label="分类二" :value="2"></el-option>
+          <el-option
+            v-for="item in categoryList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item prop="title" label="标题">
@@ -117,7 +118,11 @@ handleQuery()
       <el-table-column type="selection" align="center" width="55"/>
       <el-table-column prop="id" align="center" label="ID"/>
       <el-table-column prop="title" align="center" label="标题"/>
-      <el-table-column prop="categoryId" align="center" label="分类"/>
+      <el-table-column prop="categoryId" align="center" label="分类">
+        <template #default="scope">
+          <el-tag>{{ getCategoryName(scope.row.categoryId) }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="wordCount" align="center" label="字数"/>
       <el-table-column prop="readTime" align="center" label="阅读时间/分"/>
       <el-table-column prop="createTime" align="center" label="创建时间"/>

@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import {addCategory, delCategory, getCategory, listCategory, updateCategory} from "@/api/category";
 import {ElMessage, ElMessageBox} from "element-plus";
+import {confirmAdd, confirmDel, confirmUpdate} from "@/utils/comfirm";
 
 defineOptions({
   name: 'Category'
@@ -60,24 +61,12 @@ const cancel = () => {
 const submit = () => {
   showDialog.value = false
   if (form.value.id) {
-    updateCategory(form.value).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
+    confirmUpdate(form.value, updateCategory).then(() => {
+      handleQuery()
     })
   } else {
-    addCategory(form.value).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
+    confirmAdd(form.value, addCategory).then(() => {
+      handleQuery()
     })
   }
 }
@@ -108,24 +97,8 @@ const handleDelete = (id) => {
   if (options.length === 0) {
     return
   }
-  ElMessageBox.confirm(
-      '是否删除id为' + options + '的数据?',
-      '提示',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '关闭',
-        type: 'warning',
-      }
-  ).then(() => {
-    delCategory(options).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
-    })
+  confirmDel(options, delCategory).then(() => {
+    handleQuery()
   })
 }
 

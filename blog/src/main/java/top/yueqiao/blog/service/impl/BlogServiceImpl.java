@@ -79,7 +79,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         blogEditDto.setReadTime(length / 200);
         Blog blog = checkBlog(blogEditDto);
         baseMapper.insert(blog);
-        return updateBlogTag(blog.getId(), blogEditDto.getTagIdList());
+        updateBlogTag(blog.getId(), blogEditDto.getTagIdList());
+        return blog.getId();
     }
 
     @Transactional
