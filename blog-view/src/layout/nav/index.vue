@@ -44,8 +44,27 @@ const categoryRoute = (name) => {
   </div>
 </template>
 
-<style scoped>
-.m-blue {
-  color: #48dbfb !important;
+<style>
+.ui.fixed.menu .container {
+  width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.ui.fixed.menu {
+  transition: .3s ease-out;
+}
+
+.ui.inverted.pointing.menu.transparent {
+  background: transparent !important;
+}
+
+.ui.inverted.pointing.menu.transparent .active.item:after {
+  background: transparent !important;
+  transition: .3s ease-out;
+}
+
+.ui.inverted.pointing.menu.transparent .active.item:hover:after {
+  background: transparent !important;
 }
 </style>

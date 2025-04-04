@@ -1,5 +1,4 @@
 import {createApp} from 'vue'
-import './style.css'
 import App from './App.vue'
 // 引入路由
 import router from "./router";
@@ -9,6 +8,8 @@ import 'element-plus/dist/index.css'
 // 引入fomantic-ui
 import 'fomantic-ui/dist/semantic.min.css'
 import 'fomantic-ui/dist/semantic.min.js'
+// 引入css
+import '@/assets/css/base.css'
 
 const app = createApp(App)
 app.use(router)

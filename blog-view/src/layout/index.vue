@@ -16,7 +16,7 @@ getParamsList()
 </script>
 
 <template>
-  <div class="site">
+  <div>
     <!--顶部导航-->
     <Nav :blogName="blogName" :categoryList="categoryList"/>
 
@@ -28,10 +28,21 @@ getParamsList()
             <div class="three wide column m-mobile-hide">
               <Introduction/>
             </div>
+            <!--中间-->
+            <div class="ten wide column">
+              <keep-alive include="Home">
+                <router-view/>
+              </keep-alive>
+            </div>
+            <!--右侧-->
+            <div class="three wide column m-mobile-hide">
+              <Introduction/>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
