@@ -45,5 +45,20 @@
     "title": "标签信息",
     "icon": "icon-biaoqian",
     "menuType": "0"
+  },
+  {
+    "id": "3",
+    "parentId": "0",
+    "title": "网站管理",
+    "icon": "icon-shouye",
+    "menuType": "0"
+  },
+  {
+    "id": "30",
+    "parentId": "3",
+    "url": "/website",
+    "title": "网站信息",
+    "icon": "icon-shouye",
+    "menuType": "0"
   }
 ]

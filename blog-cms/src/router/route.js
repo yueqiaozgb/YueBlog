@@ -1,31 +1,28 @@
-const blog = () => import("@/views/blog/index.vue")
-
-const editBlog = () => import("@/views/blog/edit/index.vue")
-
-const category = () => import("@/views/category/index.vue")
-
-const tag = () => import("@/views/tag/index.vue")
-
 const route = [
     {
         path: "/blog",
         name: "blog",
-        component: blog,
+        component: () => import("@/views/blog/index.vue")
     },
     {
         path: "/blog/edit",
         name: "blogEdit",
-        component: editBlog,
+        component: () => import("@/views/blog/edit/index.vue")
     },
     {
         path: "/category",
         name: "category",
-        component: category,
+        component: () => import("@/views/category/index.vue")
     },
     {
         path: "/tag",
         name: "tag",
-        component: tag,
+        component: () => import("@/views/tag/index.vue")
+    },
+    {
+        path: "/website",
+        name: "website",
+        component: () => import("@/views/website/index.vue")
     }
 ]
 

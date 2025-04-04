@@ -6,6 +6,7 @@ defineOptions({
 })
 
 let introduction = ref({
+  name: 'Yue Blog',
   avatar: 'https://bpic.588ku.com/element_origin_min_pic/23/07/11/d32dabe266d10da8b21bd640a2e9b611.jpg!r650',
   rollText: [],
   favorites: [
