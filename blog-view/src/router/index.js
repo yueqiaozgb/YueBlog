@@ -1,16 +1,23 @@
-import {createMemoryHistory, createRouter} from 'vue-router'
+import {createWebHistory, createRouter} from 'vue-router'
 
 import Layout from '@/layout/index.vue'
 
 const routes = [
     {
         path: '/',
-        component: Layout
+        component: Layout,
+        redirect: '/home',
+        children: [
+            {
+                path: 'home',
+                component: () => import('@/views/home/index.vue'),
+            }
+        ]
     },
 ]
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    history: createWebHistory(),
     routes,
 })
 

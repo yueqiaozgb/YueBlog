@@ -9,10 +9,6 @@ import 'element-plus/dist/index.css'
 // 引入fomantic-ui
 import 'fomantic-ui/dist/semantic.min.css'
 import 'fomantic-ui/dist/semantic.min.js'
-// 引入jquery, fomantic-ui依赖
-import $ from 'jquery'
-
-window.$ = $
 
 const app = createApp(App)
 app.use(router)
