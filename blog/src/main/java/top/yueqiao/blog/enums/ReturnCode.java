@@ -1,5 +1,6 @@
 package top.yueqiao.blog.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -7,6 +8,7 @@ import lombok.Getter;
  * @date : 2025/3/11 23:25
  */
 @Getter
+@AllArgsConstructor
 public enum ReturnCode {
 
     RC200(200, "ok"),
@@ -17,12 +19,6 @@ public enum ReturnCode {
     RC4001(4001, "业务异常");
 
     private final int code;
-
     private final String msg;
-
-    ReturnCode(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
 
 }
