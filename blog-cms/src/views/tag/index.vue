@@ -3,7 +3,7 @@ import {ref} from "vue";
 import {addTag, delTag, getTag, listTag, updateTag} from "@/api/tag";
 import {ElMessage, ElMessageBox} from "element-plus";
 import ColorTag from "@/components/ColorTag.vue";
-import {confirmAdd, confirmUpdate} from "@/utils/comfirm";
+import {confirmAdd, confirmDel, confirmUpdate} from "@/utils/comfirm";
 
 defineOptions({
   name: 'Tag'
@@ -99,24 +99,8 @@ const handleDelete = (id) => {
   if (options.length === 0) {
     return
   }
-  ElMessageBox.confirm(
-      '是否删除id为' + options + '的数据?',
-      '提示',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '关闭',
-        type: 'warning',
-      }
-  ).then(() => {
-    delTag(options).then(res => {
-      if (res.code === 200) {
-        ElMessage({
-          type: 'success',
-          message: res.msg,
-        })
-        handleQuery()
-      }
-    })
+  confirmDel(options, delTag).then(() => {
+    handleQuery()
   })
 }
 
