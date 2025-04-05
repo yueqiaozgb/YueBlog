@@ -2,10 +2,16 @@
 import Nav from "@/layout/nav/index.vue";
 import {ref} from "vue";
 import {listCategory} from "@/api/category.js";
-import Introduction from "@/layout/introduction/index.vue";
+import Introduction from "@/layout/sidebar/introduction/index.vue";
+import RandomBlog from "@/layout/sidebar/randomblog/index.vue";
+import Tags from "@/layout/sidebar/tags/index.vue";
+import Tocbot from "@/layout/sidebar/tocbot/index.vue";
+import {useRoute} from "vue-router";
 
 let blogName = ref('Yue Blog')
 let categoryList = ref([])
+
+const route = useRoute()
 
 const getParamsList = () => {
   listCategory().then(res => {
@@ -35,11 +41,19 @@ getParamsList()
               </keep-alive>
             </div>
             <!--右侧-->
-
+            <div class="three wide column m-mobile-hide">
+              <RandomBlog/>
+              <Tags/>
+              <Tocbot v-if="route.name==='blog'"/>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <el-backtop style="box-shadow: none;background: none;z-index: 9999;">
+      <img src="/img/paper-plane.png" style="width: 40px;height: 40px;" alt="回到顶部">
+    </el-backtop>
 
   </div>
 </template>
