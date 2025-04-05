@@ -35,9 +35,7 @@ getParamsList()
               </keep-alive>
             </div>
             <!--右侧-->
-            <div class="three wide column m-mobile-hide">
-              <Introduction/>
-            </div>
+
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 package top.yueqiao.blog.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -22,5 +23,7 @@ public class SiteSetting extends BaseEntity {
     private Integer id;
     private String name;
     private String type;
+    @TableField(value = "`key`")
+    private String key;
     private String value;
 }

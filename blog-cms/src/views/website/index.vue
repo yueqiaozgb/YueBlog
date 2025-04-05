@@ -56,6 +56,7 @@ const resetForm = () => {
     id: undefined,
     name: undefined,
     type: undefined,
+    key: undefined,
     value: undefined
   }
 }
@@ -115,6 +116,14 @@ const getParamsList = () => {
   })
 }
 getParamsList()
+
+const getType = (type) => {
+  for (let i = 0; i < settingTypeList.value.length; i++) {
+    if (settingTypeList.value[i].value === type) {
+      return settingTypeList.value[i].label
+    }
+  }
+}
 </script>
 
 <template>
@@ -148,7 +157,12 @@ getParamsList()
       <el-table-column type="selection" align="center" width="55"/>
       <el-table-column prop="id" align="center" label="ID"/>
       <el-table-column prop="name" align="center" label="名称"/>
-      <el-table-column prop="type" align="center" label="类型"/>
+      <el-table-column prop="type" align="center" label="类型">
+        <template #default="scope">
+          <el-tag>{{ getType(scope.row.type) }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="key" align="center" label="键"/>
       <el-table-column prop="value" align="center" label="值"/>
       <el-table-column prop="createTime" align="center" label="创建时间"/>
       <el-table-column fixed="right" align="center" label="操作" min-width="120">
@@ -184,6 +198,9 @@ getParamsList()
                 :label="item.label"
                 :value="item.value"/>
           </el-select>
+        </el-form-item>
+        <el-form-item label="设置键" prop="value">
+          <el-input v-model="form.key" placeholder="请输入键" style="width: 400px"></el-input>
         </el-form-item>
         <el-form-item label="设置值" prop="value">
           <el-input v-model="form.value" placeholder="请输入值" style="width: 400px"></el-input>
