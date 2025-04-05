@@ -56,7 +56,7 @@ public class SiteSettingServiceImpl extends ServiceImpl<SiteSettingMapper, SiteS
     @Override
     public PageResult<DictTagVo> selectSiteSettingType() {
         List<DictTagVo> dictTagVoList = Arrays.stream(SiteSettingType.values())
-                .map(type -> new DictTagVo(type.getType(), type.getDesc()))
+                .map(type -> new DictTagVo(type.getLabel(), type.getValue()))
                 .toList();
         return PageResult.build(dictTagVoList);
     }

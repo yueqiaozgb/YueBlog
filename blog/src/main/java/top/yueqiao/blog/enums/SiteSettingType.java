@@ -11,10 +11,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SiteSettingType {
 
-    accountInfo("1", "账户信息"),
-    userInfo("2", "用户信息");
+    accountInfo("账户信息", "1"),
+    userInfo("用户信息", "2");
 
-    private final String type;
-    private final String desc;
+    private final String label;
+    private final String value;
 
 }
