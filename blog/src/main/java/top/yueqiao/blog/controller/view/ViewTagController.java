@@ -5,24 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
-import top.yueqiao.blog.domain.model.vo.BlogRandomVo;
-import top.yueqiao.blog.service.IBlogService;
+import top.yueqiao.blog.domain.entity.Tag;
+import top.yueqiao.blog.service.ITagService;
 
 /**
  * @author : yueqiao
- * @date : 2025/4/4 15:52
+ * @date : 2025/4/5 23:42
  */
 @RestController
-@RequestMapping("/view/blog")
+@RequestMapping("/view/tag")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class ViewBlogController {
+public class ViewTagController {
 
-    private final IBlogService blogService;
+    private final ITagService tagService;
 
-    @GetMapping("/random")
-    public PageResult<BlogRandomVo> random() {
-        return blogService.selectPageRandomBlogList();
+    @GetMapping("/list")
+    public PageResult<Tag> list(Tag tag, PageQuery pageQuery) {
+        return tagService.selectPageTagList(tag, pageQuery);
     }
 
 }

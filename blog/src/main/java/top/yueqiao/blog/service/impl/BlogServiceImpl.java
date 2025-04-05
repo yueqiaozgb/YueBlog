@@ -19,6 +19,7 @@ import top.yueqiao.blog.domain.entity.Tag;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
+import top.yueqiao.blog.domain.model.vo.BlogRandomVo;
 import top.yueqiao.blog.exception.ServiceException;
 import top.yueqiao.blog.mapper.BlogMapper;
 import top.yueqiao.blog.mapper.BlogTagMapper;
@@ -123,6 +124,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         LambdaQueryWrapper<Blog> lqw = new LambdaQueryWrapper<Blog>()
                 .in(Blog::getId, CollUtil.toList(ids));
         return baseMapper.delete(lqw);
+    }
+
+    @Override
+    public PageResult<BlogRandomVo> selectPageRandomBlogList() {
+        Integer randomBlogLimit = 5;
+        List<BlogRandomVo> blogRandomVoList = baseMapper.selectRandomBlogList(randomBlogLimit);
+        return PageResult.build(blogRandomVoList);
     }
 
 }
