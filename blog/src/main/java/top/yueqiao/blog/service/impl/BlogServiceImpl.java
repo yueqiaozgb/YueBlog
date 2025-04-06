@@ -17,10 +17,7 @@ import top.yueqiao.blog.domain.entity.BlogTag;
 import top.yueqiao.blog.domain.entity.Category;
 import top.yueqiao.blog.domain.entity.Tag;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
-import top.yueqiao.blog.domain.model.vo.BlogEditVo;
-import top.yueqiao.blog.domain.model.vo.BlogInfoVo;
-import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
-import top.yueqiao.blog.domain.model.vo.BlogRandomVo;
+import top.yueqiao.blog.domain.model.vo.*;
 import top.yueqiao.blog.exception.ServiceException;
 import top.yueqiao.blog.mapper.BlogMapper;
 import top.yueqiao.blog.mapper.BlogTagMapper;
@@ -28,6 +25,7 @@ import top.yueqiao.blog.mapper.CategoryMapper;
 import top.yueqiao.blog.mapper.TagMapper;
 import top.yueqiao.blog.mapstruct.IBlogMapper;
 import top.yueqiao.blog.service.IBlogService;
+import top.yueqiao.blog.util.MarkdownUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -77,6 +75,22 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return IBlogMapper.INSTANCE.blogToBlogEditVo(blog, tagIdList);
     }
 
+    @Override
+    public BlogDetailVo selectBlogDetailById(Integer id) {
+        Blog blog = baseMapper.selectById(id);
+        BlogDetailVo blogDetailVo = IBlogMapper.INSTANCE.blogToBlogDetailVo(blog);
+        Category category = categoryMapper.selectById(blog.getCategoryId());
+        blogDetailVo.setCategory(category);
+        LambdaQueryWrapper<BlogTag> lqw = new LambdaQueryWrapper<BlogTag>()
+                .eq(BlogTag::getBlogId, id);
+        List<BlogTag> blogTagList = blogTagMapper.selectList(lqw);
+        List<Integer> tagIdList = blogTagList.stream().map(BlogTag::getTagId).toList();
+        List<Tag> tagList = tagMapper.selectByIds(tagIdList);
+        blogDetailVo.setTagList(tagList);
+        blogDetailVo.setContent(MarkdownUtils.markdownToHtmlExtensions(blog.getContent()));
+        return blogDetailVo;
+    }
+
     @Transactional
     @Override
     public int insertBlog(BlogEditDto blogEditDto) {
@@ -84,6 +98,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         blogEditDto.setWordCount(length);
         blogEditDto.setReadTime(length / 200);
         Blog blog = checkBlog(blogEditDto);
+        blog.setContent(blogEditDto.getContent());
         baseMapper.insert(blog);
         updateBlogTag(blog.getId(), blogEditDto.getTagIdList());
         return blog.getId();

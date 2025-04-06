@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import top.yueqiao.blog.domain.entity.Blog;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
+import top.yueqiao.blog.domain.model.vo.BlogDetailVo;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
 import top.yueqiao.blog.domain.model.vo.BlogInfoVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
@@ -32,5 +33,9 @@ public interface IBlogMapper {
     @Mapping(target = "tagList", ignore = true)
     @Mapping(target = "category", ignore = true)
     BlogInfoVo blogToBlogInfoVo(Blog blog);
+
+    @Mapping(target = "tagList", ignore = true)
+    @Mapping(target = "category", ignore = true)
+    BlogDetailVo blogToBlogDetailVo(Blog blog);
 
 }

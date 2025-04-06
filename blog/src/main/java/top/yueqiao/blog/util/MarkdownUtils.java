@@ -84,7 +84,7 @@ public class MarkdownUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(markdownToHtmlExtensions(""));
+        System.out.println(markdownToHtmlExtensions("# 1 ## 2 ### 4 1211"));
     }
 
 }
