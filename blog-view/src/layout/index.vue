@@ -36,9 +36,7 @@ getParamsList()
             </div>
             <!--中间-->
             <div class="ten wide column">
-              <keep-alive include="Home">
-                <router-view/>
-              </keep-alive>
+              <router-view/>
             </div>
             <!--右侧-->
             <div class="three wide column m-mobile-hide">

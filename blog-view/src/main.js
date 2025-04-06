@@ -13,22 +13,28 @@ import '@/assets/css/base.css'
 //  v-viewer：图片预览、缩放、翻转
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
+//引入图片懒加载插件
+import Lazyload from "vue3-lazyload";
+import '@/assets/css/typo.css'
+import "prismjs/themes/prism-tomorrow.min.css"
 
 const app = createApp(App)
 app.use(router)
 app.use(ElementPlus)
 app.use(Viewer, {
-    defaultOptions: {
-        zIndex: 9999,
-        toolbar: false,
-        transition: false,
-        title: false,
-        navbar: false,
-        // button:false,
-        scalable: false,
-        rotatable: false,
-        tooltip: false,
-        inline: false,
-    }
+    zIndex: 9999,
+    toolbar: false,
+    transition: false,
+    title: false,
+    navbar: false,
+    // button:false,
+    scalable: false,
+    rotatable: false,
+    tooltip: false,
+    inline: false,
+})
+app.use(Lazyload, {
+    preLoad: 1.2,
+    loading: import('@/assets/img/loading.gif'),
 })
 app.mount('#app')

@@ -14,3 +14,10 @@ export const listBlog = (data) => {
         params: data
     });
 }
+
+export const getBlog = (id) => {
+    return request({
+        url: "/blog/" + id,
+        method: "get",
+    });
+}
