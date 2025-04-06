@@ -6,6 +6,7 @@ import top.yueqiao.blog.domain.PageResult;
 import top.yueqiao.blog.domain.entity.Blog;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
+import top.yueqiao.blog.domain.model.vo.BlogInfoVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
 import top.yueqiao.blog.domain.model.vo.BlogRandomVo;
 
@@ -26,5 +27,7 @@ public interface IBlogService extends IService<Blog> {
     int deleteBlogByIds(Integer[] ids);
 
     PageResult<BlogRandomVo> selectPageRandomBlogList();
+
+    PageResult<BlogInfoVo> selectPageBlogInfoVoList(PageQuery pageQuery);
 
 }

@@ -18,6 +18,7 @@ import top.yueqiao.blog.domain.entity.Category;
 import top.yueqiao.blog.domain.entity.Tag;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
+import top.yueqiao.blog.domain.model.vo.BlogInfoVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
 import top.yueqiao.blog.domain.model.vo.BlogRandomVo;
 import top.yueqiao.blog.exception.ServiceException;
@@ -29,6 +30,10 @@ import top.yueqiao.blog.mapstruct.IBlogMapper;
 import top.yueqiao.blog.service.IBlogService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author : yueqiao
@@ -59,7 +64,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         List<BlogListItemVo> list = page.getRecords().stream()
                 .map(IBlogMapper.INSTANCE::blogToBlogListItemVo)
                 .toList();
-        return PageResult.build(list);
+        return PageResult.build(list, page.getTotal());
     }
 
     @Override
@@ -109,14 +114,14 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return IBlogMapper.INSTANCE.blogEditDtoToBlog(blogEditDto);
     }
 
-    private int updateBlogTag(Integer blogId, List<Integer> tagIdList) {
+    private void updateBlogTag(Integer blogId, List<Integer> tagIdList) {
         LambdaQueryWrapper<BlogTag> lqw = new LambdaQueryWrapper<BlogTag>()
                 .eq(BlogTag::getBlogId, blogId);
         blogTagMapper.delete(lqw);
         List<BlogTag> list = tagIdList.stream()
                 .map(tagId -> new BlogTag(blogId, tagId))
                 .toList();
-        return blogTagMapper.insertBatchSomeColumn(list);
+        blogTagMapper.insertBatchSomeColumn(list);
     }
 
     @Override
@@ -131,6 +136,39 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         Integer randomBlogLimit = 5;
         List<BlogRandomVo> blogRandomVoList = baseMapper.selectRandomBlogList(randomBlogLimit);
         return PageResult.build(blogRandomVoList);
+    }
+
+    @Override
+    public PageResult<BlogInfoVo> selectPageBlogInfoVoList(PageQuery pageQuery) {
+        LambdaQueryWrapper<Blog> lqw = new LambdaQueryWrapper<Blog>()
+                .select(Blog::getId,
+                        Blog::getCategoryId,
+                        Blog::getTitle,
+                        Blog::getCover,
+                        Blog::getDescription,
+                        Blog::getWordCount,
+                        Blog::getReadTime,
+                        Blog::getCreateTime);
+        Page<Blog> page = page(pageQuery.build(), lqw);
+        List<Blog> records = page.getRecords();
+        List<Category> categoryList = categoryMapper.selectByIds(records.stream().map(Blog::getCategoryId).toList());
+        Map<Integer, Category> categoryMap = categoryList.stream().collect(Collectors.toMap(Category::getId, Function.identity()));
+        List<BlogTag> blogTagList = blogTagMapper.selectList(new LambdaQueryWrapper<BlogTag>()
+                .in(BlogTag::getBlogId, records.stream().map(Blog::getId).toList()));
+        Map<Integer, List<Integer>> blogTagMap = blogTagList.stream()
+                .collect(Collectors.toMap(BlogTag::getBlogId, blogTag -> CollUtil.toList(blogTag.getTagId()),
+                        (list1, list2) -> Stream.of(list1, list2).flatMap(List::stream).collect(Collectors.toList())));
+        List<Tag> tagList = tagMapper.selectByIds(blogTagList.stream().map(BlogTag::getTagId).toList());
+        Map<Integer, Tag> tagMap = tagList.stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
+        List<BlogInfoVo> blogInfoVoList = records.stream()
+                .map(blog -> {
+                    BlogInfoVo blogInfoVo = IBlogMapper.INSTANCE.blogToBlogInfoVo(blog);
+                    blogInfoVo.setCategory(categoryMap.get(blog.getCategoryId()));
+                    blogInfoVo.setTagList(blogTagMap.get(blog.getId()).stream().map(tagMap::get).toList());
+                    return blogInfoVo;
+                })
+                .toList();
+        return PageResult.build(blogInfoVoList, page.getTotal());
     }
 
 }

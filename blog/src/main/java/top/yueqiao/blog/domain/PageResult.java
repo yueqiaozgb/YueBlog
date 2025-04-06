@@ -39,8 +39,8 @@ public class PageResult<T> implements Serializable {
         return new PageResult<>(page.getRecords(), page.getTotal());
     }
 
-    public static <T> PageResult<T> build() {
-        return new PageResult<>(null, null);
+    public static <T> PageResult<T> build(List<T> data, Long total) {
+        return new PageResult<>(data, total);
     }
 
 }

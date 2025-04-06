@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 import top.yueqiao.blog.domain.entity.Blog;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
+import top.yueqiao.blog.domain.model.vo.BlogInfoVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public interface IBlogMapper {
 
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createTime", ignore = true)
-    Blog blogEditDtoToBlog(BlogEditDto blogEditDto);
+    Blog blogEditDtoToBlog(BlogEditDto blogEditDto);;
+
+    @Mapping(target = "tagList", ignore = true)
+    @Mapping(target = "category", ignore = true)
+    BlogInfoVo blogToBlogInfoVo(Blog blog);
 
 }
