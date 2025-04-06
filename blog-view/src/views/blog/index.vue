@@ -1,7 +1,7 @@
 <script setup>
-import { onBeforeRouteLeave, useRoute } from "vue-router";
-import { getBlog } from "@/api/blog.js";
-import { ref, watch, nextTick } from "vue";
+import {onBeforeRouteLeave, useRoute} from "vue-router";
+import {getBlog} from "@/api/blog.js";
+import {ref, watch, nextTick} from "vue";
 import Prism from "prismjs";
 
 defineOptions({
@@ -50,7 +50,7 @@ watch(
         loadBlogData(newId);
       }
     },
-    { immediate: true } // 立即执行一次初始化加载
+    {immediate: true} // 立即执行一次初始化加载
 );
 
 onBeforeRouteLeave((to, from, next) => {
@@ -84,13 +84,19 @@ onBeforeRouteLeave((to, from, next) => {
             <i class="small folder open icon"></i><span class="m-text-500">{{ blog.category.name }}</span>
           </router-link>
           <!--文章Markdown正文-->
-          <div class="typo js-toc-content m-padded-tb-small match-braces rainbow-braces" v-lazy-container="{selector: 'img'}" v-viewer v-html="blog.content"></div>
+          <div class="typo js-toc-content m-padded-tb-small match-braces rainbow-braces"
+               v-lazy-container="{ selector: 'img' }"
+               v-viewer
+               v-html="blog.content"/>
           <!--横线-->
           <el-divider></el-divider>
           <!--标签-->
           <div class="row m-padded-tb-no">
             <div class="column m-padding-left-no">
-              <router-link :to="`/tag/${tag.id}`" class="ui tag label m-text-500 m-margin-small" :style="{'background-color':tag.color+'!important', 'color':'white !important'}" v-for="(tag,index) in blog.tagList" :key="index">{{ tag.name }}</router-link>
+              <router-link :to="`/tag/${tag.id}`" class="ui tag label m-text-500 m-margin-small"
+                           :style="{'background-color':tag.color+'!important', 'color':'white !important'}"
+                           v-for="(tag,index) in blog.tagList" :key="index">{{ tag.name }}
+              </router-link>
             </div>
           </div>
         </div>
@@ -100,7 +106,9 @@ onBeforeRouteLeave((to, from, next) => {
       <ul class="list">
         <li>发表时间：{{ blog.createTime }}</li>
         <li>最后修改：{{ blog.updateTime }}</li>
-        <li>本站点采用<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"> 署名 4.0 国际 (CC BY 4.0) </a>创作共享协议。可自由转载、引用，并且允许商业性使用。但需署名作者且注明文章出处。</li>
+        <li>本站点采用<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"> 署名 4.0 国际 (CC BY
+          4.0) </a>创作共享协议。可自由转载、引用，并且允许商业性使用。但需署名作者且注明文章出处。
+        </li>
       </ul>
     </div>
   </div>

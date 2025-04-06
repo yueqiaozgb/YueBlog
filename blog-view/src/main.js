@@ -14,7 +14,7 @@ import '@/assets/css/base.css'
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
 //引入图片懒加载插件
-import Lazyload from "vue3-lazyload";
+import Lazyload from "vue-lazyload";
 import '@/assets/css/typo.css'
 import "prismjs/themes/prism-tomorrow.min.css"
 

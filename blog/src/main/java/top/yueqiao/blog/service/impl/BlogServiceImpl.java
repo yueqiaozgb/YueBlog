@@ -183,6 +183,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
                     return blogInfoVo;
                 })
                 .toList();
+        blogInfoVoList.forEach(blogInfoVo -> blogInfoVo.setDescription(MarkdownUtils.markdownToHtmlExtensions(blogInfoVo.getDescription())));
         return PageResult.build(blogInfoVoList, page.getTotal());
     }
 
