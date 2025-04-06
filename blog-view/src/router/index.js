@@ -11,7 +11,25 @@ const routes = [
             {
                 path: 'home',
                 component: () => import('@/views/home/index.vue'),
-            }
+            },
+            {
+                path: '/blog/:id',
+                name: 'blog',
+                component: () => import('@/views/blog/index.vue'),
+                meta: {title: '博客'}
+            },
+            {
+                path: '/tag/:id',
+                name: 'tag',
+                component: () => import('@/views/tag/index.vue'),
+                meta: {title: '标签'}
+            },
+            {
+                path: '/category/:id',
+                name: 'category',
+                component: () => import('@/views/category/index.vue'),
+                meta: {title: '分类'}
+            },
         ]
     },
 ]

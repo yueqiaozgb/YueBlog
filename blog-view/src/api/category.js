@@ -6,3 +6,10 @@ export const listCategory = () => {
         method: "get",
     });
 }
+
+export const getCategory = id => {
+    return request({
+        url: "/category/" + id,
+        method: "get",
+    });
+}

@@ -1,12 +1,12 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
+import { getTag } from "@/api/tag.js";
 import { ref, watch, onBeforeUnmount } from "vue";
 import BlogList from "@/layout/content/bloglist/index.vue";
-import {getCategory} from "@/api/category.js";
 
 const route = useRoute();
 const router = useRouter();
-const category = ref({});
+const tag = ref({});
 const loading = ref(false);
 let abortController = null;
 
@@ -23,10 +23,10 @@ watch(
 
       try {
         loading.value = true;
-        const res = await getCategory(newId, {
+        const res = await getTag(newId, {
           signal: abortController.signal
         });
-        category.value = res.data;
+        tag.value = res.data;
       } catch (error) {
         if (error.name !== 'AbortError') {
           console.error('加载失败:', error);
@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <div class="ui top segment" style="text-align: center">
-      <h2 class="m-text-500">标签 {{ category.name }} 下的文章</h2>
+      <h2 class="m-text-500">标签 {{ tag.name }} 下的文章</h2>
       <div v-if="loading" class="ui active loader"></div>
     </div>
     <BlogList/>

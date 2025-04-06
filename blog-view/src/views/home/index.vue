@@ -1,4 +1,6 @@
 <script setup>
+import BlogList from "@/layout/content/bloglist/index.vue";
+
 defineOptions({
   name: 'Home'
 })
@@ -6,7 +8,7 @@ defineOptions({
 
 <template>
   <div>
-    1212
+    <BlogList/>
   </div>
 </template>
 

@@ -13,6 +13,7 @@
     "element-plus": "^2.9.7",
     "fomantic-ui": "^2.9.4",
     "tocbot": "^4.36.2",
+    "v-viewer": "^3.0.11",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

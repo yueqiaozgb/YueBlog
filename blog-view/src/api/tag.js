@@ -6,3 +6,10 @@ export const listTag = () => {
         method: "get",
     });
 }
+
+export const getTag = (id) => {
+    return request({
+        url: "/tag/" + id,
+        method: "get",
+    });
+}

@@ -1,6 +1,7 @@
 <script setup>
 import {randomBlog} from "@/api/blog.js";
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
 defineOptions({
   name: 'RandomBlog'
@@ -8,9 +9,15 @@ defineOptions({
 
 let randomBlogList = ref([])
 
+const router = useRouter()
+
 randomBlog().then(res => {
   randomBlogList.value = res.data
 })
+
+const toBlog = (blog) => {
+  router.push('/blog/' + blog.id)
+}
 </script>
 
 <template>
@@ -18,7 +25,7 @@ randomBlog().then(res => {
     <div class="ui secondary segment"><i class="bookmark icon"></i>随机文章</div>
     <div class="ui yellow segment">
       <div class="ui divided items">
-        <div class="m-item" v-for="blog in randomBlogList" :key="blog.id">
+        <div class="m-item" v-for="blog in randomBlogList" :key="blog.id" @click.prevent="toBlog(blog)">
           <div class="img" :style="{'background-image':'url(' + blog.cover + ')'}"></div>
           <div class="info">
             <div class="date">{{ blog.createTime }}</div>
