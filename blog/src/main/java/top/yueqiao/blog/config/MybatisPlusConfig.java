@@ -20,37 +20,39 @@ import top.yueqiao.blog.mybatis.injector.InsertBatchSqlInjector;
 public class MybatisPlusConfig {
 
     /**
-     * 为MyBatis Plus插件创建一个MybatisPlusInterceptor代理对象，
-     * 并添加了分页插件（PaginationInnerInterceptor）到该代理对象中。这样，在应用中，
-     * 只需要将MybatisPlusInterceptor对象注入到需要的地方，就可以轻松地启用MyBatis Plus插件的分页功能。
+     * 创建分页代理对象并添加分页插件
      */
     @Bean
-    public MybatisPlusInterceptor paginationInterceptor(){
-        //新建MybatisPlus拦截器
+    public MybatisPlusInterceptor paginationInterceptor() {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
-        //新建分页拦截器paginationInnerInterceptor
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
-        //设置分页拦截器的一些属性
         paginationInnerInterceptor.setOverflow(true);
         paginationInnerInterceptor.setMaxLimit(100L);
-        //把分页拦截器添加到MybatisPlus拦截器中
         mybatisPlusInterceptor.addInnerInterceptor(paginationInnerInterceptor);
-        //添加组件，大功告成！
         return mybatisPlusInterceptor;
     }
 
+    /**
+     * MyBatis-Plus 的元对象处理器，自动生成创建时间、修改时间
+     */
     @Bean
     public MetaObjectHandler metaObjectHandler() {
         return new CreateAndUpdateMetaObjectHandler();
     }
 
+    /**
+     * MyBatis-Plus 的批量插入处理器, 只在MySQL环境使用
+     */
     @Bean
     public InsertBatchSqlInjector easySqlInjector() {
         return new InsertBatchSqlInjector();
     }
 
+    /**
+     * MyBatis-Plus 的全局配置新增批量插入处理器
+     */
     @Bean
-    public GlobalConfig globalConfig(@Qualifier("easySqlInjector") ISqlInjector easySqlInjector){
+    public GlobalConfig globalConfig(@Qualifier("easySqlInjector") ISqlInjector easySqlInjector) {
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setSqlInjector(easySqlInjector);
         return globalConfig;

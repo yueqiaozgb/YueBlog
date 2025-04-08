@@ -17,6 +17,7 @@ import top.yueqiao.blog.domain.entity.BlogTag;
 import top.yueqiao.blog.domain.entity.Category;
 import top.yueqiao.blog.domain.entity.Tag;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
+import top.yueqiao.blog.domain.model.dto.BlogListDto;
 import top.yueqiao.blog.domain.model.vo.*;
 import top.yueqiao.blog.exception.ServiceException;
 import top.yueqiao.blog.mapper.BlogMapper;
@@ -48,7 +49,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     private final TagMapper tagMapper;
 
     @Override
-    public PageResult<BlogListItemVo> selectPageBlogList(Blog blog, PageQuery pageQuery) {
+    public PageResult<BlogListItemVo> selectPageBlogList(BlogListDto blogListDto, PageQuery pageQuery) {
         LambdaQueryWrapper<Blog> lqw = new LambdaQueryWrapper<Blog>()
                 .select(Blog::getId,
                         Blog::getCategoryId,
@@ -56,8 +57,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
                         Blog::getWordCount,
                         Blog::getReadTime,
                         Blog::getCreateTime)
-                .like(StrUtil.isNotBlank(blog.getTitle()), Blog::getTitle, blog.getTitle())
-                .eq(ObjectUtil.isNotNull(blog.getCategoryId()), Blog::getCategoryId, blog.getCategoryId());
+                .like(StrUtil.isNotBlank(blogListDto.getTitle()), Blog::getTitle, blogListDto.getTitle())
+                .eq(ObjectUtil.isNotNull(blogListDto.getCategoryId()), Blog::getCategoryId, blogListDto.getCategoryId());
         Page<Blog> page = page(pageQuery.build(), lqw);
         List<BlogListItemVo> list = page.getRecords().stream()
                 .map(IBlogMapper.INSTANCE::blogToBlogListItemVo)

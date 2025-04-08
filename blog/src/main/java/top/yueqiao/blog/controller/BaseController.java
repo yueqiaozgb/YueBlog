@@ -20,8 +20,4 @@ public class BaseController {
         return result == 1 ? AjaxResult.success() : AjaxResult.error();
     }
 
-    public static <T> AjaxResult<T> toAjax(boolean result) {
-        return result ? AjaxResult.success() : AjaxResult.error();
-    }
-
 }

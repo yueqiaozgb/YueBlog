@@ -12,8 +12,8 @@ import top.yueqiao.blog.controller.BaseController;
 import top.yueqiao.blog.domain.AjaxResult;
 import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
-import top.yueqiao.blog.domain.entity.Blog;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
+import top.yueqiao.blog.domain.model.dto.BlogListDto;
 import top.yueqiao.blog.domain.model.vo.BlogEditVo;
 import top.yueqiao.blog.domain.model.vo.BlogListItemVo;
 import top.yueqiao.blog.interfaces.InsertGroup;
@@ -33,8 +33,8 @@ public class BlogController extends BaseController {
 
     @SaCheckRole(RoleConstant.ADMIN)
     @GetMapping("/list")
-    public PageResult<BlogListItemVo> list(Blog blog, PageQuery pageQuery) {
-        return blogService.selectPageBlogList(blog, pageQuery);
+    public PageResult<BlogListItemVo> list(BlogListDto blogListDto, PageQuery pageQuery) {
+        return blogService.selectPageBlogList(blogListDto, pageQuery);
     }
 
     @SaCheckRole(RoleConstant.ADMIN)

@@ -23,14 +23,12 @@ public class UserController extends BaseController {
 
     private final ILoginService loginService;
 
-    // 用户登录，浏览器访问： http://localhost:8080/user/login?username=admin&password=123456
     @PostMapping("/login")
     public AjaxResult<String> login(@NotBlank(message = "用户名不能为空") @RequestParam String username,
                               @NotBlank(message = "密码不能为空") @RequestParam String password) {
         return success(loginService.login(username, password));
     }
 
-    // 退出登录，浏览器访问： http://localhost:8080/user/logout
     @PostMapping("/logout")
     public AjaxResult<Void> logout() {
         StpUtil.logout();

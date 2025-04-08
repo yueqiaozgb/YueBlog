@@ -5,6 +5,7 @@ import top.yueqiao.blog.domain.PageQuery;
 import top.yueqiao.blog.domain.PageResult;
 import top.yueqiao.blog.domain.entity.Blog;
 import top.yueqiao.blog.domain.model.dto.BlogEditDto;
+import top.yueqiao.blog.domain.model.dto.BlogListDto;
 import top.yueqiao.blog.domain.model.vo.*;
 
 /**
@@ -13,7 +14,7 @@ import top.yueqiao.blog.domain.model.vo.*;
  */
 public interface IBlogService extends IService<Blog> {
 
-    PageResult<BlogListItemVo> selectPageBlogList(Blog blog, PageQuery pageQuery);
+    PageResult<BlogListItemVo> selectPageBlogList(BlogListDto blogListDto, PageQuery pageQuery);
 
     BlogEditVo selectBlogById(Integer id);
 

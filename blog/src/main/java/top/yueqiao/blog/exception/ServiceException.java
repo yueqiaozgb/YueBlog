@@ -17,11 +17,6 @@ public class ServiceException extends RuntimeException {
 
     private Integer code;
 
-    public ServiceException(Integer code, String msg) {
-        super(msg);
-        this.code = code;
-    }
-
     public ServiceException(String msg) {
         super(msg);
         this.code = ReturnCode.RC4001.getCode();
