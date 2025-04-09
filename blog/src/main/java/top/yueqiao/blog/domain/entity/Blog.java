@@ -1,5 +1,6 @@
 package top.yueqiao.blog.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -19,7 +20,7 @@ import java.io.Serial;
 public class Blog extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer categoryId;
     private String title;
