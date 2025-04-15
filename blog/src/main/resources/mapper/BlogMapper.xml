@@ -11,4 +11,16 @@
         LIMIT #{limit}
     </select>
 
+    <select id="pageBlogArchiveVo" resultType="top.yueqiao.blog.domain.model.vo.BlogArchiveVo">
+        SELECT
+            id,
+            title,
+            date_format( create_time, "%Y年%m月" ) AS `year_month`,
+            date_format( create_time, "%d日" ) AS `day`
+        FROM
+            blog
+        ORDER BY
+            create_time DESC
+    </select>
+
 </mapper>
