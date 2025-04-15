@@ -5,6 +5,7 @@ import {listCategory} from "@/api/category.js";
 import Introduction from "@/layout/sidebar/introduction/index.vue";
 import RandomBlog from "@/layout/sidebar/randomblog/index.vue";
 import Tags from "@/layout/sidebar/tags/index.vue";
+import Footer  from "@/layout/footer/index.vue";
 import Tocbot from "@/layout/sidebar/tocbot/index.vue";
 import {useRoute} from "vue-router";
 
@@ -53,6 +54,7 @@ getParamsList()
       <img src="/img/paper-plane.png" style="width: 40px;height: 40px;" alt="回到顶部">
     </el-backtop>
 
+    <Footer/>
   </div>
 </template>
 

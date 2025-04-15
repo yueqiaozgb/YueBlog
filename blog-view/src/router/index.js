@@ -30,6 +30,12 @@ const routes = [
                 component: () => import('@/views/category/index.vue'),
                 meta: {title: '分类'}
             },
+            {
+                path: '/archive',
+                name: 'archive',
+                component: () => import('@/views/archive/index.vue'),
+                meta: {title: '归档'}
+            }
         ]
     },
 ]

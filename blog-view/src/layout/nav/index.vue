@@ -40,6 +40,9 @@ const categoryRoute = (name) => {
           </el-dropdown-item>
         </template>
       </el-dropdown>
+      <router-link to="/archive" class="item">
+        <i class="clone icon"/>归档
+      </router-link>
     </div>
   </div>
 </template>
