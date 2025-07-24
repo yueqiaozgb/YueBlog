@@ -28,7 +28,7 @@ public interface IBlogMapper {
 
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createTime", ignore = true)
-    Blog blogEditDtoToBlog(BlogEditDto blogEditDto);;
+    Blog blogEditDtoToBlog(BlogEditDto blogEditDto);
 
     @Mapping(target = "tagList", ignore = true)
     @Mapping(target = "category", ignore = true)

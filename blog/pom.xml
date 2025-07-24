@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
+        <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
         <mybatis-plus.version>3.5.10.1</mybatis-plus.version>
         <sa-token.version>1.40.0</sa-token.version>
         <jackson-datatype.version>2.13.0</jackson-datatype.version>
@@ -27,6 +27,7 @@
         <lombok.version>1.18.36</lombok.version>
         <hutool-all.version>5.8.36</hutool-all.version>
         <fastjson2.version>2.0.56</fastjson2.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     </properties>
 
     <dependencies>
@@ -108,6 +109,12 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>${lombok-mapstruct-binding.version}</version>
         </dependency>
 
         <dependency>
